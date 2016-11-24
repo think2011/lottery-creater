@@ -2,9 +2,7 @@ import Vue from 'vue'
 
 Vue.directive('layer', {
     bind: function (el) {
-        setStyle(el, {
-            width: '300px'
-        })
+        setStyle(el, {})
     }
 })
 
