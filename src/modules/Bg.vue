@@ -1,5 +1,5 @@
 <template>
-    <div :style="pStyle">
+    <div>
     </div>
 </template>
 
@@ -11,6 +11,10 @@
             module: Object,
             pStyle: Object,
             data  : Object,
+        },
+
+        data () {
+            return {}
         },
 
         created() {
@@ -28,20 +32,16 @@
                     }
                 })
             }
-            img.src    = this.data.bg
+            img.src    = this.data.src
 
             this.updateModule({
                 module,
                 style: {
                     ...this.pStyle,
-                    backgroundImage: `url(${this.data.bg})`,
+                    backgroundImage: `url(${this.data.src})`,
                     backgroundSize : `cover`
                 }
             })
-        },
-
-        data () {
-            return {}
         },
 
         methods: {

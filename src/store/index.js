@@ -6,11 +6,43 @@ Vue.use(Vuex)
 const state = {
     modules: [
         {
-            dev  : false,
-            type : 'bg',
-            style: {},
-            data : {
-                bg: 'https://img.alicdn.com/imgextra/i3/92779311/TB2SLQmbxaJ.eBjSsziXXaJ_XXa-92779311.png'
+            type  : 'bg',
+            resize: false,
+            alias : '背景',
+            style : {},
+            data  : {
+                src: 'https://img.alicdn.com/imgextra/i3/92779311/TB2SLQmbxaJ.eBjSsziXXaJ_XXa-92779311.png'
+            }
+        },
+        {
+            type  : 'bg',
+            resize: true,
+            alias : '标题',
+            style : {},
+            data  : {
+                src: 'https://img.alicdn.com/imgextra/i2/92779311/TB22cQobCiJ.eBjSspoXXcpMFXa-92779311.png'
+            }
+        },
+        {
+            type  : 'myPrize',
+            resize: true,
+            alias : '我的奖品',
+            style : {
+                width : '80px',
+                height: '50px'
+            },
+            data  : {}
+        },
+        {
+            type  : 'rule',
+            resize: true,
+            alias : '我的奖品',
+            style : {
+                width : '80px',
+                height: '50px'
+            },
+            data  : {
+                type: 1,
             }
         }
     ]

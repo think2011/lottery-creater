@@ -1,29 +1,62 @@
 <template>
-    <div class="render-container">
-        <div v-for="item in modules" class="module">
-            <component v-layer
+    <div class="render-container"
+         :style="{height: countHeight + 'px'}">
+        <resize
+                v-for="item in modules"
+                @update="updateStyle(item,$event)"
+                :style="item.style"
+                :disabled="!item.resize">
+            <component class="module"
                        :module="item"
                        :p-style="item.style"
                        :data="item.data"
                        :is="item.type">
             </component>
-        </div>
+        </resize>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     import modules from '../modules'
+    import {mapMutations} from 'vuex'
+    import resize from './Resize.vue'
 
     export default {
-        components: modules,
+        components: {...modules, resize},
 
         data () {
-            return {}
+            return {
+                countHeight: 0
+            }
         },
+
         computed: {
             modules () {
                 return this.$store.state.modules
             }
+        },
+
+        updated() {
+            let heights = [].map.call(this.$el.childNodes, (item) => {
+                return item.offsetHeight
+            })
+
+            this.countHeight = Math.max.apply(null, heights)
+        },
+
+        methods: {
+            updateStyle(module, position) {
+                this.updateModule({
+                    module,
+                    style: {
+                        ...module.style,
+                        ...position
+                    }
+                })
+            },
+            ...mapMutations([
+                'updateModule'
+            ])
         }
     }
 </script>
@@ -33,16 +66,9 @@
 
     .render-container {
         width: px2rem(750);
-        height: 100vh;
+        height: 100%;
         margin: 0 auto;
         background: #F9FAFC;
         position: relative;
-
-        .module {
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: inline-block;
-        }
     }
 </style>
