@@ -1,7 +1,8 @@
 <template>
     <div ref="drag"
-         class="lc-resize"
-         :class="{disabled:disabled}">
+         @click="click"
+         :class="className"
+         class="lc-resize">
         <div class="t handle"></div>
         <div class="r handle"></div>
         <div class="b handle"></div>
@@ -19,7 +20,10 @@
         components: modules,
 
         props: {
-            disabled: Boolean
+            drag       : Boolean,
+            resize     : Boolean,
+            className  : String,
+            restriction: String,
         },
 
         data () {
@@ -28,15 +32,32 @@
 
         computed: {},
 
+        methods: {
+            click() {
+                this.$emit('click')
+            },
+
+            getPosition(event) {
+                let style = event.target.style
+
+                return {
+                    width : style.width,
+                    height: style.height,
+                    top   : style.top,
+                    left  : style.left
+                }
+            }
+        },
+
         mounted() {
             let that = this
 
             interact(this.$refs.drag)
                 .draggable({
-                    enabled : !this.disabled,
+                    enabled : !!this.drag,
                     inertia : true,
                     restrict: {
-                        restriction: "parent",
+                        restriction: that.restriction,
                         endOnly    : true,
                         elementRect: {top: 0, left: 0, bottom: 1, right: 1}
                     },
@@ -62,7 +83,7 @@
                     }
                 })
                 .resizable({
-                    enabled            : !this.disabled,
+                    enabled            : !!this.resize,
                     preserveAspectRatio: false,
                     invert             : 'reposition',
                     edges              : {
@@ -91,7 +112,7 @@
                         target.style.left = `${x}px`
                         target.style.top  = `${y}px`
 
-                        // update the posiion attributes
+                        // update the position attributes
                         target.setAttribute('data-x', x);
                         target.setAttribute('data-y', y);
                     },
@@ -100,19 +121,6 @@
                     }
                 })
         },
-
-        methods: {
-            getPosition(event) {
-                let style = event.target.style
-
-                return {
-                    width : style.width,
-                    height: style.height,
-                    top   : style.top,
-                    left  : style.left
-                }
-            }
-        }
     }
 </script>
 
@@ -121,7 +129,11 @@
         position: absolute;
         display: inline-block;
 
-        &:not(.disabled) {
+        &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+        }
+
+        &.active {
             .handle {
                 border-color: #1D8CE0 !important;
                 position: absolute;
@@ -150,6 +162,10 @@
                     left: 2px;
                 }
             }
+        }
+
+        .module {
+            pointer-events: none;
         }
     }
 </style>

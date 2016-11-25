@@ -1,56 +1,65 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as types from './mutation-types'
 
 Vue.use(Vuex)
 
 const state = {
-    modules: [
+    modules  : [
         {
-            type  : 'bg',
-            resize: false,
-            alias : '背景',
-            style : {},
-            data  : {
+            type : 'pic',
+            alias: '背景',
+            style: {},
+            data : {
                 src: 'https://img.alicdn.com/imgextra/i3/92779311/TB2SLQmbxaJ.eBjSsziXXaJ_XXa-92779311.png'
             }
         },
         {
-            type  : 'bg',
-            resize: true,
-            alias : '标题',
-            style : {},
-            data  : {
+            type : 'pic',
+            alias: '标题',
+            style: {},
+            data : {
                 src: 'https://img.alicdn.com/imgextra/i2/92779311/TB22cQobCiJ.eBjSspoXXcpMFXa-92779311.png'
             }
         },
         {
-            type  : 'myPrize',
-            resize: true,
-            alias : '我的奖品',
-            style : {
+            type : 'myPrize',
+            alias: '我的奖品',
+            style: {
                 width : '80px',
                 height: '50px'
             },
-            data  : {}
+            data : {}
         },
         {
-            type  : 'rule',
-            resize: true,
-            alias : '我的奖品',
-            style : {
+            type : 'rule',
+            alias: '游戏规则',
+            style: {
                 width : '80px',
                 height: '50px'
             },
-            data  : {
+            data : {
                 type: 1,
             }
         }
-    ]
+    ],
+    curModule: {}
 }
 
 const mutations = {
-    updateModule (state, {module, style, data}) {
-        let item = state.modules[state.modules.indexOf(module)]
+    [types.UPDATE_MODULE](state, {index, module}) {
+        state.modules[index] = module
+    },
+
+    [types.ACTIVE_MODULE](state, {module}) {
+        state.curModule = module
+    },
+}
+
+const actions = {
+    updateModule ({commit}, {module, style, data}) {
+        let index = state.modules.indexOf(module)
+        let item  = state.modules[index]
 
         if (data) item.data = data
 
@@ -67,10 +76,23 @@ const mutations = {
 
             item.style = style
         }
+
+        commit(types.UPDATE_MODULE, {index, module})
+    },
+
+    activeModule({commit}, {module}) {
+        commit(types.ACTIVE_MODULE, {module})
     }
 }
 
+const getters = {
+    modules  : state => state.modules,
+    curModule: state => state.curModule,
+}
+
 export default new Vuex.Store({
+    actions,
+    getters,
     state,
     mutations
 })

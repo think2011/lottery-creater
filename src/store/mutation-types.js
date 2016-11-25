@@ -1,0 +1,2 @@
+export const UPDATE_MODULE = 'UPDATE_MODULE'
+export const ACTIVE_MODULE = 'ACTIVE_MODULE'

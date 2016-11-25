@@ -1,6 +1,7 @@
 <template>
     <div id="app">
-        <render/>
+        <!--<render/>-->
+        <editor/>
     </div>
 </template>
 

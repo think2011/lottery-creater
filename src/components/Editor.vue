@@ -1,13 +1,14 @@
 <template>
     <div class="render-container"
          :style="{height: countHeight + 'px'}">
+
         <resize
-                v-for="item in modules"
-                @click="activeModule(item)"
+                v-for="(item,index) in modules"
                 @update="updateStyle(item,$event)"
-                :drag="item.drag"
+                @click="activeModule({module:item})"
                 restriction="parent"
-                :resize="item.resize"
+                :drag="true"
+                :resize="true"
                 :style="item.style">
             <component class="module"
                        :module="item"
@@ -16,12 +17,30 @@
                        :is="item.type">
             </component>
         </resize>
+
+        <resize className="editor-container" :drag="true">
+            <div class="close pull-right">
+                <el-button type="text"><i class="el-dialog__close el-icon el-icon-close"></i></el-button>
+            </div>
+
+            <h1 class="title  bg-blue">
+                {{curModule.alias}}
+            </h1>
+
+            <div class="body">
+                <el-form label-width="80px">
+                    <el-form-item label="图片地址">
+                        <el-input v-model="curModule.data.src"></el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </resize>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     import modules from '../modules'
-    import {mapActions} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
     import resize from './Resize.vue'
 
     export default {
@@ -34,14 +53,13 @@
         },
 
         computed: {
-            modules () {
-                return this.$store.state.modules
-            }
+            ...mapGetters([
+                'modules',
+                'curModule',
+            ])
         },
 
         methods: {
-            activeModule(module) {
-            },
             updateStyle(module, position) {
                 this.updateModule({
                     module,
@@ -59,7 +77,7 @@
 
         updated() {
             let heights = [].map.call(this.$el.childNodes, (item) => {
-                return item.offsetHeight
+                return item.offsetHeight || 0
             })
 
             this.countHeight = Math.max.apply(null, heights)
@@ -69,6 +87,31 @@
 
 <style lang="scss" rel="stylesheet/scss">
     @import "../assets/styles/common";
+
+    .editor-container {
+        width: 550px;
+        background: #fff;
+        padding: 0;
+        border-radius: 5px;
+
+        &:hover {
+            box-shadow: none;
+        }
+
+        .close {
+            margin: 5px 20px 0 0;
+        }
+
+        h1 {
+            font-size: 18px;
+            padding: 0 20px;
+            color: #1f2f3d;
+        }
+
+        .body {
+            padding: 0 20px;
+        }
+    }
 
     .render-container {
         width: px2rem(750);

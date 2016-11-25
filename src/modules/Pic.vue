@@ -4,7 +4,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapMutations} from 'vuex'
+    import {mapActions} from 'vuex'
 
     export default {
         props: {
@@ -45,7 +45,7 @@
         },
 
         methods: {
-            ...mapMutations([
+            ...mapActions([
                 'updateModule'
             ])
         }
