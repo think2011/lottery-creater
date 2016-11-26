@@ -18,12 +18,12 @@
             </component>
         </resize>
 
-        <resize className="editor-container" :drag="true">
+        <resize v-if="curModule.type" className="editor-container" :drag="true">
             <div class="close pull-right">
                 <el-button type="text"><i class="el-dialog__close el-icon el-icon-close"></i></el-button>
             </div>
 
-            <h1 class="title  bg-blue">
+            <h1 class="title">
                 {{curModule.alias}}
             </h1>
 
