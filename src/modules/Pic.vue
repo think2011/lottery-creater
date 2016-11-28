@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :style="curStyle">
     </div>
 </template>
 
@@ -14,34 +14,41 @@
         },
 
         data () {
-            return {}
+            return {
+                img: new Image()
+            }
+        },
+
+        computed: {
+            curStyle() {
+                return {
+                    ...this.pStyle,
+                    backgroundImage: `url(${this.data.src})`,
+                    backgroundSize : `cover`
+                }
+            }
+        },
+
+        watch: {
+            'data.src'(newVal) {
+                this.img.src = newVal
+            }
         },
 
         created() {
             const {module} = this
 
-            let img = new Image()
-
-            img.onload = () => {
+            this.img.onload = () => {
                 this.updateModule({
                     module,
                     style: {
                         ...this.pStyle,
-                        width : `${img.naturalWidth}px`,
-                        height: `${img.naturalHeight}px`,
+                        width : `${this.img.naturalWidth}px`,
+                        height: `${this.img.naturalHeight}px`,
                     }
                 })
             }
-            img.src    = this.data.src
-
-            this.updateModule({
-                module,
-                style: {
-                    ...this.pStyle,
-                    backgroundImage: `url(${this.data.src})`,
-                    backgroundSize : `cover`
-                }
-            })
+            this.img.src    = this.data.src
         },
 
         methods: {

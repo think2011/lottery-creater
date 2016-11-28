@@ -28,11 +28,11 @@
             </h1>
 
             <div class="body">
-                <el-form label-width="80px">
-                    <el-form-item label="图片地址">
-                        <el-input v-model="curModule.data.src"></el-input>
-                    </el-form-item>
-                </el-form>
+                <component :module="curModule"
+                           :p-style="curModule.style"
+                           :data="curModule.data"
+                           :is="curModule.type + 'Editor'">
+                </component>
             </div>
         </resize>
     </div>
@@ -40,11 +40,19 @@
 
 <script type="text/ecmascript-6">
     import modules from '../modules'
+    import editors from '../editors'
     import {mapActions, mapGetters} from 'vuex'
     import resize from './Resize.vue'
 
+    const editorsMap = {}
+    for (let p in editors) {
+        if (!editors.hasOwnProperty(p)) continue;
+
+        editorsMap[`${p}Editor`] = editors[p]
+    }
+
     export default {
-        components: {...modules, resize},
+        components: {...modules, resize, ...editorsMap},
 
         data () {
             return {
