@@ -1,18 +1,21 @@
 <template>
-    <div :style="style">
-        去店铺
-    </div>
+    <a :href="shopUrl"></a>
 </template>
 
 <script type="text/ecmascript-6">
+    import {mapGetters, mapActions} from 'vuex'
+    import mixin from './mixin'
+
     export default {
-        props: {
-            style: Object,
-        },
+        mixins: [mixin],
+
+        props: {},
 
         data () {
             return {}
-        }
+        },
+
+        methods: {},
     }
 </script>
 

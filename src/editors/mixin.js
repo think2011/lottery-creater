@@ -1,4 +1,4 @@
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapState, mapGetters} from 'vuex'
 
 export default {
     props: {
@@ -12,6 +12,10 @@ export default {
     },
 
     computed: {
+        ...mapState([
+            'act'
+        ]),
+
         opacity: {
             get() {
                 let opacity = this.pStyle.opacity || 0

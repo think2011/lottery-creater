@@ -5,28 +5,20 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapActions} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
+    import mixin from './mixin'
 
     export default {
-        props: {
-            module: Object,
-            pStyle: Object,
-            data  : Object,
-        },
+        mixins: [mixin],
 
-        created() {
-            const {module} = this
-        },
+        props: {},
 
         data () {
             return {}
         },
 
         methods: {
-            ...mapActions([
-                'updateModule'
-            ])
-        }
+        },
     }
 </script>
 

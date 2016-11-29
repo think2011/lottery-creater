@@ -17,6 +17,7 @@
                        :data="item.data"
                        :is="item.type">
             </component>
+
             <div v-show="!item.style">{{item.style}}</div> <!-- 强制触发style更新 -->
         </resize>
 
@@ -48,7 +49,7 @@
 <script type="text/ecmascript-6">
     import modules from '../modules'
     import editors from '../editors'
-    import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapState, mapGetters} from 'vuex'
     import resize from './Resize.vue'
 
     const editorsMap = {}
@@ -68,7 +69,7 @@
         },
 
         computed: {
-            ...mapGetters([
+            ...mapState([
                 'modules',
                 'curModule',
             ])
@@ -126,7 +127,9 @@
         top: 45%;
 
         &:hover {
-            box-shadow: none;
+            &:before {
+                content: initial;
+            }
         }
 
         .close {

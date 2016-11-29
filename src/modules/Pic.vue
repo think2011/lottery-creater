@@ -6,13 +6,12 @@
 
 <script type="text/ecmascript-6">
     import {mapActions} from 'vuex'
+    import mixin from './mixin'
 
     export default {
-        props: {
-            module: Object,
-            pStyle: Object,
-            data  : Object,
-        },
+        mixins: [mixin],
+
+        props: {},
 
         data () {
             return {
@@ -37,12 +36,6 @@
                     }
                 })
             }
-        },
-
-        methods: {
-            ...mapActions([
-                'updateModule'
-            ])
         }
     }
 </script>

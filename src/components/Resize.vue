@@ -148,6 +148,16 @@
 
         &:hover {
             border: 2px solid #58B7FF;
+
+            &:before {
+                content: '';
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: rgba(88, 183, 255, 0.1);
+            }
         }
 
         .module {

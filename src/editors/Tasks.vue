@@ -1,11 +1,11 @@
 <template>
-    <div class="flex-center">
-        我的奖品
+    <div>
+        编辑器
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapGetters, mapActions} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
     import mixin from './mixin'
 
     export default {
@@ -17,10 +17,12 @@
             return {}
         },
 
-        methods: {},
+        computed: {},
+
+        methods: {}
     }
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-
+    @import "../assets/styles/common";
 </style>

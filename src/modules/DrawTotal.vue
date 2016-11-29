@@ -1,6 +1,6 @@
 <template>
-    <div class="flex-center">
-        我的奖品
+    <div>
+        游戏次数
     </div>
 </template>
 
@@ -17,7 +17,8 @@
             return {}
         },
 
-        methods: {},
+        methods: {
+        },
     }
 </script>
 
