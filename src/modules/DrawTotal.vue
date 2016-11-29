@@ -1,6 +1,6 @@
 <template>
     <div>
-        游戏次数
+        您还有<span>{{drawTotal}}</span>次抽奖机会
     </div>
 </template>
 

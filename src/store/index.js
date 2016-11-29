@@ -240,6 +240,7 @@ const state = {
     curModule: {},
     act      : act,
     settings : settings,
+    drawTotal: 0
 }
 
 const mutations = {
@@ -247,7 +248,7 @@ const mutations = {
         state.modules = modules
     },
     [types.UPDATE_MODULE](state, {index, module}) {
-        state.modules[index] = module
+        state.modules[index] = module``
     },
 
     [types.SET_ACTIVE_MODULE](state, {module}) {

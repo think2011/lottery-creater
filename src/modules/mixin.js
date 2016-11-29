@@ -13,7 +13,8 @@ export default {
 
     computed: {
         ...mapState([
-            'act'
+            'act',
+            'drawTotal'
         ]),
 
         ...mapGetters([

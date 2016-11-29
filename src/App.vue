@@ -50,7 +50,10 @@
             type : 'drawTotal',
             alias: '抽奖次数',
             style: {
-                top: '100px',
+                width : '400px',
+                height: '300px',
+                left  : '100px',
+                top   : '100px',
             },
             data : {}
         },
