@@ -12,10 +12,17 @@ export default {
     },
 
     computed: {
-        ...mapGetters([
-            'modules',
-            'curModule',
-        ])
+        opacity: {
+            get() {
+                let opacity = this.pStyle.opacity || 0
+
+                return +(opacity * 100).toFixed(2)
+            },
+
+            set(val) {
+                this.pStyle.opacity = +((val / 100).toFixed(2))
+            }
+        }
     },
 
     watch: {
@@ -39,6 +46,5 @@ export default {
     },
 
     created() {
-        console.log('ok')
     },
 }

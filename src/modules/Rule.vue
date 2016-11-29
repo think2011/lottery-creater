@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="flex-center">
         游戏规则
     </div>
 </template>

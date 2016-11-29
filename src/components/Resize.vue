@@ -1,12 +1,8 @@
 <template>
     <div ref="drag"
-         @click="click"
-         :class="className"
+         :style="dragStyle"
+         @click="bindClick"
          class="lc-resize">
-        <div class="t handle"></div>
-        <div class="r handle"></div>
-        <div class="b handle"></div>
-        <div class="l handle"></div>
         <slot></slot>
     </div>
 </template>
@@ -22,18 +18,27 @@
         props: {
             drag       : Boolean,
             resize     : Boolean,
+            pStyle     : Object,
             className  : String,
             restriction: String,
+            handle     : String,
         },
 
         data () {
             return {}
         },
 
-        computed: {},
+        computed: {
+            dragStyle() {
+                return {
+                    ...this.pStyle,
+                    opacity: 1
+                }
+            }
+        },
 
         methods: {
-            click() {
+            bindClick() {
                 this.$emit('click')
             },
 
@@ -52,7 +57,7 @@
         mounted() {
             let that = this
 
-            interact(this.$refs.drag)
+            let dragInstance = interact(this.$refs.drag)
                 .draggable({
                     enabled : !!this.drag,
                     inertia : true,
@@ -64,10 +69,13 @@
 
                     // call this function on every dragmove event
                     onmove: function dragMoveListener(event) {
-                        let target = event.target,
-                            // keep the dragged position in the data-x/data-y attributes
-                            x      = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-                            y      = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                        let target = event.target
+                        let style  = target.getBoundingClientRect()
+                        let x      = (parseFloat(target.getAttribute('data-x')) || (style.left - target.offsetParent.offsetLeft))
+                        let y      = (parseFloat(target.getAttribute('data-y')) || style.top - -target.offsetParent.offsetTop)
+
+                        x += event.dx
+                        y += event.dy
 
                         // translate the element
                         target.style.left = `${x}px`
@@ -92,10 +100,12 @@
                         bottom: true,
                         top   : true
                     },
-                    onmove             : function (event) {
-                        let target = event.target,
-                            x      = (parseFloat(target.getAttribute('data-x')) || 0),
-                            y      = (parseFloat(target.getAttribute('data-y')) || 0);
+
+                    onmove: function (event) {
+                        let target = event.target
+                        let style  = target.getBoundingClientRect()
+                        let x      = (parseFloat(target.getAttribute('data-x')) || (style.left - target.offsetParent.offsetLeft))
+                        let y      = (parseFloat(target.getAttribute('data-y')) || style.top - -target.offsetParent.offsetTop)
 
                         if (event.rect.width <= 30) event.rect.width = 30
                         if (event.rect.height <= 30) event.rect.height = 30
@@ -116,10 +126,13 @@
                         target.setAttribute('data-x', x);
                         target.setAttribute('data-y', y);
                     },
-                    onend              : function (event) {
+
+                    onend: function (event) {
                         that.$emit('update', that.getPosition(event))
                     }
                 })
+
+            if (that.handle) dragInstance.allowFrom(that.handle)
         },
     }
 </script>
@@ -128,40 +141,11 @@
     .lc-resize {
         position: absolute;
         display: inline-block;
+        overflow: hidden;
+        border: 2px solid transparent;
 
         &:hover {
-            box-shadow: 0 0 5px rgba(0, 0, 0, 1);
-        }
-
-        &.active {
-            .handle {
-                border-color: #1D8CE0 !important;
-                position: absolute;
-
-                &.t {
-                    width: 100%;
-                    border-bottom: 2px dashed;
-                    top: 2px;
-                }
-
-                &.r {
-                    height: 100%;
-                    border-right: 2px dashed;
-                    right: 2px;
-                }
-
-                &.b {
-                    width: 100%;
-                    border-bottom: 2px dashed;
-                    bottom: 2px;
-                }
-
-                &.l {
-                    height: 100%;
-                    border-left: 2px dashed;
-                    left: 2px;
-                }
-            }
+            border: 2px solid #58B7FF;
         }
 
         .module {

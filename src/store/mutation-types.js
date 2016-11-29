@@ -1,2 +1,3 @@
+export const INIT_MODULE = 'INIT_MODULE'
 export const UPDATE_MODULE = 'UPDATE_MODULE'
-export const ACTIVE_MODULE = 'ACTIVE_MODULE'
+export const SET_ACTIVE_MODULE = 'SET_ACTIVE_MODULE'

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="flex-center">
         我的奖品
     </div>
 </template>

@@ -1,7 +1,9 @@
 <template>
-    <div>
-        <el-input v-model="curModule.data.src"></el-input>
-    </div>
+        <el-form label-position="top">
+            <el-form-item label="图片地址">
+                <el-input size="small" v-model="data.src"></el-input>
+            </el-form-item>
+        </el-form>
 </template>
 
 <script type="text/ecmascript-6">

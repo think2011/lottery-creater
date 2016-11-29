@@ -1,7 +1,10 @@
 <template>
-    <el-form label-width="80px">
-        <el-form-item label="图片地址">
-            <el-input v-model="curModule.data.src"></el-input>
+    <el-form label-position="top">
+        <el-form-item label="透明度">
+            <el-slider :min="0"
+                       :max="100"
+                       v-model="opacity">
+            </el-slider>
         </el-form-item>
     </el-form>
 </template>
@@ -18,8 +21,6 @@
         data () {
             return {}
         },
-
-        computed: {},
 
         methods: {}
     }

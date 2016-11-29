@@ -7,3 +7,9 @@ $designWidth: 750;
 .pull-right {
   float: right;
 }
+
+.flex-center {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
