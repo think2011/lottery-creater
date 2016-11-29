@@ -121,6 +121,9 @@
         background: #fff;
         padding: 0;
         border-radius: 5px;
+        position: fixed;
+        left: 25%;
+        top: 45%;
 
         &:hover {
             box-shadow: none;

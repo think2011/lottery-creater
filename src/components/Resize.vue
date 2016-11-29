@@ -71,8 +71,9 @@
                     onmove: function dragMoveListener(event) {
                         let target = event.target
                         let style  = target.getBoundingClientRect()
-                        let x      = (parseFloat(target.getAttribute('data-x')) || (style.left - target.offsetParent.offsetLeft))
-                        let y      = (parseFloat(target.getAttribute('data-y')) || style.top - -target.offsetParent.offsetTop)
+                        let parent = target.offsetParent || {offsetLeft: 0, offsetTop: 0}
+                        let x      = (parseFloat(target.getAttribute('data-x')) || (style.left - parent.offsetLeft))
+                        let y      = (parseFloat(target.getAttribute('data-y')) || style.top - -parent.offsetTop)
 
                         x += event.dx
                         y += event.dy
@@ -104,8 +105,9 @@
                     onmove: function (event) {
                         let target = event.target
                         let style  = target.getBoundingClientRect()
-                        let x      = (parseFloat(target.getAttribute('data-x')) || (style.left - target.offsetParent.offsetLeft))
-                        let y      = (parseFloat(target.getAttribute('data-y')) || style.top - -target.offsetParent.offsetTop)
+                        let parent = target.offsetParent || {offsetLeft: 0, offsetTop: 0}
+                        let x      = (parseFloat(target.getAttribute('data-x')) || (style.left - parent.offsetLeft))
+                        let y      = (parseFloat(target.getAttribute('data-y')) || style.top - -parent.offsetTop)
 
                         if (event.rect.width <= 30) event.rect.width = 30
                         if (event.rect.height <= 30) event.rect.height = 30
