@@ -79,7 +79,7 @@
                 return {
                     ...curModule,
                     _alias : isChild ? `${curModule._getParent().alias}-${curModule.alias}` : curModule.alias,
-                    _editor: isChild ? `${curModule._getParent().type}Editor` : curModule.type
+                    _editor: isChild ? `${curModule._getParent().type}Editor` : `${curModule.type}Editor`
                 }
             },
 
