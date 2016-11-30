@@ -91,6 +91,17 @@
                     },
                     data : {}
                 },
+                {
+                    type : '分享',
+                    alias: '收藏',
+                    style: {
+                        width : '180px',
+                        height: '50px',
+                        top   : '320px',
+                        left  : '130px'
+                    },
+                    data : {}
+                },
             ]
         },
         {

@@ -5,3 +5,4 @@ export const DEL_MODULE = 'DEL_MODULE'
 
 export const FETCH_RULE = 'FETCH_RULE'
 export const FETCH_LUCKY_LIST = 'FETCH_LUCKY_LIST'
+export const SET_DRAW_TOTAL = 'SET_DRAW_TOTAL'

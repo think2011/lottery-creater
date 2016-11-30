@@ -13,11 +13,10 @@ export const builtModules = ({modules}) => {
         if (!item.children) return newModules.push(item)
 
         item.children.forEach((childItem, childIndex) => {
-            childItem._isChild   = true
-            childItem.type       = item.type
-            childItem.alias      = `${item.alias}-${childItem.alias}`
-            childItem._getParent = () => item
-            childItem._getIndex  = () => childIndex
+            childItem._isChild    = true
+            childItem._parentType = item.type
+            childItem._getParent  = () => item
+            childItem._getIndex   = () => childIndex
             newModules.push(childItem)
         })
     })

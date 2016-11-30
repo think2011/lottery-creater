@@ -325,6 +325,10 @@ const mutations = {
         state.gameData.rule = desc
     },
 
+    [types.SET_DRAW_TOTAL](state, total) {
+        state.gameData.drawTotal = total
+    },
+
     [types.DEL_MODULE](state, module) {
         // TODO ZH 11/30/16
         state.modules.splice(0, 5)

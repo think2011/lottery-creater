@@ -2,19 +2,19 @@
     <div class="render-container"
          :style="{height: countHeight + 'px'}">
         <component class="module"
-                   v-for="(item,index) in modules"
+                   v-for="(item,index) in builtModules"
                    :module="item"
                    :p-style="item.style"
                    :style="item.style"
                    :data="item.data"
-                   :is="item.type">
+                   :is="item._isChild ? item._parentType : item.type">
         </component>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     import modules from '../modules'
-    import {mapActions, mapState} from 'vuex'
+    import {mapActions, mapGetters, mapState} from 'vuex'
     import resize from './Resize.vue'
 
     export default {
@@ -30,6 +30,9 @@
             ...mapState([
                 'modules'
             ]),
+            ...mapGetters([
+                'builtModules',
+            ])
         },
 
         methods: {},

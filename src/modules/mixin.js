@@ -1,4 +1,4 @@
-import {mapActions, mapState, mapGetters} from 'vuex'
+import {mapActions, mapMutations, mapState, mapGetters} from 'vuex'
 
 export default {
     props: {
@@ -35,6 +35,9 @@ export default {
 
 
     methods: {
+        ...mapMutations([
+            'SET_DRAW_TOTAL'
+        ]),
         ...mapActions([
             'updateModule',
             'activeModule'

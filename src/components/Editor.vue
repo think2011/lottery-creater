@@ -21,7 +21,8 @@
             </resize>
         </div>
 
-        <resize v-show="editorsMap[curModule.type + 'Editor']"
+
+        <resize v-show="editorsMap[curModuleInfo._editor]"
                 class="editor-container"
                 handle=".title"
                 :drag="true">
@@ -32,14 +33,14 @@
             </div>
 
             <h1 class="title">
-                {{curModule.alias}}
+                {{curModuleInfo._alias}}
             </h1>
 
-            <div v-if="editorsMap[curModule.type + 'Editor']" class="body">
-                <component :module="curModule"
-                           :p-style="curModule.style"
-                           :data="curModule.data"
-                           :is="curModule.type + 'Editor'">
+            <div v-if="editorsMap[curModuleInfo._editor]" class="body">
+                <component :module="curModuleInfo"
+                           :p-style="curModuleInfo.style"
+                           :data="curModuleInfo.data"
+                           :is="curModuleInfo._editor">
                 </component>
             </div>
         </resize>
@@ -70,6 +71,18 @@
         },
 
         computed: {
+            curModuleInfo() {
+                let curModule = this.curModule
+                if (!curModule) return {}
+
+                let isChild = curModule._isChild
+                return {
+                    ...curModule,
+                    _alias : isChild ? `${curModule._getParent().alias}-${curModule.alias}` : curModule.alias,
+                    _editor: isChild ? `${curModule._getParent().type}Editor` : curModule.type
+                }
+            },
+
             ...mapState([
                 'modules',
                 'curModule',
