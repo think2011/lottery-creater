@@ -43,7 +43,24 @@
             style: {
                 top: '100px',
             },
-            data : {}
+            data : {
+                src        : '//img.alicdn.com/imgextra/i1/26914588/TB2CvXsXF95V1Bjy0FfXXXvlFXa-26914588.png',
+                prizes     : [
+                    {
+                        index: 0,
+                        deg  : 44,
+                    },
+                    {
+                        index: 0,
+                        deg  : 89,
+                    },
+                ],
+                emptyPrizes: [
+                    {
+                        deg: 359,
+                    }
+                ]
+            }
         },
         {
             type : 'drawTotal',
