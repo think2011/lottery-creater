@@ -307,8 +307,14 @@ const mutations = {
     [types.INIT_MODULE](state, {modules}) {
         state.modules = modules
     },
-    [types.UPDATE_MODULE](state, {index, module}) {
-        state.modules[index] = module
+    [types.UPDATE_MODULE](state, {module}) {
+        if (module._isChild) {
+            let parent = module._getParent()
+
+            state.modules[parent._getIndex()][module._getIndex()] = module
+        } else {
+            state.modules[module._getIndex()] = module
+        }
     },
 
     [types.SET_ACTIVE_MODULE](state, {module}) {
@@ -319,8 +325,9 @@ const mutations = {
         state.gameData.rule = desc
     },
 
-    [types.FETCH_LUCKY_LIST](state, items) {
-        state.gameData.luckyList = items
+    [types.DEL_MODULE](state, module) {
+        // TODO ZH 11/30/16
+        state.modules.splice(0, 5)
     },
 }
 

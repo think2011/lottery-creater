@@ -4,23 +4,24 @@ import * as types from './mutation-types'
 export default {
     initModule({commit, state}, modules) {
         modules.forEach((item) => {
-            item.style = convertRem(item.style)
+            if (item.style) convertRem(item.style)
+
+            if (item.children) {
+                item.children.forEach((childItem) => {
+                    if (childItem.style) convertRem(childItem.style)
+                })
+            }
         })
 
         commit(types.INIT_MODULE, {modules})
     },
 
-    updateModule ({commit, state}, {module, style, data}) {
-        let index = state.modules.indexOf(module)
-        let item  = state.modules[index]
-
-        if (data) item.data = data
-
-        if (style) {
-            item.style = convertRem(style)
+    updateModule ({commit, state}, {module}) {
+        if (module.style) {
+            module.style = convertRem(module.style)
         }
 
-        commit(types.UPDATE_MODULE, {index, module})
+        commit(types.UPDATE_MODULE, {module})
     },
 
     activeModule({commit, state}, {module}) {

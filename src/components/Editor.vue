@@ -4,19 +4,19 @@
 
         <div class="modules-container">
             <resize
-                    v-for="(item,index) in modules"
+                    v-for="(item,index) in builtModules"
                     @update="updateStyle(item,$event)"
                     @click="activeModule({module:item})"
                     restriction=".render-container"
-                    :drag="true"
                     :p-style="item.style"
+                    :drag="true"
                     :resize="true">
                 <component class="module"
                            :module="item"
                            :style="item.style"
                            :p-style="item.style"
                            :data="item.data"
-                           :is="item.type">
+                           :is="item._isChild ? item._getParent().type : item.type">
                 </component>
             </resize>
         </div>
@@ -73,18 +73,20 @@
             ...mapState([
                 'modules',
                 'curModule',
+            ]),
+            ...mapGetters([
+                'builtModules',
             ])
         },
 
         methods: {
             updateStyle(module, position) {
-                this.updateModule({
-                    module,
-                    style: {
-                        ...module.style,
-                        ...position
-                    }
-                })
+                module.style = {
+                    ...module.style,
+                    ...position
+                }
+
+                this.updateModule({module})
             },
 
             closeEditor() {
@@ -134,7 +136,6 @@
     }
 
     .modules-container {
-
         .lc-resize {
             position: absolute;
             display: inline-block;

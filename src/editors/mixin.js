@@ -34,11 +34,7 @@ export default {
         module: {
             deep   : true,
             handler: function (val, oldVal) {
-                this.updateModule({
-                    module: this.module,
-                    style : this.module.style,
-                    data  : this.module.data
-                })
+                this.updateModule({module: this.module})
             }
         }
     },

@@ -22,9 +22,8 @@
             type : 'toShop',
             alias: '去店铺',
             style: {
-                width  : '80px',
-                height : '50px',
-                opacity: 1,
+                width : '80px',
+                height: '50px',
             },
             data : {}
         },
@@ -61,33 +60,47 @@
             type : 'myPrize',
             alias: '我的奖品',
             style: {
-                width  : '80px',
-                height : '50px',
-                opacity: 1,
+                width : '80px',
+                height: '50px',
             },
             data : {}
         },
         {
-            type : 'tasks',
-            alias: '抽奖任务',
-            style: {
-                width  : '80px',
-                height : '50px',
-                opacity: 1,
-                top    : '120px',
-                left   : '130px'
-            },
-            data : {}
+            type    : 'tasks',
+            alias   : '抽奖任务',
+            children: [
+                {
+                    type : 'shopping',
+                    alias: '加购',
+                    style: {
+                        width : '180px',
+                        height: '150px',
+                        top   : '420px',
+                        left  : '230px'
+                    },
+                    data : {}
+                },
+                {
+                    type : 'collect',
+                    alias: '收藏',
+                    style: {
+                        width : '80px',
+                        height: '50px',
+                        top   : '320px',
+                        left  : '130px'
+                    },
+                    data : {}
+                },
+            ]
         },
         {
             type : 'luckyList',
             alias: '中奖名单',
             style: {
-                width  : '80px',
-                height : '50px',
-                opacity: 1,
-                top    : '320px',
-                left   : '130px'
+                width : '80px',
+                height: '50px',
+                top   : '320px',
+                left  : '130px'
             },
             data : {
                 type: 1
@@ -97,10 +110,9 @@
             type : 'rule',
             alias: '游戏规则',
             style: {
-                width  : '80px',
-                height : '50px',
-                left   : '200px',
-                opacity: 1,
+                width : '80px',
+                height: '50px',
+                left  : '200px',
             },
             data : {
                 type: 1,

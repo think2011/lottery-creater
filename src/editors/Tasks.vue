@@ -1,6 +1,6 @@
 <template>
     <div>
-        编辑器
+        编辑器1
     </div>
 </template>
 

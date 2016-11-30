@@ -91,7 +91,9 @@
         }
 
         &.type2 {
-
+            li {
+                margin-bottom: px2rem(5);
+            }
         }
 
     }

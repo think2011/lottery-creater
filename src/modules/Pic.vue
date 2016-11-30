@@ -27,14 +27,13 @@
 
         created() {
             this.img.onload = () => {
-                this.updateModule({
-                    module: this.module,
-                    style : {
-                        ...this.pStyle,
-                        width : `${this.img.naturalWidth}px`,
-                        height: `${this.img.naturalHeight}px`,
-                    }
-                })
+                this.module.style = {
+                    ...this.module.style,
+                    width : `${this.img.naturalWidth}px`,
+                    height: `${this.img.naturalHeight}px`,
+                }
+
+                this.updateModule({module: this.module})
             }
         }
     }
