@@ -134,11 +134,12 @@
     }
 
     .modules-container {
+
         .lc-resize {
             position: absolute;
             display: inline-block;
-            overflow: hidden;
             border: 2px solid transparent;
+            overflow: hidden;
 
             &:hover {
                 border: 2px solid #58B7FF;

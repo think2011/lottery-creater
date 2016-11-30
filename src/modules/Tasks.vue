@@ -1,6 +1,5 @@
 <template>
     <div>
-        模块
     </div>
 </template>
 
@@ -17,8 +16,7 @@
             return {}
         },
 
-        methods: {
-        },
+        methods: {},
     }
 </script>
 

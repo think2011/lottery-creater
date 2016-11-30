@@ -1,6 +1,5 @@
 <template>
     <div @click="show" class="flex-center">
-        我的奖品
     </div>
 </template>
 

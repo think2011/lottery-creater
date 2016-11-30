@@ -1,7 +1,6 @@
 <template>
     <div>
         <div @click="show" v-if="data.type === 1">
-            游戏规则
         </div>
         <div v-if="data.type === 2">
             <pre>{{gameData.rule}}</pre>
