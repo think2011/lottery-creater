@@ -1,27 +1,20 @@
 <template>
     <div class="render-container"
          :style="{height: countHeight + 'px'}">
-        <resize
-                v-for="item in modules"
-                @click="activeModule(item)"
-                @update="updateStyle(item,$event)"
-                :drag="item.drag"
-                restriction="parent"
-                :resize="item.resize"
-                :style="item.style">
-            <component class="module"
-                       :module="item"
-                       :p-style="item.style"
-                       :data="item.data"
-                       :is="item.type">
-            </component>
-        </resize>
+        <component class="module"
+                   v-for="(item,index) in modules"
+                   :module="item"
+                   :p-style="item.style"
+                   :style="item.style"
+                   :data="item.data"
+                   :is="item.type">
+        </component>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     import modules from '../modules'
-    import {mapActions} from 'vuex'
+    import {mapActions, mapState} from 'vuex'
     import resize from './Resize.vue'
 
     export default {
@@ -34,32 +27,16 @@
         },
 
         computed: {
-            modules () {
-                return this.$store.state.modules
-            }
+            ...mapState([
+                'modules'
+            ]),
         },
 
-        methods: {
-            activeModule(module) {
-            },
-            updateStyle(module, position) {
-                this.updateModule({
-                    module,
-                    style: {
-                        ...module.style,
-                        ...position
-                    }
-                })
-            },
-            ...mapActions([
-                'updateModule',
-                'activeModule'
-            ])
-        },
+        methods: {},
 
         updated() {
-            let heights = [].map.call(this.$el.childNodes, (item) => {
-                return item.offsetHeight
+            let heights = [].map.call(this.$el.querySelectorAll('.module'), (item) => {
+                return item.offsetHeight || 0
             })
 
             this.countHeight = Math.max.apply(null, heights)
@@ -76,5 +53,10 @@
         margin: 0 auto;
         background: #F9FAFC;
         position: relative;
+        font-size: px2rem(16);
+
+        .module {
+            position: absolute;
+        }
     }
 </style>

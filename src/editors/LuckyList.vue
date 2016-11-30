@@ -1,7 +1,12 @@
 <template>
-    <div>
-        编辑器
-    </div>
+    <el-form label-position="top">
+        <el-form-item label="滚动方式">
+            <el-radio-group v-model="data.type">
+                <el-radio :label="1">往右滚动</el-radio>
+                <el-radio :label="2">往上滚动</el-radio>
+            </el-radio-group>
+        </el-form-item>
+    </el-form>
 </template>
 
 <script type="text/ecmascript-6">

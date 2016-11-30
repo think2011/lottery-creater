@@ -1,10 +1,10 @@
 export default {
-    Pic      : require('./Pic.vue'),
-    MyPrize  : require('./MyPrize.vue'),
-    Rule     : require('./Rule.vue'),
-    ToShop   : require('./ToShop.vue'),
-    DrawTotal: require('./DrawTotal.vue'),
-    Tasks    : require('./Tasks.vue'),
-    LuckyList: require('./LuckyList.vue'),
-    Dial     : require('./Dial.vue'),
+    Pic      : (resolve) => require(['./Pic.vue'], resolve),
+    MyPrize  : (resolve) => require(['./MyPrize.vue'], resolve),
+    Rule     : (resolve) => require(['./Rule.vue'], resolve),
+    ToShop   : (resolve) => require(['./ToShop.vue'], resolve),
+    DrawTotal: (resolve) => require(['./DrawTotal.vue'], resolve),
+    Tasks    : (resolve) => require(['./Tasks.vue'], resolve),
+    LuckyList: (resolve) => require(['./LuckyList.vue'], resolve),
+    Dial     : (resolve) => require(['./Dial.vue'], resolve),
 }

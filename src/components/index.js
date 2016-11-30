@@ -1,5 +1,5 @@
 export default {
-    Render: require('./Render.vue'),
-    Editor: require('./Editor.vue'),
-    Resize: require('./Resize.vue'),
+    Render: (resolve) => require(['./Render.vue'], resolve),
+    Editor: (resolve) => require(['./Editor.vue'], resolve),
+    Resize: (resolve) => require(['./Resize.vue'], resolve),
 }

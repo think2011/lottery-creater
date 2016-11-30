@@ -22,6 +22,7 @@
     }
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss" scoped rel="stylesheet/scss">
+    @import "../assets/styles/common";
 
 </style>

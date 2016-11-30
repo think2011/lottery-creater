@@ -1,7 +1,7 @@
 <template>
     <div id="app">
-        <!--<render/>-->
-        <editor/>
+        <render v-if="!DEV_MODE"/>
+        <editor v-if="DEV_MODE"/>
     </div>
 </template>
 
@@ -74,6 +74,8 @@
                 width  : '80px',
                 height : '50px',
                 opacity: 1,
+                top    : '120px',
+                left   : '130px'
             },
             data : {}
         },
@@ -84,8 +86,12 @@
                 width  : '80px',
                 height : '50px',
                 opacity: 1,
+                top    : '320px',
+                left   : '130px'
             },
-            data : {}
+            data : {
+                type: 1
+            }
         },
         {
             type : 'rule',
@@ -107,7 +113,9 @@
         components,
 
         data() {
-            return {}
+            return {
+                DEV_MODE: window.DEV_MODE
+            }
         },
 
         created() {

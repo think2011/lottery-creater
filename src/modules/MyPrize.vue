@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-center">
+    <div @click="show" class="flex-center">
         我的奖品
     </div>
 </template>
@@ -17,7 +17,11 @@
             return {}
         },
 
-        methods: {},
+        methods: {
+            show() {
+                window.GameDialog.openWinRecord(this.nick, this.sellerId, this.activityId);
+            }
+        },
     }
 </script>
 

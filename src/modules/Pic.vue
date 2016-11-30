@@ -40,6 +40,8 @@
     }
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
-
+<style scoped lang="scss" rel="stylesheet/scss">
+    img {
+        width: 100%;
+    }
 </style>

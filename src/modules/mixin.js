@@ -14,15 +14,25 @@ export default {
     computed: {
         ...mapState([
             'act',
-            'drawTotal'
+            'drawTotal',
+            'nick',
+            'sellerId',
         ]),
 
         ...mapGetters([
-            'shopUrl'
+            'shopUrl',
+            'gameData'
         ])
     },
+    watch   : {
+        module: {
+            deep   : true,
+            handler: function (val, oldVal) {
+                this.$forceUpdate()
+            }
+        }
+    },
 
-    watch: {},
 
     methods: {
         ...mapActions([

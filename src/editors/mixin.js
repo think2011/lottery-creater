@@ -1,4 +1,5 @@
 import {mapActions, mapState, mapGetters} from 'vuex'
+import Vue from 'vue'
 
 export default {
     props: {

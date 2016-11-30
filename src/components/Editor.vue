@@ -2,26 +2,26 @@
     <div class="render-container"
          :style="{height: countHeight + 'px'}">
 
-        <resize
-                v-for="(item,index) in modules"
-                @update="updateStyle(item,$event)"
-                @click="activeModule({module:item})"
-                restriction=".render-container"
-                :drag="true"
-                :p-style="item.style"
-                :resize="true">
-            <component class="module"
-                       :module="item"
-                       :style="item.style"
-                       :p-style="item.style"
-                       :data="item.data"
-                       :is="item.type">
-            </component>
+        <div class="modules-container">
+            <resize
+                    v-for="(item,index) in modules"
+                    @update="updateStyle(item,$event)"
+                    @click="activeModule({module:item})"
+                    restriction=".render-container"
+                    :drag="true"
+                    :p-style="item.style"
+                    :resize="true">
+                <component class="module"
+                           :module="item"
+                           :style="item.style"
+                           :p-style="item.style"
+                           :data="item.data"
+                           :is="item.type">
+                </component>
+            </resize>
+        </div>
 
-            <div v-show="!item.style">{{item.style}}</div> <!-- 强制触发style更新 -->
-        </resize>
-
-        <resize v-show="curModule.type"
+        <resize v-show="editorsMap[curModule.type + 'Editor']"
                 class="editor-container"
                 handle=".title"
                 :drag="true">
@@ -35,7 +35,7 @@
                 {{curModule.alias}}
             </h1>
 
-            <div v-if="curModule.type" class="body">
+            <div v-if="editorsMap[curModule.type + 'Editor']" class="body">
                 <component :module="curModule"
                            :p-style="curModule.style"
                            :data="curModule.data"
@@ -56,7 +56,7 @@
     for (let p in editors) {
         if (!editors.hasOwnProperty(p)) continue;
 
-        editorsMap[`${p}Editor`] = editors[p]
+        editorsMap[`${p[0].toLowerCase()}${p.substr(1)}Editor`] = editors[p]
     }
 
     export default {
@@ -64,6 +64,7 @@
 
         data () {
             return {
+                editorsMap,
                 countHeight: 0
             }
         },
@@ -109,6 +110,21 @@
 <style lang="scss" rel="stylesheet/scss">
     @import "../assets/styles/common";
 
+    /* 开发环境屏蔽检测 */
+    body, body.m-body {
+        zoom: 1;
+        position: relative;
+        max-width: initial !important;
+        height: auto;
+        margin: 0 auto;
+        font-size: 16px;
+    }
+
+    .qrcode-dialog.active.modal-container,
+    .ui-overlay-a.poup {
+        display: none !important;
+    }
+
     .render-container {
         width: px2rem(750);
         height: 100%;
@@ -117,9 +133,36 @@
         position: relative;
     }
 
+    .modules-container {
+        .lc-resize {
+            position: absolute;
+            display: inline-block;
+            overflow: hidden;
+            border: 2px solid transparent;
+
+            &:hover {
+                border: 2px solid #58B7FF;
+
+                &:before {
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background: rgba(88, 183, 255, 0.1);
+                }
+            }
+
+            .module {
+                pointer-events: none;
+            }
+        }
+    }
+
     .editor-container {
         width: 450px;
-        background: #fff;
+        background: rgba(255, 255, 255, 0.95);
         padding: 0;
         border-radius: 5px;
         position: fixed;
