@@ -39,7 +39,13 @@ export default {
     },
 
     watch: {
-        module: {
+        'parentModule': {
+            deep   : true,
+            handler: function (val, oldVal) {
+                this.updateModule({module: val})
+            }
+        },
+        'module'      : {
             deep   : true,
             handler: function (val, oldVal) {
                 this.updateModule({module: this.module})

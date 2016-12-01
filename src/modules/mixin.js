@@ -18,9 +18,9 @@ export default {
 
         ...mapState([
             'act',
-            'drawTotal',
             'nick',
             'sellerId',
+            'dialData',
         ]),
 
         ...mapGetters([

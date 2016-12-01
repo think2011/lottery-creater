@@ -137,8 +137,8 @@
                     data : {}
                 },
                 {
-                    type : '分享',
-                    alias: '收藏',
+                    type : 'share',
+                    alias: '分享',
                     style: {
                         width : '180px',
                         height: '50px',

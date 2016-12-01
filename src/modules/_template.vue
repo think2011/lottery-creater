@@ -5,7 +5,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapGetters,mapState, mapActions} from 'vuex'
+    import {mapGetters,mapState,mapMutations, mapActions} from 'vuex'
     import mixin from './mixin'
 
     export default {

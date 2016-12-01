@@ -232,7 +232,8 @@ const settings = window.settings = {
     "shopId"     : "116406112",
     "shopTitle"  : "智友网络"
 }
-let nick = 'xxx'
+let nick        = 'xxx'
+window.fromNick = '${fromNick}';
 
 Vue.use(Vuex)
 
@@ -242,12 +243,17 @@ const state = {
     act       : act,
     settings  : settings,
     nick      : nick,
+    fromNick  : fromNick,
     sellerId  : act.sellerId,
     activityId: settings.activityId,
     gameData  : {
-        drawTotal: 0,
-        rule     : '1、活动期间每个用户每天有3次抽奖机会\n2、流量包实时发放\n3、活动最终解释权归智友网络所有，如有疑问请联系智友设计咨询',
-        luckyList: [{
+        drawTotal    : 0,
+        prizes       : [],
+        curPrize     : null,
+        tweenValue   : null,
+        lotteryResult: null,
+        rule         : '1、活动期间每个用户每天有3次抽奖机会\n2、流量包实时发放\n3、活动最终解释权归智友网络所有，如有疑问请联系智友设计咨询',
+        luckyList    : [{
             "id"          : 206503,
             "activityId"  : 97,
             "buyerNick"   : "游017Pjm9PX+rIlg2SAjjqU+AR9CgaxbXsGbnd155mgDAPc=",
@@ -300,9 +306,6 @@ const state = {
             "giftNo"      : "2",
             "awardSuccess": true
         }]
-    },
-    temp      : {
-        prize: 0
     }
 }
 

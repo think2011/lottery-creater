@@ -33,6 +33,18 @@ export default {
     },
 
     [types.SET_CUR_PRIZE](state, prize) {
-        state.temp.prize = prize
+        state.gameData.curPrize = prize
+    },
+
+    [types.SET_CUR_TWEEN_VALUE](state, value) {
+        state.gameData.tweenValue = value
+    },
+
+    [types.SET_LOTTERY_RESULT](state, result) {
+        state.gameData.lotteryResult = result
+    },
+
+    [types.SET_USER_NICK](state, nick) {
+        state.nick = nick
     },
 }
