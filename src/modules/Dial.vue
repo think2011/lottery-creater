@@ -46,6 +46,8 @@
             },
 
             tweenStyle() {
+                if (this.parentModule.data.rotateType !== this.type) return
+
                 let transform = `rotate(${this.gameData.tweenValue}deg) translate3d(0,0,0)`
 
                 return {

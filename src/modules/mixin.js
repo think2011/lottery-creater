@@ -16,6 +16,10 @@ export default {
             return this.module.type
         },
 
+        parentModule() {
+            return this.module._isChild ? this.module._getParent() : null
+        },
+
         ...mapState([
             'act',
             'nick',

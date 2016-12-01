@@ -72,6 +72,7 @@
                 }
             ],
             data    : {
+                rotateType : 'bg',
                 prizes     : [
                     {
                         deg: 44,
