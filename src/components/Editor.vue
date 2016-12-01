@@ -1,49 +1,54 @@
 <template>
-    <div class="render-container"
-         :style="{height: countHeight + 'px'}">
+    <div>
 
-        <div class="modules-container">
-            <resize
-                    v-for="(item,index) in builtModules"
-                    @update="updateStyle(item,$event)"
-                    @click="activeModule({module:item})"
-                    restriction=".render-container"
-                    :p-style="item.style"
-                    :drag="true"
-                    :resize="true">
-                <component class="module"
-                           :module="item"
-                           :style="item.style"
-                           :p-style="item.style"
-                           :data="item.data"
-                           :is="item._isChild ? item._getParent().type : item.type">
-                </component>
+        <el-button @click="save" type="primary">save</el-button>
+
+        <div class="render-container"
+             :style="{height: countHeight + 'px'}">
+
+            <div class="modules-container">
+                <resize
+                        v-for="(item,index) in builtModules"
+                        @update="updateStyle(item,$event)"
+                        @click="activeModule({module:item})"
+                        restriction=".render-container"
+                        :p-style="item.style"
+                        :drag="true"
+                        :resize="true">
+                    <component class="module"
+                               :module="item"
+                               :style="item.style"
+                               :p-style="item.style"
+                               :data="item.data"
+                               :is="item._isChild ? item._getParent().type : item.type">
+                    </component>
+                </resize>
+            </div>
+
+
+            <resize v-show="editorsMap[curModuleInfo._editor]"
+                    class="editor-container"
+                    handle=".title"
+                    :drag="true">
+                <div class="close pull-right">
+                    <el-button @click="closeEditor" type="text">
+                        <i class="el-dialog__close el-icon el-icon-close"></i>
+                    </el-button>
+                </div>
+
+                <h1 class="title">
+                    {{curModuleInfo._alias}}
+                </h1>
+
+                <div v-if="editorsMap[curModuleInfo._editor]" class="body">
+                    <component :module="curModuleInfo"
+                               :p-style="curModuleInfo.style"
+                               :data="curModuleInfo.data"
+                               :is="curModuleInfo._editor">
+                    </component>
+                </div>
             </resize>
         </div>
-
-
-        <resize v-show="editorsMap[curModuleInfo._editor]"
-                class="editor-container"
-                handle=".title"
-                :drag="true">
-            <div class="close pull-right">
-                <el-button @click="closeEditor" type="text">
-                    <i class="el-dialog__close el-icon el-icon-close"></i>
-                </el-button>
-            </div>
-
-            <h1 class="title">
-                {{curModuleInfo._alias}}
-            </h1>
-
-            <div v-if="editorsMap[curModuleInfo._editor]" class="body">
-                <component :module="curModuleInfo"
-                           :p-style="curModuleInfo.style"
-                           :data="curModuleInfo.data"
-                           :is="curModuleInfo._editor">
-                </component>
-            </div>
-        </resize>
     </div>
 </template>
 
@@ -93,6 +98,10 @@
         },
 
         methods: {
+            save() {
+                console.log(this.modules)
+            },
+
             updateStyle(module, position) {
                 module.style = {
                     ...module.style,
@@ -149,6 +158,10 @@
     }
 
     .modules-container {
+        * {
+            box-sizing: content-box;
+        }
+
         .lc-resize {
             position: absolute;
             display: inline-block;
@@ -177,7 +190,7 @@
 
     .editor-container {
         width: 450px;
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.98);
         padding: 0;
         border-radius: 5px;
         position: fixed;

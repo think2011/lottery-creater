@@ -19,22 +19,17 @@
             }
         },
 
-        computed: {},
+        computed: {
+            bgStyle() {
+
+            }
+        },
 
         mounted() {
             this.img.src = this.data.src
         },
 
         created() {
-            this.img.onload = () => {
-                this.module.style = {
-                    ...this.module.style,
-                    width : `${this.img.naturalWidth}px`,
-                    height: `${this.img.naturalHeight}px`,
-                }
-
-                this.updateModule({module: this.module})
-            }
         }
     }
 </script>

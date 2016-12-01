@@ -12,6 +12,10 @@ export default {
     },
 
     computed: {
+        type() {
+            return this.module.type
+        },
+
         ...mapState([
             'act',
             'drawTotal',

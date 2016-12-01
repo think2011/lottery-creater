@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as types from './mutation-types'
 import * as getters from './getters'
+import  mutations from './mutations'
 import actions from './actions'
 
 // TODO ZH 11/29/16
@@ -300,39 +300,10 @@ const state = {
             "giftNo"      : "2",
             "awardSuccess": true
         }]
+    },
+    temp      : {
+        prize: 0
     }
-}
-
-const mutations = {
-    [types.INIT_MODULE](state, {modules}) {
-        state.modules = modules
-    },
-    [types.UPDATE_MODULE](state, {module}) {
-        if (module._isChild) {
-            let parent = module._getParent()
-
-            state.modules[parent._getIndex()][module._getIndex()] = module
-        } else {
-            state.modules[module._getIndex()] = module
-        }
-    },
-
-    [types.SET_ACTIVE_MODULE](state, {module}) {
-        state.curModule = module
-    },
-
-    [types.FETCH_RULE](state, desc) {
-        state.gameData.rule = desc
-    },
-
-    [types.SET_DRAW_TOTAL](state, total) {
-        state.gameData.drawTotal = total
-    },
-
-    [types.DEL_MODULE](state, module) {
-        // TODO ZH 11/30/16
-        state.modules.splice(0, 5)
-    },
 }
 
 export default new Vuex.Store({
