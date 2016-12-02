@@ -63,33 +63,34 @@
         },
 
         data () {
-            return {}
+            return {
+                drawTween: new DrawTween({
+                        multipleValue: 360,
+                        startValue   : 0,
+                        endValue     : 360,
+                        startSpeed   : 1500,
+                        loopSpeed    : 1500 * 0.3,
+                        endSpeed     : 2500,
+                        minTime      : 3500,
+                        startEasing  : TWEEN.Easing.Quartic.In,
+                        loopEasing   : TWEEN.Easing.Linear.None,
+                        endEasing    : TWEEN.Easing.Quartic.Out,
+                    }
+                )
+            }
         },
 
         methods: {
             draw() {
-//                if (!this.checkTicket() || this.drawing) return
+                if (!this.checkTicket() || this.drawing) return
 
-                let drawTween = new DrawTween({
-                        startValue : 0,
-                        endValue   : 360,
-                        startSpeed : 1500,
-                        loopSpeed  : 1500 * 0.3,
-                        endSpeed   : 2500,
-                        minTime    : 3500,
-                        startEasing: TWEEN.Easing.Quartic.In,
-                        loopEasing : TWEEN.Easing.Linear.None,
-                        endEasing  : TWEEN.Easing.Quartic.Out,
-                    }
-                )
-
-                window.xx = drawTween
+                let drawTween = this.drawTween
 
                 drawTween.start(({value}) => {
                     this.SET_CUR_TWEEN_VALUE(value)
                 })
 
-                drawTween.stop(80, () => {
+                drawTween.stop(89, () => {
                     console.log('end')
                 })
 

@@ -136,7 +136,6 @@ export default {
     },
 
 
-
     doTask({commit, dispatch, state}, type){
         let that       = this
         let act        = state.act
