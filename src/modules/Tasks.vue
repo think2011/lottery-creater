@@ -17,9 +17,6 @@
         },
 
         methods: {
-            ...mapActions([
-                'doTask'
-            ])
         },
     }
 </script>
