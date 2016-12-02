@@ -2,7 +2,7 @@ import {convertRem} from '../assets/js/common'
 import * as types from './mutation-types'
 
 export default {
-    initModule({commit, state}, modules) {
+    initLottery({commit, state}, {modules, bg}) {
         modules.forEach((item) => {
             if (item.style) convertRem(item.style)
 
@@ -13,13 +13,13 @@ export default {
             }
         })
 
-        commit(types.INIT_MODULE, {modules})
+        bg.height = convertRem({height: bg.height}).height
+
+        commit(types.INIT_LOTTERY, {modules, bg})
     },
 
     updateModule ({commit, state}, {module}) {
-        if (module.style) {
-            module.style = convertRem(module.style)
-        }
+        if (module.style) convertRem(module.style)
 
         commit(types.UPDATE_MODULE, {module})
     },

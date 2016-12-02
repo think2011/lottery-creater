@@ -12,6 +12,7 @@ const fromNick = window.fromNick
 const nick     = window.nick
 
 const state = {
+    bg        : {},
     modules   : [],
     curModule : {},
     act       : act,

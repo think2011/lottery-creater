@@ -1,8 +1,18 @@
-export const shopUrl = ({settings}) => {
+export const shopUrl  = ({settings}) => {
     return `//shop.m.taobao.com/shop/shopIndex.htm?shop_id=${settings.shopId}`
 }
-
 export const gameData = ({gameData}) => gameData
+
+export const bgStyle = ({bg}) => {
+    return {
+        width           : '16rem',
+        height          : bg.height,
+        backgroundImage : `url(${bg.src})`,
+        backgroundColor : bg.color,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize  : 'cover'
+    }
+}
 
 export const builtModules = ({modules}) => {
     let newModules = []

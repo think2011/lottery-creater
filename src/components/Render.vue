@@ -1,6 +1,5 @@
 <template>
-    <div class="render-container"
-         :style="{height: countHeight + 'px'}">
+    <div :style="bgStyle" class="render-container">
         <component class="module"
                    v-for="(item,index) in builtModules"
                    :module="item"
@@ -32,18 +31,11 @@
             ]),
             ...mapGetters([
                 'builtModules',
+                'bgStyle'
             ])
         },
 
         methods: {},
-
-        updated() {
-            let heights = [].map.call(this.$el.querySelectorAll('.module'), (item) => {
-                return item.offsetHeight || 0
-            })
-
-            this.countHeight = Math.max.apply(null, heights)
-        },
     }
 </script>
 

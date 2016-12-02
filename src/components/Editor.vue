@@ -1,11 +1,6 @@
 <template>
     <div>
-
-        <el-button @click="save" type="primary">save</el-button>
-
-        <div class="render-container"
-             :style="{height: countHeight + 'px'}">
-
+        <div :style="bgStyle" class="render-container">
             <div class="modules-container">
                 <resize
                         v-for="(item,index) in builtModules"
@@ -94,6 +89,7 @@
             ]),
             ...mapGetters([
                 'builtModules',
+                'bgStyle'
             ])
         },
 
@@ -119,15 +115,7 @@
                 'updateModule',
                 'activeModule',
             ])
-        },
-
-        updated() {
-            let heights = [].map.call(this.$el.querySelectorAll('.lc-resize'), (item) => {
-                return item.offsetHeight || 0
-            })
-
-            this.countHeight = Math.max.apply(null, heights)
-        },
+        }
     }
 </script>
 

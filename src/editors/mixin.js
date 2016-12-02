@@ -42,12 +42,16 @@ export default {
         'parentModule': {
             deep   : true,
             handler: function (val, oldVal) {
+                if (!val) return
+
                 this.updateModule({module: val})
             }
         },
         'module'      : {
             deep   : true,
             handler: function (val, oldVal) {
+                if (!val) return
+
                 this.updateModule({module: val})
             }
         }

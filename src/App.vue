@@ -7,7 +7,7 @@
 
 <script type="text/ecmascript-6">
     import components from './components'
-    import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapState, mapGetters} from 'vuex'
 
     export default {
         components,
@@ -19,12 +19,12 @@
         },
 
         created() {
-            this.initModule(window.modules)
+            this.initLottery(window.lotteryConfig)
         },
 
         methods: {
             ...mapActions([
-                'initModule',
+                'initLottery',
             ])
         },
     }

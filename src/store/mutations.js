@@ -1,7 +1,8 @@
 import * as types from './mutation-types'
 
 export default {
-    [types.INIT_MODULE](state, {modules}) {
+    [types.INIT_LOTTERY](state, {modules, bg}) {
+        state.bg      = bg
         state.modules = modules
     },
 

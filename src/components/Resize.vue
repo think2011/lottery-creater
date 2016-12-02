@@ -75,6 +75,14 @@
                         let x      = (parseFloat(target.getAttribute('data-x')) || (style.left - parent.offsetLeft))
                         let y      = (parseFloat(target.getAttribute('data-y')) || style.top - -parent.offsetTop)
 
+                        // 没有宽高时, 要设置宽高
+                        if (that.pStyle && (!that.pStyle.width || !that.pStyle.height)) {
+                            let childStyle = target.childNodes[0].getBoundingClientRect()
+
+                            target.style.width  = `${childStyle.width}px`
+                            target.style.height = `${childStyle.height}px`
+                        }
+
                         x += event.dx
                         y += event.dy
 
