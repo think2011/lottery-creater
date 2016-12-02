@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="editor-container">
         <div :style="bgStyle" class="render-container">
             <div class="modules-container">
                 <resize
@@ -8,8 +8,8 @@
                         @click="activeModule({module:item})"
                         restriction=".render-container"
                         :p-style="item.style"
-                        :drag="true"
-                        :resize="true">
+                        :drag="false"
+                        :resize="false">
                     <component class="module"
                                :module="item"
                                :style="item.style"
@@ -20,30 +20,40 @@
                 </resize>
             </div>
 
+            <!--   <resize v-show="editorsMap[curModuleInfo._editor]"
+                       class="editor-container"
+                       handle=".title"
+                       :drag="true">
+                   <div class="close pull-right">
+                       <el-button @click="closeEditor" type="text">
+                           <i class="el-dialog__close el-icon el-icon-close"></i>
+                       </el-button>
+                   </div>
 
-            <resize v-show="editorsMap[curModuleInfo._editor]"
-                    class="editor-container"
-                    handle=".title"
-                    :drag="true">
-                <div class="close pull-right">
-                    <el-button @click="closeEditor" type="text">
-                        <i class="el-dialog__close el-icon el-icon-close"></i>
-                    </el-button>
-                </div>
+                   <h1 class="title">
+                       {{curModuleInfo._alias}}
+                   </h1>
 
-                <h1 class="title">
-                    {{curModuleInfo._alias}}
-                </h1>
-
-                <div v-if="editorsMap[curModuleInfo._editor]" class="body">
-                    <component :module="curModuleInfo"
-                               :p-style="curModuleInfo.style"
-                               :data="curModuleInfo.data"
-                               :is="curModuleInfo._editor">
-                    </component>
-                </div>
-            </resize>
+                   <div v-if="editorsMap[curModuleInfo._editor]" class="body">
+                       <component :module="curModuleInfo"
+                                  :p-style="curModuleInfo.style"
+                                  :data="curModuleInfo.data"
+                                  :is="curModuleInfo._editor">
+                       </component>
+                   </div>
+               </resize>-->
         </div>
+
+        <div class="property-container">
+            <div v-if="editorsMap[curModuleInfo._editor]" class="body">
+                <component :module="curModuleInfo"
+                           :p-style="curModuleInfo.style"
+                           :data="curModuleInfo.data"
+                           :is="curModuleInfo._editor">
+                </component>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -137,8 +147,17 @@
         display: none !important;
     }
 
+    .editor-container {
+        display: flex;
+    }
+
+    .property-container {
+        background: seagreen;
+        flex: 1;
+    }
+
     .render-container {
-        width: px2rem(750);
+        flex: 0 0 750px;
         height: 100%;
         margin: 0 auto;
         background: #F9FAFC;
@@ -176,37 +195,37 @@
         }
     }
 
-    .editor-container {
-        width: 450px;
-        background: rgba(255, 255, 255, 0.98);
-        padding: 0;
-        border-radius: 5px;
-        position: fixed;
-        left: 25%;
-        top: 45%;
+    /* .editor-container {
+         width: 450px;
+         background: rgba(255, 255, 255, 0.98);
+         padding: 0;
+         border-radius: 5px;
+         position: fixed;
+         left: 25%;
+         top: 45%;
 
-        &:hover {
-            &:before {
-                content: initial;
-            }
-        }
+         &:hover {
+             &:before {
+                 content: initial;
+             }
+         }
 
-        .close {
-            margin: 5px 20px 0 0;
-        }
+         .close {
+             margin: 5px 20px 0 0;
+         }
 
-        h1 {
-            font-size: 18px;
-            padding: 12px 20px;
-            color: #1f2f3d;
-            margin: 0;
-            text-align: center;
-            cursor: move;
-        }
+         h1 {
+             font-size: 18px;
+             padding: 12px 20px;
+             color: #1f2f3d;
+             margin: 0;
+             text-align: center;
+             cursor: move;
+         }
 
-        .body {
-            padding: 0 20px;
-        }
-    }
+         .body {
+             padding: 0 20px;
+         }
+     }*/
 
 </style>

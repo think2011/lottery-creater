@@ -101,6 +101,7 @@ export default {
             let that = this
             let act  = that.act
 
+            // TODO ZH 12/2/16 下单抽奖
             switch (type) {
                 case 'shopping':
                 case 'collect':

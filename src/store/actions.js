@@ -15,6 +15,11 @@ export default {
 
         bg.height = convertRem({height: bg.height}).height
 
+        modules.forEach((item) => {
+            item._drag   = false
+            item._resize = false
+        })
+
         commit(types.INIT_LOTTERY, {modules, bg})
     },
 
