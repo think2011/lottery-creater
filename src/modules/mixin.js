@@ -32,7 +32,8 @@ export default {
 
         ...mapGetters([
             'shopUrl',
-            'gameData'
+            'gameData',
+            'prizes'
         ])
     },
     watch   : {

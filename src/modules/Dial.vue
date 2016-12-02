@@ -63,11 +63,15 @@
         },
 
         data () {
-            return {}
+            return {
+                prizeId: null
+            }
         },
 
         methods: {
             draw() {
+                this.getPrizeDeg()
+
                 if (this.drawing) return
                 if (!this.checkTicket()) return
 
@@ -79,13 +83,47 @@
                 })
 
                 this.drawLottery().then((data) => {
-                    // 根据id设置deg
+                    let prizeDeg = this.getPrizeDeg()
 
-                    drawTween.stop(89, () => {
+                    if (this.prizeDeg) {
+                        this.drawTween.stop(prizeDeg, () => {
+                            this.showLotteryResult(data)
+                            this.drawing = false
+                        })
+                    } else {
+                        alert('慢慢转啊')
                         this.showLotteryResult(data)
                         this.drawing = false
-                    })
+                    }
                 })
+            },
+
+            getPrizeDeg(id) {
+                let that     = this
+                let degCheck = {
+                    win() {
+                        let deg = null
+
+                        // 奖品角度对应关系：this.prizes[N] = data.prizes[N].deg
+                        that.prizes.forEach((item, index) => {
+                            if (item.id === id) {
+                                let degItem = that.parentModule.data.prizes[index]
+
+                                deg = degItem && degItem.deg
+                            }
+                        })
+
+                        return deg
+                    },
+                    miss() {
+                        return that.parentModule.data.emptyPrizes
+                            .map((item) => item.deg)
+                            .sort(() => Math.random() < 0.5)
+                            [0]
+                    }
+                }
+
+                return degCheck.win() || degCheck.miss() || null
             },
 
             ...mapActions([]),

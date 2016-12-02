@@ -23,3 +23,7 @@ export const builtModules = ({modules}) => {
 
     return newModules
 }
+
+export const prizes = ({act}) => {
+    return act.giftsJson
+}
