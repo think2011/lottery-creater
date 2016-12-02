@@ -19,6 +19,7 @@ export default class {
         this.stopCallback   = null
     }
 
+
     start(updateCallback) {
         let that            = this
         this.startTime      = Date.now()
@@ -88,8 +89,10 @@ export default class {
             .start()
 
         function onComplete() {
-            that.stopCallBack && that.stopCallBack()
-            that._clear()
+            setTimeout(() => {
+                that.stopCallBack && that.stopCallBack()
+                that._clear()
+            }, 300)
         }
     }
 }

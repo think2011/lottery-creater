@@ -9,7 +9,7 @@ export default {
         if (module._isChild) {
             let parent = module._getParent()
 
-            state.modules[parent._getIndex()][module._getIndex()] = module
+            state.modules[parent._getIndex()].children[module._getIndex()] = module
         } else {
             state.modules[module._getIndex()] = module
         }
