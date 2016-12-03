@@ -1,15 +1,34 @@
 <template>
     <div class="editor-container">
-        <div :style="bgStyle" class="render-container">
-            <div class="modules-container">
+        <section class="container">
+            <div class="module-list">
+                <ul>
+                    <li v-for="item in modules">
+                        <a :class="{'has-children':item.children}"
+                           href="javascript:">
+                            {{item.alias}}
+                        </a>
+
+                        <ul>
+                            <li v-for="childItem in item.children">
+                                <a href="javascript:">
+                                    {{childItem.alias}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div :style="bgStyle" class="main">
                 <resize
                         v-for="(item,index) in builtModules"
                         @update="updateStyle(item,$event)"
                         @click="activeModule({module:item})"
-                        restriction=".render-container"
+                        restriction=".main"
                         :p-style="item.style"
-                        :drag="false"
-                        :resize="false">
+                        :drag="item._drag"
+                        :resize="item._resize">
                     <component class="module"
                                :module="item"
                                :style="item.style"
@@ -20,20 +39,59 @@
                 </resize>
             </div>
 
-            <!--   <resize v-show="editorsMap[curModuleInfo._editor]"
-                       class="editor-container"
-                       handle=".title"
-                       :drag="true">
-                   <div class="close pull-right">
-                       <el-button @click="closeEditor" type="text">
-                           <i class="el-dialog__close el-icon el-icon-close"></i>
-                       </el-button>
+            <div class="actions">
+                <el-button :plain="true" type="success" size="large">更换背景</el-button>
+                <el-button type="primary" size="large">保存模板</el-button>
+                <el-button type="text">退出编辑器</el-button>
+            </div>
+        </section>
+
+
+        <!--       <div :style="bgStyle" class="render-container">
+                   <div class="modules-container">
+                       <resize
+                               v-for="(item,index) in builtModules"
+                               @update="updateStyle(item,$event)"
+                               @click="activeModule({module:item})"
+                               restriction=".render-container"
+                               :p-style="item.style"
+                               :drag="false"
+                               :resize="false">
+                           <component class="module"
+                                      :module="item"
+                                      :style="item.style"
+                                      :p-style="item.style"
+                                      :data="item.data"
+                                      :is="item._isChild ? item._getParent().type : item.type">
+                           </component>
+                       </resize>
                    </div>
 
-                   <h1 class="title">
-                       {{curModuleInfo._alias}}
-                   </h1>
+                   <resize v-show="editorsMap[curModuleInfo._editor]"
+                           class="editor-container"
+                           handle=".title"
+                           :drag="true">
+                       <div class="close pull-right">
+                           <el-button @click="closeEditor" type="text">
+                               <i class="el-dialog__close el-icon el-icon-close"></i>
+                           </el-button>
+                       </div>
 
+                       <h1 class="title">
+                           {{curModuleInfo._alias}}
+                       </h1>
+
+                       <div v-if="editorsMap[curModuleInfo._editor]" class="body">
+                           <component :module="curModuleInfo"
+                                      :p-style="curModuleInfo.style"
+                                      :data="curModuleInfo.data"
+                                      :is="curModuleInfo._editor">
+                           </component>
+                       </div>
+                   </resize>
+               </div>
+
+               <div class="property-container">
                    <div v-if="editorsMap[curModuleInfo._editor]" class="body">
                        <component :module="curModuleInfo"
                                   :p-style="curModuleInfo.style"
@@ -41,18 +99,7 @@
                                   :is="curModuleInfo._editor">
                        </component>
                    </div>
-               </resize>-->
-        </div>
-
-        <div class="property-container">
-            <div v-if="editorsMap[curModuleInfo._editor]" class="body">
-                <component :module="curModuleInfo"
-                           :p-style="curModuleInfo.style"
-                           :data="curModuleInfo.data"
-                           :is="curModuleInfo._editor">
-                </component>
-            </div>
-        </div>
+               </div>-->
 
     </div>
 </template>
@@ -76,7 +123,7 @@
         data () {
             return {
                 editorsMap,
-                countHeight: 0
+                test: false
             }
         },
 
@@ -147,85 +194,102 @@
         display: none !important;
     }
 
+    body {
+        background: #ddd !important;
+    }
+
     .editor-container {
-        display: flex;
-    }
+        .container {
+            display: flex;
+            justify-content: center;
 
-    .property-container {
-        background: seagreen;
-        flex: 1;
-    }
+            .module-list {
+                min-width: 180px;
+                background: #fff;
+                border-right: none;
+                box-shadow: 0 0 10px #ccc;
+                position: fixed;
+                left: 50%;
+                top: 0;
+                transform: translate(-375 - 180px, 0);
 
-    .render-container {
-        flex: 0 0 750px;
-        height: 100%;
-        margin: 0 auto;
-        background: #F9FAFC;
-        position: relative;
-    }
+                ul {
 
-    .modules-container {
-        * {
-            box-sizing: content-box;
-        }
+                    li {
+                        a {
+                            font-size: 15px;
+                            color: #475669;
+                            padding: 12px 15px;
+                            display: block;
+                            font-weight: bold;
 
-        .lc-resize {
-            position: absolute;
-            display: inline-block;
-            border: 2px solid transparent;
-            overflow: hidden;
+                            &.has-children {
+                                color: #999;
+                            }
 
-            &:hover {
-                border: 2px solid #58B7FF;
+                            &:hover {
+                                background: #D3DCE6;
 
-                &:before {
-                    content: '';
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    background: rgba(88, 183, 255, 0.1);
+                                &.has-children {
+                                    background: none;
+                                    cursor: default;
+                                }
+                            }
+                        }
+
+                        ul {
+
+                            li {
+                                a {
+                                    padding: 10px 15px;
+                                    font-weight: normal;
+                                    font-size: 14px;
+                                    margin-left: 15px;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
-            .module {
-                pointer-events: none;
+            .main {
+                width: 750px;
+                flex: 0 0 750px;
+                background: #fff;
+                box-shadow: 0 0 10px #999;
+                position: relative;
+                z-index: 3;
+
+                .lc-resize {
+                    position: absolute;
+
+                    > * {
+                        pointer-events: none;
+                    }
+                }
+            }
+
+            .actions {
+                background: #fff;
+                box-shadow: 0 0 10px #999;
+                padding: 10px;
+                position: absolute;
+                left: 50%;
+                top: 0;
+                transform: translate(375px, 0);
+
+                button {
+                    width: 100%;
+                    text-align: center;
+                    display: block;
+                    margin: 0 0 10px 0;
+
+                    &:last-child {
+                        margin: 0;
+                    }
+                }
             }
         }
     }
-
-    /* .editor-container {
-         width: 450px;
-         background: rgba(255, 255, 255, 0.98);
-         padding: 0;
-         border-radius: 5px;
-         position: fixed;
-         left: 25%;
-         top: 45%;
-
-         &:hover {
-             &:before {
-                 content: initial;
-             }
-         }
-
-         .close {
-             margin: 5px 20px 0 0;
-         }
-
-         h1 {
-             font-size: 18px;
-             padding: 12px 20px;
-             color: #1f2f3d;
-             margin: 0;
-             text-align: center;
-             cursor: move;
-         }
-
-         .body {
-             padding: 0 20px;
-         }
-     }*/
 
 </style>
