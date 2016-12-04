@@ -1,5 +1,5 @@
 <template>
-    <resize class="property-container"
+    <resize @click="stopPropagation" class="property-container"
             handle=".title"
             v-show="curModuleInfo._alias"
             :drag="true">
@@ -80,6 +80,7 @@
             ...mapActions([
                 'updateModule',
                 'activeModule',
+                'stopPropagation',
             ])
         }
     }

@@ -33,6 +33,10 @@ export default {
         commit(types.DEL_MODULE, ...args)
     },
 
+    stopPropagation() {
+        window.event.stopPropagation()
+    },
+
     fetchRule({commit, state}) {
         if (!DEV_MODE) {
             $.doAjax({

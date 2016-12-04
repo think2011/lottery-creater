@@ -1,6 +1,6 @@
 <template>
     <el-form class="editor-dial" label-position="top">
-        <div class="el-form-item">
+        <div v-if="parentModule.children[1]" class="el-form-item">
             <label class="el-form-item__label">
                 指针
                 <el-tooltip>
@@ -16,7 +16,7 @@
                 <el-input size="small" v-model="parentModule.children[1].data.src"></el-input>
             </div>
         </div>
-        <div class="el-form-item">
+        <div v-if="parentModule.children[0]" class="el-form-item">
             <label class="el-form-item__label">
                 转盘
                 <el-tooltip>

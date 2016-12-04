@@ -1,13 +1,14 @@
 <template>
-    <div class="editor-container">
+    <div @click="mapActiveModule({module:{}})" class="editor-container">
         <section class="container">
             <module-list></module-list>
 
             <div :style="bgStyle" class="main">
                 <resize
+                        :class="{active:curModule === item}"
                         v-for="(item,index) in builtModules"
                         @update="updateStyle(item,$event)"
-                        @click="activeModule({module:item})"
+                        @click="mapActiveModule({module:item})"
                         restriction=".main"
                         :p-style="item.style"
                         :drag="true"
@@ -87,6 +88,11 @@
                 this.updateModule({module})
             },
 
+            mapActiveModule(params){
+                window.event.stopPropagation()
+                this.activeModule(params)
+            },
+
             ...mapActions([
                 'updateModule',
                 'activeModule',
@@ -124,10 +130,14 @@
                     cursor: pointer;
                     overflow: hidden;
 
-                    &:hover {
+                    &:hover, &.active {
                         .handle {
                             opacity: 1;
                         }
+                    }
+
+                    &.active {
+                        cursor: move;
                     }
 
                     > :first-child {

@@ -1,5 +1,5 @@
 <template>
-    <div class="module-list">
+    <div @click="stopPropagation" class="module-list">
         <ul>
             <li class="actions">
                 <div>
@@ -57,7 +57,8 @@
                 </el-popover>
             </li>
             <li v-for="item in modules">
-                <a :class="{'has-children':item.children}"
+                <a @mouseover="mapActiveModule(item)"
+                   :class="{'has-children':item.children, active:mapCurModule === item}"
                    href="javascript:">
                     {{item.alias}}
 
@@ -88,7 +89,9 @@
 
                 <ul>
                     <li v-for="childItem in item.children">
-                        <a href="javascript:">
+                        <a @mouseover="mapActiveModule(childItem)"
+                           :class="{active:mapCurModule === childItem}"
+                           href="javascript:">
                             {{childItem.alias}}
 
                             <el-popover
@@ -135,6 +138,27 @@
         },
 
         computed: {
+            mapCurModule() {
+                let module    = null
+                let curModule = this.curModule
+
+                this.modules.forEach((item) => {
+                    if (this.curModule._isChild) {
+                        let parent = curModule._getParent()
+
+                        if (item.type === parent.type) {
+                            parent.children.forEach((childItem) => {
+                                if (childItem.type === curModule.type) module = childItem
+                            })
+                        }
+                    } else {
+                        if (item.type === curModule.type) module = item
+                    }
+                })
+
+                return module
+            },
+
             ...mapState([
                 'modules',
                 'curModule',
@@ -153,8 +177,18 @@
                 this.$forceUpdate()
             },
 
+            mapActiveModule(item) {
+                if (!item) return
+
+                this.activeModule({
+                    module: this.builtModules.filter((builtItem) => builtItem.type === item.type)[0] || {}
+                })
+            },
+
             ...mapActions([
                 'delModule',
+                'activeModule',
+                'stopPropagation'
             ])
         }
     }
@@ -202,7 +236,7 @@
                         }
                     }
 
-                    &:hover {
+                    &:hover, &.active {
                         background: #D3DCE6;
 
                         &.has-children {
