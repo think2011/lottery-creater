@@ -1,24 +1,7 @@
 <template>
     <div class="editor-container">
         <section class="container">
-            <div class="module-list">
-                <ul>
-                    <li v-for="item in modules">
-                        <a :class="{'has-children':item.children}"
-                           href="javascript:">
-                            {{item.alias}}
-                        </a>
-
-                        <ul>
-                            <li v-for="childItem in item.children">
-                                <a href="javascript:">
-                                    {{childItem.alias}}
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+            <module-list></module-list>
 
             <div :style="bgStyle" class="main">
                 <resize
@@ -27,8 +10,8 @@
                         @click="activeModule({module:item})"
                         restriction=".main"
                         :p-style="item.style"
-                        :drag="item._drag"
-                        :resize="item._resize">
+                        :drag="true"
+                        :resize="true">
                     <component class="module"
                                :module="item"
                                :style="item.style"
@@ -36,79 +19,34 @@
                                :data="item.data"
                                :is="item._isChild ? item._getParent().type : item.type">
                     </component>
+                    <div class="handle">
+                        <div class="dot t"></div>
+                        <div class="dot r"></div>
+                        <div class="dot b"></div>
+                        <div class="dot l"></div>
+                        <div class="dot c-t"></div>
+                        <div class="dot c-r"></div>
+                        <div class="dot c-b"></div>
+                        <div class="dot c-l"></div>
+                    </div>
                 </resize>
             </div>
 
-            <div class="actions">
-                <el-button :plain="true" type="success" size="large">更换背景</el-button>
-                <el-button type="primary" size="large">保存模板</el-button>
-                <el-button type="text">退出编辑器</el-button>
-            </div>
+            <actions-nav></actions-nav>
         </section>
 
-
-        <!--       <div :style="bgStyle" class="render-container">
-                   <div class="modules-container">
-                       <resize
-                               v-for="(item,index) in builtModules"
-                               @update="updateStyle(item,$event)"
-                               @click="activeModule({module:item})"
-                               restriction=".render-container"
-                               :p-style="item.style"
-                               :drag="false"
-                               :resize="false">
-                           <component class="module"
-                                      :module="item"
-                                      :style="item.style"
-                                      :p-style="item.style"
-                                      :data="item.data"
-                                      :is="item._isChild ? item._getParent().type : item.type">
-                           </component>
-                       </resize>
-                   </div>
-
-                   <resize v-show="editorsMap[curModuleInfo._editor]"
-                           class="editor-container"
-                           handle=".title"
-                           :drag="true">
-                       <div class="close pull-right">
-                           <el-button @click="closeEditor" type="text">
-                               <i class="el-dialog__close el-icon el-icon-close"></i>
-                           </el-button>
-                       </div>
-
-                       <h1 class="title">
-                           {{curModuleInfo._alias}}
-                       </h1>
-
-                       <div v-if="editorsMap[curModuleInfo._editor]" class="body">
-                           <component :module="curModuleInfo"
-                                      :p-style="curModuleInfo.style"
-                                      :data="curModuleInfo.data"
-                                      :is="curModuleInfo._editor">
-                           </component>
-                       </div>
-                   </resize>
-               </div>
-
-               <div class="property-container">
-                   <div v-if="editorsMap[curModuleInfo._editor]" class="body">
-                       <component :module="curModuleInfo"
-                                  :p-style="curModuleInfo.style"
-                                  :data="curModuleInfo.data"
-                                  :is="curModuleInfo._editor">
-                       </component>
-                   </div>
-               </div>-->
-
+        <property-editor></property-editor>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     import modules from '../modules'
     import editors from '../editors'
-    import {mapActions, mapState, mapGetters} from 'vuex'
+    import {mapActions, mapMutations, mapState, mapGetters} from 'vuex'
     import resize from './Resize.vue'
+    import moduleList from './ModuleList.vue'
+    import actionsNav from './ActionsNav.vue'
+    import PropertyEditor from './PropertyEditor.vue'
 
     const editorsMap = {}
     for (let p in editors) {
@@ -118,7 +56,7 @@
     }
 
     export default {
-        components: {...modules, resize, ...editorsMap},
+        components: {...modules, resize, ...editorsMap, PropertyEditor, moduleList, actionsNav},
 
         data () {
             return {
@@ -128,21 +66,10 @@
         },
 
         computed: {
-            curModuleInfo() {
-                let curModule = this.curModule
-                if (!curModule) return {}
-
-                let isChild = curModule._isChild
-                return {
-                    ...curModule,
-                    _alias : isChild ? `${curModule._getParent().alias}-${curModule.alias}` : curModule.alias,
-                    _editor: isChild ? `${curModule._getParent().type}Editor` : `${curModule.type}Editor`
-                }
-            },
-
             ...mapState([
                 'modules',
                 'curModule',
+                'temp'
             ]),
             ...mapGetters([
                 'builtModules',
@@ -151,10 +78,6 @@
         },
 
         methods: {
-            save() {
-                console.log(this.modules)
-            },
-
             updateStyle(module, position) {
                 module.style = {
                     ...module.style,
@@ -162,10 +85,6 @@
                 }
 
                 this.updateModule({module})
-            },
-
-            closeEditor() {
-                this.activeModule({module: {}})
             },
 
             ...mapActions([
@@ -179,19 +98,8 @@
 <style lang="scss" rel="stylesheet/scss">
     @import "../assets/styles/common";
 
-    /* 开发环境屏蔽检测 */
-    body, body.m-body {
-        zoom: 1;
-        position: relative;
-        max-width: initial !important;
-        height: auto;
-        margin: 0 auto;
-        font-size: 16px;
-    }
-
-    .qrcode-dialog.active.modal-container,
-    .ui-overlay-a.poup {
-        display: none !important;
+    html {
+        cursor: default !important;
     }
 
     body {
@@ -203,55 +111,6 @@
             display: flex;
             justify-content: center;
 
-            .module-list {
-                min-width: 180px;
-                background: #fff;
-                border-right: none;
-                box-shadow: 0 0 10px #ccc;
-                position: fixed;
-                left: 50%;
-                top: 0;
-                transform: translate(-375 - 180px, 0);
-
-                ul {
-
-                    li {
-                        a {
-                            font-size: 15px;
-                            color: #475669;
-                            padding: 12px 15px;
-                            display: block;
-                            font-weight: bold;
-
-                            &.has-children {
-                                color: #999;
-                            }
-
-                            &:hover {
-                                background: #D3DCE6;
-
-                                &.has-children {
-                                    background: none;
-                                    cursor: default;
-                                }
-                            }
-                        }
-
-                        ul {
-
-                            li {
-                                a {
-                                    padding: 10px 15px;
-                                    font-weight: normal;
-                                    font-size: 14px;
-                                    margin-left: 15px;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
             .main {
                 width: 750px;
                 flex: 0 0 750px;
@@ -262,30 +121,98 @@
 
                 .lc-resize {
                     position: absolute;
+                    cursor: pointer;
+                    overflow: hidden;
 
-                    > * {
+                    &:hover {
+                        .handle {
+                            opacity: 1;
+                        }
+                    }
+
+                    > :first-child {
                         pointer-events: none;
                     }
-                }
-            }
 
-            .actions {
-                background: #fff;
-                box-shadow: 0 0 10px #999;
-                padding: 10px;
-                position: absolute;
-                left: 50%;
-                top: 0;
-                transform: translate(375px, 0);
+                    .el-tag {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        opacity: .9;
+                    }
 
-                button {
-                    width: 100%;
-                    text-align: center;
-                    display: block;
-                    margin: 0 0 10px 0;
+                    .handle {
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        border: 2px solid #4DAEFF;
+                        background: rgba(77, 174, 255, 0.1);
+                        opacity: 0;
+                        transition: opacity .3s;
 
-                    &:last-child {
-                        margin: 0;
+                        .dot {
+                            width: 9px;
+                            height: 9px;
+                            border: 1px solid #4DAEFF;
+                            border-radius: 50%;
+                            background: #fff;
+                            position: absolute;
+                            display: block;
+
+                            &.t {
+                                top: -1px;
+                                left: -1px;
+                                cursor: nw-resize;
+                            }
+
+                            &.r {
+                                top: -1px;
+                                right: -1px;
+                                cursor: ne-resize;
+                            }
+
+                            &.b {
+                                bottom: -1px;
+                                right: -1px;
+                                cursor: se-resize;
+                            }
+
+                            &.l {
+                                bottom: -1px;
+                                left: -1px;
+                                cursor: sw-resize;
+                            }
+
+                            &.c-t {
+                                top: -1px;
+                                left: 50%;
+                                transform: translate(-50%, 0);
+                                cursor: ns-resize;
+                            }
+
+                            &.c-r {
+                                top: 50%;
+                                right: -1px;
+                                transform: translate(0, -50%);
+                                cursor: ew-resize;
+                            }
+
+                            &.c-b {
+                                bottom: -1px;
+                                left: 50%;
+                                transform: translate(-50%, 0);
+                                cursor: ns-resize;
+                            }
+
+                            &.c-l {
+                                top: 50%;
+                                left: -1px;
+                                transform: translate(0, -50%);
+                                cursor: ew-resize;
+                            }
+                        }
                     }
                 }
             }

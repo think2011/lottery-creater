@@ -15,11 +15,6 @@ export default {
 
         bg.height = convertRem({height: bg.height}).height
 
-        modules.forEach((item) => {
-            item._drag   = false
-            item._resize = false
-        })
-
         commit(types.INIT_LOTTERY, {modules, bg})
     },
 
@@ -31,6 +26,11 @@ export default {
 
     activeModule({commit, state}, {module}) {
         commit(types.SET_ACTIVE_MODULE, {module})
+    },
+
+    delModule({commit, dispatch, state}, ...args) {
+        dispatch('activeModule', {module: {}})
+        commit(types.DEL_MODULE, ...args)
     },
 
     fetchRule({commit, state}) {

@@ -19,6 +19,21 @@
         margin: 0;
         padding: 0;
     }
+
+    /* 开发环境屏蔽检测 */
+    body, body.m-body {
+        zoom: 1;
+        position: relative;
+        max-width: initial !important;
+        height: auto;
+        margin: 0 auto;
+        font-size: 16px;
+    }
+
+    .qrcode-dialog.active.modal-container,
+    .ui-overlay-a.poup {
+        display: none !important;
+    }
 </style>
 <body>
 <div id="app"></div>
@@ -299,9 +314,8 @@
 
     var lotteryConfig = {
         bg     : {
-            height: '1150px',
+            height: 1108,
             src   : 'https://img.alicdn.com/imgextra/i3/92779311/TB2SLQmbxaJ.eBjSsziXXaJ_XXa-92779311.png',
-            color : '#F0F0F0'
         },
         modules: [{
             "type" : "toShop",

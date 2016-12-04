@@ -81,7 +81,7 @@ const state = {
             "giftNo"      : "2",
             "awardSuccess": true
         }]
-    }
+    },
 }
 
 export default new Vuex.Store({

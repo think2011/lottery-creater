@@ -1,9 +1,22 @@
 <template>
-        <el-form label-position="top">
-            <el-form-item label="图片地址">
+    <el-form label-position="top">
+        <div class="el-form-item">
+            <label class="el-form-item__label">
+                图片地址
+                <el-tooltip>
+                    <div slot="content">
+                        淘宝规定仅能使用 图片空间 的地址
+                    </div>
+
+                    <i class="el-icon-information"></i>
+                </el-tooltip>
+            </label>
+
+            <div class="el-form-item__content">
                 <el-input size="small" v-model="data.src"></el-input>
-            </el-form-item>
-        </el-form>
+            </div>
+        </div>
+    </el-form>
 </template>
 
 <script type="text/ecmascript-6">

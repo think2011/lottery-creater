@@ -4,6 +4,7 @@
          @click="bindClick"
          class="lc-resize">
         <slot></slot>
+
     </div>
 </template>
 
@@ -70,7 +71,7 @@
                     // call this function on every dragmove event
                     onmove: function dragMoveListener(event) {
                         let target = event.target
-                        let style  = target.getBoundingClientRect()
+                        let style  = $(target).offset()
                         let parent = target.offsetParent || {offsetLeft: 0, offsetTop: 0}
                         let x      = (parseFloat(target.getAttribute('data-x')) || (style.left - parent.offsetLeft))
                         let y      = (parseFloat(target.getAttribute('data-y')) || style.top - -parent.offsetTop)
@@ -96,7 +97,7 @@
                     },
                     // call this function on every dragend event
                     onend : function (event) {
-                        that.$emit('update', that.getPosition(event))
+//                        that.$emit('update', that.getPosition(event))
                     }
                 })
                 .resizable({
@@ -112,7 +113,7 @@
 
                     onmove: function (event) {
                         let target = event.target
-                        let style  = target.getBoundingClientRect()
+                        let style  = $(target).offset()
                         let parent = target.offsetParent || {offsetLeft: 0, offsetTop: 0}
                         let x      = (parseFloat(target.getAttribute('data-x')) || (style.left - parent.offsetLeft))
                         let y      = (parseFloat(target.getAttribute('data-y')) || style.top - -parent.offsetTop)

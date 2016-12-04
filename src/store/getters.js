@@ -5,11 +5,11 @@ export const gameData = ({gameData}) => gameData
 
 export const bgStyle = ({bg}) => {
     return {
-        height: bg.height,
+        height          : `${parseFloat(bg.height)}px`,
         backgroundImage : `url(${bg.src})`,
         backgroundColor : bg.color,
         backgroundRepeat: 'no-repeat',
-        backgroundSize  : 'contain'
+        backgroundSize  : '100%'
     }
 }
 

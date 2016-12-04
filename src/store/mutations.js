@@ -28,9 +28,15 @@ export default {
         state.gameData.drawTotal = total
     },
 
-    [types.DEL_MODULE](state, module) {
-        // TODO ZH 11/30/16
-        state.modules.splice(0, 5)
+    [types.DEL_MODULE](state, module, index, childIndex) {
+        if (module._isChild) {
+            let parent = module._getParent()
+
+            state.modules[parent._getIndex()].children.splice(module._getIndex(), 1)
+            if (!parent.children.length) state.modules.splice(parent._getIndex(), 1)
+        } else {
+            state.modules.splice(module._getIndex(), 1)
+        }
     },
 
     [types.SET_CUR_PRIZE](state, prize) {
