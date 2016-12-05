@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
-    "build": "cross-env = node build/build.js"
+    "build": "node build/build.js"
   },
   "dependencies": {
     "interact.js": "^1.2.6",

@@ -34,17 +34,32 @@
 
         methods: {
             save() {
-                console.log(this.modules)
-            },
+                let modules = JSON.parse(JSON.stringify(this.modules))
 
+                console.log(JSON.stringify(clear(modules)))
+
+                function clear(items) {
+                    items.forEach((item) => {
+                        for (let p in item) {
+                            if (!item.hasOwnProperty(p)) continue;
+
+                            if (p[0] === '_') delete item[p]
+                        }
+
+                        if (item.children) item.children = clear(item.children)
+
+                    })
+
+                    return items
+                }
+
+            },
             ...mapActions([
                 'updateModule',
                 'activeModule',
             ]),
 
-            ...mapMutations([
-                'TOGGLE_MODULE_TAG',
-            ])
+            ...mapMutations([])
         }
     }
 </script>
