@@ -8,7 +8,6 @@
                             placement="right"
                             width="350"
                             trigger="hover">
-
                         <el-form label-position="top">
 
                             <div class="el-form-item">
@@ -32,6 +31,16 @@
                                             <template slot="append">px</template>
                                         </el-input>
                                     </el-col>
+                                </div>
+                            </div>
+
+                            <div class="el-form-item">
+                                <label class="el-form-item__label">
+                                    背景颜色
+                                </label>
+
+                                <div class="el-form-item__content">
+                                    <color-picker v-model="color"></color-picker>
                                 </div>
                             </div>
                         </el-form>
@@ -129,12 +138,15 @@
     import modules from '../modules'
     import editors from '../editors'
     import {mapActions, mapState, mapGetters} from 'vuex'
+    import ColorPicker from './ColorPicker.vue'
 
     export default {
-        components: {...modules},
+        components: {...modules, ColorPicker},
 
         data () {
-            return {}
+            return {
+                color: '#194d33'
+            }
         },
 
         computed: {
@@ -159,14 +171,19 @@
                 return module
             },
 
+            bgHeight: {
+                get() {
+                    return window.hotcss.rem2px(parseFloat(this.bg.style.height), 750)
+                }
+            },
+
             ...mapState([
                 'modules',
                 'curModule',
                 'bg'
             ]),
             ...mapGetters([
-                'builtModules',
-                'bgStyle'
+                'builtModules'
             ])
         },
 

@@ -1,9 +1,10 @@
 import * as types from './mutation-types'
 
 export default {
-    [types.INIT_LOTTERY](state, {modules, bg}) {
+    [types.INIT_LOTTERY](state, {modules, name, bg}) {
         state.bg      = bg
         state.modules = modules
+        state.name    = name
     },
 
     [types.UPDATE_MODULE](state, {module}) {
@@ -14,6 +15,10 @@ export default {
         } else {
             state.modules[module._getIndex()] = module
         }
+    },
+
+    [types.UPDATE_BG](state, bg) {
+        state.bg = bg
     },
 
     [types.SET_ACTIVE_MODULE](state, {module}) {

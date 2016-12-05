@@ -1,5 +1,5 @@
 <template>
-    <div :style="bgStyle" class="render-container">
+    <div class="render-container">
         <component class="module"
                    v-for="(item,index) in builtModules"
                    :module="item"
@@ -30,8 +30,7 @@
                 'modules'
             ]),
             ...mapGetters([
-                'builtModules',
-                'bgStyle'
+                'builtModules'
             ])
         },
 

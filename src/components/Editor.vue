@@ -3,7 +3,7 @@
         <section class="container">
             <module-list></module-list>
 
-            <div :style="bgStyle" class="main">
+            <div class="main">
                 <resize
                         :class="{active:curModule === item}"
                         v-for="(item,index) in builtModules"
@@ -73,9 +73,24 @@
                 'temp'
             ]),
             ...mapGetters([
-                'builtModules',
-                'bgStyle'
+                'builtModules'
             ])
+        },
+
+        created() {
+            window.addEventListener('message', () => {
+                let res = window.event.data
+
+                switch (res.type) {
+                    case 'error':
+                        this.loading = false
+                        this.$message.error(res.data);
+                        break;
+
+                    default:
+                    //
+                }
+            })
         },
 
         methods: {

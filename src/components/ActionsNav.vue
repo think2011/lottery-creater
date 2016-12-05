@@ -2,9 +2,39 @@
     <div>
         <div class="actions">
             <el-button @click="save" type="success" size="large">下载PSD</el-button>
-            <el-button @click="save" type="primary" size="large">保存模板</el-button>
-            <el-button type="text">退出编辑器</el-button>
+            <el-button @click="isShowSave=true;loading=false" type="primary" size="large">保存模板</el-button>
+
+            <el-popover
+                    class="del"
+                    placement="bottom"
+                    width="120"
+                    v-model="exit"
+                    trigger="click">
+                <p>数据将不会保存，确定吗？</p>
+                <div class="text-right">
+                    <el-button type="text" size="mini"
+                               @click="exit = false">取消
+                    </el-button>
+                    <el-button type="primary" size="mini"
+                               @click="close">确定
+                    </el-button>
+                </div>
+                <el-button slot="reference" type="text">退出编辑器</el-button>
+            </el-popover>
         </div>
+
+        <el-dialog title="保存模板" v-model="isShowSave" v-if="isShowSave" size="tiny">
+            <el-form label-position="top" ref="model" :rules="rules" :model="model">
+                <el-form-item prop="name" label="模板名称">
+                    <el-input autofocus v-model="model.name"></el-input>
+                </el-form-item>
+            </el-form>
+
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="isShowSave = false">取消</el-button>
+                <el-button type="primary" :loading="loading" @click="save">立即保存</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -17,7 +47,19 @@
         components: {...modules},
 
         data () {
-            return {}
+            return {
+                isShowSave: false,
+                model     : {
+                    name: '我的自定义模板'
+                },
+                rules     : {
+                    name: [
+                        {required: true, message: '请输入模板名称', trigger: 'blur'}
+                    ]
+                },
+                loading   : false,
+                exit      : false
+            }
         },
 
         computed: {
@@ -27,16 +69,26 @@
                 'temp'
             ]),
             ...mapGetters([
-                'builtModules',
-                'bgStyle'
+                'builtModules'
             ])
         },
 
         methods: {
             save() {
-                let modules = JSON.parse(JSON.stringify(this.modules))
+                this.$refs.model.validate((valid) => {
+                    if (!valid) return
 
-                console.log(JSON.stringify(clear(modules)))
+                    let modules = clear(JSON.parse(JSON.stringify(this.modules)))
+
+                    this.loading = true
+                    window.top.postMessage({
+                        type: 'create', data: {
+                            name: this.model.name,
+                            bg  : this.bg,
+                            modules
+                        }
+                    }, '*')
+                })
 
                 function clear(items) {
                     items.forEach((item) => {
@@ -52,8 +104,12 @@
 
                     return items
                 }
-
             },
+
+            close() {
+                window.top.postMessage({type: 'close'}, '*')
+            },
+
             ...mapActions([
                 'updateModule',
                 'activeModule',

@@ -1,6 +1,7 @@
 // 模块
 export const INIT_LOTTERY      = 'INIT_LOTTERY'
 export const UPDATE_MODULE     = 'UPDATE_MODULE'
+export const UPDATE_BG     = 'UPDATE_BG'
 export const SET_ACTIVE_MODULE = 'SET_ACTIVE_MODULE'
 export const DEL_MODULE        = 'DEL_MODULE'
 

@@ -67,8 +67,7 @@
                 'temp'
             ]),
             ...mapGetters([
-                'builtModules',
-                'bgStyle'
+                'builtModules'
             ])
         },
 

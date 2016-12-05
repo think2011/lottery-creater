@@ -2,7 +2,7 @@ import {convertRem} from '../assets/js/common'
 import * as types from './mutation-types'
 
 export default {
-    initLottery({commit, state}, {modules, bg}) {
+    initLottery({commit, dispatch, state}, {modules, name, bg}) {
         modules.forEach((item) => {
             if (item.style) convertRem(item.style)
 
@@ -13,9 +13,20 @@ export default {
             }
         })
 
-        bg.height = convertRem({height: bg.height}).height
+        let img = new Image()
 
-        commit(types.INIT_LOTTERY, {modules, bg})
+        img.onload = function () {
+            bg.style.minHeight = `${img.naturalHeight}px`
+            dispatch('updateBg', bg)
+        }
+        img.src    = bg.src
+
+        commit(types.INIT_LOTTERY, {modules, name, bg})
+    },
+
+    updateBg ({commit, state}, bg) {
+        convertRem(bg.style)
+        commit(types.UPDATE_BG, bg)
     },
 
     updateModule ({commit, state}, {module}) {
