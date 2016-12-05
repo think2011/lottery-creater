@@ -45,16 +45,17 @@
                     </el-popover>
                 </div>
 
-                <el-popover
-                        ref="popover1"
-                        placement="right"
-                        width="350"
-                        trigger="hover">
-                    <el-button
-                            slot="reference"
-                            type="primary" icon="plus">添加模块
-                    </el-button>
-                </el-popover>
+                <!-- TODO ZH 12/5/16  -->
+                <!--   <el-popover
+                           ref="popover1"
+                           placement="right"
+                           width="350"
+                           trigger="hover">
+                       <el-button
+                               slot="reference"
+                               type="primary" icon="plus">添加模块
+                       </el-button>
+                   </el-popover>-->
             </li>
             <li v-for="item in modules">
                 <a @mouseover="mapActiveModule(item)"

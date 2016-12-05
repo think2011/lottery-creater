@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="actions">
+            <el-button @click="save" type="success" size="large">下载PSD</el-button>
             <el-button @click="save" type="primary" size="large">保存模板</el-button>
             <el-button type="text">退出编辑器</el-button>
         </div>
