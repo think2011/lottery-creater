@@ -1,15 +1,19 @@
 module.exports = {
     bg     : {
-        height: 1108,
-        src   : 'https://img.alicdn.com/imgextra/i3/92779311/TB2SLQmbxaJ.eBjSsziXXaJ_XXa-92779311.png',
+        src   : '//img.alicdn.com/imgextra/i4/92779311/TB2zrSjXwxlpuFjy0FoXXa.lXXa-92779311.jpg',
+        style: {
+          backgroundColor:"#85b746"
+        }
     },
     modules: [
         {
             "type" : "toShop",
             "alias": "店铺链接",
             "style": {
-                "width" : "1.7066666666666666rem",
-                "height": "1.0666666666666667rem"
+                "width" : "148px",
+                "height": "47px",
+                "top":"33px",
+                "left":"0"
             },
             "data" : {}
         },
@@ -21,7 +25,7 @@ module.exports = {
                 "left": "1.5146666666666666rem"
             },
             "data" : {
-                "src": "https://img.alicdn.com/imgextra/i2/92779311/TB22cQobCiJ.eBjSspoXXcpMFXa-92779311.png"
+
             }
         },
         {
@@ -32,26 +36,26 @@ module.exports = {
                     "type" : "bg",
                     "alias": "转盘背景",
                     "style": {
-                        "width" : "10.6667rem",
-                        "height": "10.6667rem",
-                        "top"   : "7.104000000000001rem",
-                        "left"  : "2.1546666666666665rem"
+                        "width" : "580px",
+                        "height": "580px",
+                        "top"   : "250px",
+                        "left"  : "85px"
                     },
                     "data" : {
-                        "src": "//img.alicdn.com/imgextra/i1/26914588/TB2CvXsXF95V1Bjy0FfXXXvlFXa-26914588.png"
+                        "src": "//img.alicdn.com/imgextra/i2/92779311/TB2wfiiXCxjpuFjSszeXXaeMVXa-92779311.png"
                     }
                 },
                 {
                     "type" : "pointer",
                     "alias": "指针(抽奖按钮)",
                     "style": {
-                        "width" : "3.43467rem",
-                        "height": "6.03733rem",
-                        "top"   : "9.152rem",
-                        "left"  : "5.696rem"
+                        "width" : "248px",
+                        "height": "248px",
+                        "top"   : "420px",
+                        "left"  : "251px"
                     },
                     "data" : {
-                        "src": "//img.alicdn.com/imgextra/i3/26914588/TB2XEFtaXHzQeBjSZFuXXanUpXa-26914588.png"
+                        "src": "//img.alicdn.com/imgextra/i4/92779311/TB2l28iXS4mpuFjSZFOXXaUqpXa-92779311.png"
                     }
                 }
             ],
@@ -79,10 +83,10 @@ module.exports = {
             "type" : "drawTotal",
             "alias": "抽奖次数",
             "style": {
-                "width" : "4.672rem",
-                "height": "2.19733rem",
-                "left"  : "0.9813333333333333rem",
-                "top"   : "4.096rem"
+                "width" : "300px",
+                "height": "30px",
+                "left"  : "225px",
+                "top"   : "210px"
             },
             "data" : {}
         },
@@ -103,10 +107,10 @@ module.exports = {
                     "type" : "shopping",
                     "alias": "加购",
                     "style": {
-                        "width" : "3.925333333333333rem",
-                        "height": "3.285333333333333rem",
-                        "top"   : "6.4rem",
-                        "left"  : "4.906666666666667rem"
+                      "width" : "124px",
+                      "height": "48px",
+                      "top"   : "890px",
+                        "left"  : "110px"
                     },
                     "data" : {}
                 },
@@ -114,10 +118,10 @@ module.exports = {
                     "type" : "collect",
                     "alias": "收藏",
                     "style": {
-                        "width" : "1.7066666666666666rem",
-                        "height": "1.0666666666666667rem",
-                        "top"   : "6.826666666666666rem",
-                        "left"  : "2.7733333333333334rem"
+                        "width" : "124px",
+                        "height": "48px",
+                        "top"   : "890px",
+                        "left"  : "246px"
                     },
                     "data" : {}
                 },
@@ -125,10 +129,10 @@ module.exports = {
                     "type" : "share",
                     "alias": "分享",
                     "style": {
-                        "width" : "3.84rem",
-                        "height": "1.0666666666666667rem",
-                        "top"   : "6.826666666666666rem",
-                        "left"  : "2.7733333333333334rem"
+                      "width" : "124px",
+                      "height": "48px",
+                      "top"   : "890px",
+                        "left"  : "380px"
                     },
                     "data" : {}
                 },
@@ -136,10 +140,10 @@ module.exports = {
                     "type" : "order",
                     "alias": "下单",
                     "style": {
-                        "width" : "3.84rem",
-                        "height": "1.0666666666666667rem",
-                        "top"   : "6.826666666666666rem",
-                        "left"  : "2.7733333333333334rem"
+                      "width" : "124px",
+                      "height": "48px",
+                      "top"   : "890px",
+                        "left"  : "516px"
                     },
                     "data" : {}
                 }
@@ -149,10 +153,10 @@ module.exports = {
             "type" : "luckyList",
             "alias": "中奖名单",
             "style": {
-                "width" : "5.22667rem",
-                "height": "1.152rem",
-                "top"   : "4.714666666666667rem",
-                "left"  : "10.133333333333333rem"
+                "width" : "400px",
+                "height": "30px",
+                "top"   : "980px",
+                "left"  : "250px"
             },
             "data" : {
                 "type": 1
@@ -162,9 +166,10 @@ module.exports = {
             "type" : "rule",
             "alias": "游戏规则",
             "style": {
-                "width" : "1.7066666666666666rem",
-                "height": "1.0666666666666667rem",
-                "left"  : "4.266666666666667rem"
+                "width" : "119px",
+                "height": "47px",
+                "top":"33px",
+                "right"  : "0"
             },
             "data" : {
                 "type": 1
