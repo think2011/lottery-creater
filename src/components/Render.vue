@@ -14,10 +14,9 @@
 <script type="text/ecmascript-6">
     import modules from '../modules'
     import {mapActions, mapGetters, mapState} from 'vuex'
-    import resize from './Resize.vue'
 
     export default {
-        components: {...modules, resize},
+        components: {...modules},
 
         data () {
             return {

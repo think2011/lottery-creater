@@ -19,7 +19,28 @@
         },
 
         created() {
-            this.initLottery(window.lotteryConfig)
+            // 临时开发
+            if (window.QUERYSTRING.tpl) {
+                this.initLottery(require(`../templates/tpl-${window.QUERYSTRING.tpl}.js`))
+            }
+            // 用户编辑
+            else if (window.top !== window.self) {
+                window.addEventListener('message', () => {
+                    let res = window.event.data
+
+                    switch (res.type) {
+                        case 'model':
+                            this.initLottery(res.data)
+                            break;
+
+                        default:
+                        //
+                    }
+                })
+            }
+            else {
+                throw new Error('初始化失败')
+            }
         },
 
         methods: {
