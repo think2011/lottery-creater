@@ -5,7 +5,6 @@
                 <div>
                     <el-popover
                             @show="showBGCfg"
-                            @hide="hideBGCfg"
                             ref="popover1"
                             placement="right"
                             width="350"
@@ -206,6 +205,12 @@
             ])
         },
 
+        watch: {
+            bgHeight(newVal) {
+                this.bg.style.height = `${window.hotcss.px2rem(parseFloat(newVal), 750)}rem`
+            }
+        },
+
         methods: {
             toggleDel(item, state) {
                 item._del = state
@@ -215,10 +220,6 @@
 
             showBGCfg() {
                 this.bgHeight = window.hotcss.rem2px(parseFloat(this.bg.style.height), 750).toFixed(2)
-            },
-
-            hideBGCfg() {
-                this.bg.style.height = `${window.hotcss.px2rem(parseFloat(this.bgHeight), 750)}rem`
             },
 
             mapActiveModule(item) {
