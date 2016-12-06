@@ -38,7 +38,7 @@
                 let transform = `rotate(${this.gameData.curPrize.deg}deg) translate3d(0,0,0)`
 
                 return {
-                    transition         : 'transform 0.3s ease',
+                    transition         : 'transform 0.3s linear',
                     'will-change'      : 'transform',
                     '-webkit-transform': transform,
                     transform,
