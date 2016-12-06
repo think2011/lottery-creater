@@ -13,8 +13,8 @@ export default {
             }
         })
 
-        let img = new Image()
-
+        // 更新背景尺寸
+        let img    = new Image()
         img.onload = function () {
             bg.style.minHeight = `${img.naturalHeight}px`
             dispatch('updateBg', bg)

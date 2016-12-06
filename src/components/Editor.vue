@@ -3,7 +3,7 @@
         <section class="container">
             <module-list></module-list>
 
-            <div class="main">
+            <div :style="bgStyle" class="main">
                 <resize
                         :class="{active:curModule === item}"
                         v-for="(item,index) in builtModules"
@@ -73,7 +73,8 @@
                 'temp'
             ]),
             ...mapGetters([
-                'builtModules'
+                'builtModules',
+                'bgStyle'
             ])
         },
 

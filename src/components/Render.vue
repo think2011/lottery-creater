@@ -1,5 +1,5 @@
 <template>
-    <div class="render-container">
+    <div :style="bgStyle" class="render-container">
         <component class="module"
                    v-for="(item,index) in builtModules"
                    :module="item"
@@ -25,12 +25,17 @@
             }
         },
 
+        created() {
+            $('body').css('background', this.bgStyle.backgroundColor)
+        },
+
         computed: {
             ...mapState([
                 'modules'
             ]),
             ...mapGetters([
-                'builtModules'
+                'builtModules',
+                'bgStyle'
             ])
         },
 

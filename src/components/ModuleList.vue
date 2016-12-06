@@ -4,6 +4,8 @@
             <li class="actions">
                 <div>
                     <el-popover
+                            @show="showBGCfg"
+                            @hide="hideBGCfg"
                             ref="popover1"
                             placement="right"
                             width="350"
@@ -15,7 +17,19 @@
                                     背景图片
                                     <el-tooltip>
                                         <div slot="content">
-                                            淘宝规定仅能使用 图片空间 的地址
+                                            <ul>
+                                                <li>
+                                                    1. 淘宝规定仅能使用 图片空间 的地址
+                                                </li>
+                                                <li>
+                                                    2. 背景可能不够一屏显示时, 请配置合适的背景颜色
+                                                </li>
+                                                <li>
+                                                    <img src="../assets/img/tips-1.png" alt="">
+                                                </li>
+                                            </ul>
+
+
                                         </div>
 
                                         <i class="el-icon-information"></i>
@@ -23,24 +37,12 @@
                                 </label>
 
                                 <div class="el-form-item__content">
-                                    <el-col :span="16">
+                                    <el-col :span="20">
                                         <el-input v-model="bg.src"></el-input>
                                     </el-col>
-                                    <el-col :offset="1" :span="7">
-                                        <el-input v-model="bg.height">
-                                            <template slot="append">px</template>
-                                        </el-input>
+                                    <el-col :offset="1" :span="3">
+                                        <color-picker v-model="bg.style.backgroundColor"></color-picker>
                                     </el-col>
-                                </div>
-                            </div>
-
-                            <div class="el-form-item">
-                                <label class="el-form-item__label">
-                                    背景颜色
-                                </label>
-
-                                <div class="el-form-item__content">
-                                    <color-picker v-model="color"></color-picker>
                                 </div>
                             </div>
                         </el-form>
@@ -145,7 +147,7 @@
 
         data () {
             return {
-                color: '#194d33'
+                bgHeight: null
             }
         },
 
@@ -171,12 +173,6 @@
                 return module
             },
 
-            bgHeight: {
-                get() {
-                    return window.hotcss.rem2px(parseFloat(this.bg.style.height), 750)
-                }
-            },
-
             ...mapState([
                 'modules',
                 'curModule',
@@ -192,6 +188,14 @@
                 item._del = state
                 if (!item._isChild) this.modules[this.modules.indexOf(item)]._del = state
                 this.$forceUpdate()
+            },
+
+            showBGCfg() {
+                this.bgHeight = window.hotcss.rem2px(parseFloat(this.bg.style.height), 750).toFixed(2)
+            },
+
+            hideBGCfg() {
+                this.bg.style.height = `${window.hotcss.px2rem(parseFloat(this.bgHeight), 750)}rem`
             },
 
             mapActiveModule(item) {
