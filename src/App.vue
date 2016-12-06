@@ -40,8 +40,13 @@
 
                 window.parent.opener.postMessage({type: 'init'}, '*')
             }
+            // 正式使用
             else {
-                throw new Error('初始化失败')
+                try {
+                    this.initLottery(window.lotteryConfig)
+                } catch (err) {
+                    console.error('初始化失败，没有找到【lotteryConfig】字段')
+                }
             }
         },
 

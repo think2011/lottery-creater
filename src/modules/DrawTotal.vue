@@ -1,6 +1,8 @@
 <template>
     <div class="draw-total flex-center">
-        您还有<span>{{gameData.drawTotal}}</span>次抽奖机会
+        <span :style="data.descStyle">
+            您还有<span :style="data.timeStyle">{{gameData.drawTotal}}</span>次抽奖机会
+        </span>
     </div>
 </template>
 
@@ -15,6 +17,9 @@
 
         data () {
             return {}
+        },
+
+        created() {
         },
 
         methods: {},

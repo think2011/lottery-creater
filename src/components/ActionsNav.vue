@@ -71,6 +71,7 @@
                 'modules',
                 'curModule',
                 'psdPath',
+                'bg',
                 'name',
             ]),
             ...mapGetters([
@@ -92,8 +93,9 @@
                     this.loading = true
                     window.parent.opener.postMessage({
                         type: 'create', data: {
-                            name: this.model.name,
-                            bg  : this.bg,
+                            name   : this.model.name,
+                            bg     : this.bg,
+                            psdPath: this.psdPath,
                             modules
                         }
                     }, '*')

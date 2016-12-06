@@ -20,7 +20,7 @@ export default {
     },
 
     [types.UPDATE_BG](state, bg) {
-        state.bg = {...state.bg, bg}
+        state.bg = bg
     },
 
     [types.SET_ACTIVE_MODULE](state, {module}) {

@@ -54,7 +54,16 @@ module.exports = {
         "type" : "drawTotal",
         "alias": "抽奖次数",
         "style": {"width": "4.672rem", "height": "2.19733rem", "left": "0.9813333333333333rem", "top": "4.096rem"},
-        "data" : {}
+        "data" : {
+            descStyle: {
+                fontSize: '24px',
+                color   : '#0C9EB5'
+            },
+            timeStyle: {
+                fontSize: '28px',
+                color   : '#FE696A'
+            }
+        }
     }, {
         "type" : "myPrize",
         "alias": "我的奖品",
