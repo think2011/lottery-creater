@@ -24,7 +24,7 @@
                 this.initLottery(require(`../templates/tpl-${window.QUERYSTRING.tpl}.js`))
             }
             // 用户编辑
-            else if (window.top !== window.self) {
+            else if (window.parent.opener) {
                 window.addEventListener('message', () => {
                     let res = window.event.data
 
@@ -37,6 +37,8 @@
                         //
                     }
                 })
+
+                window.parent.opener.postMessage({type: 'init'}, '*')
             }
             else {
                 throw new Error('初始化失败')

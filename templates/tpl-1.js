@@ -1,9 +1,10 @@
 module.exports = {
-    name   : '123',
+    name   : '',
+    psdPath: '下载测试而已',
     bg     : {
         src  : 'https://img.alicdn.com/imgextra/i3/92779311/TB2SLQmbxaJ.eBjSsziXXaJ_XXa-92779311.png',
         style: {
-            height:'1108px',
+            height         : '1108px',
             backgroundColor: '#eee'
         }
     },

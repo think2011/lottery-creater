@@ -2,7 +2,7 @@
     <div>
         <div class="actions">
             <div v-if="psdPath">
-                <a :href="psdPath" class="el-button el-button--success el-button--large">下载PSD</a>
+                <a :href="psdPath" target="_blank" class="el-button el-button--success el-button--large">下载PSD</a>
                 <div class="line"></div>
             </div>
 
@@ -54,7 +54,7 @@
             return {
                 isShowSave: false,
                 model     : {
-                    name: '我的自定义模板'
+                    name: ''
                 },
                 rules     : {
                     name: [
@@ -70,11 +70,16 @@
             ...mapState([
                 'modules',
                 'curModule',
-                'psdPath'
+                'psdPath',
+                'name',
             ]),
             ...mapGetters([
                 'builtModules'
             ])
+        },
+
+        created() {
+            this.model.name = this.name || '我的自定义模板'
         },
 
         methods: {
@@ -85,7 +90,7 @@
                     let modules = clear(JSON.parse(JSON.stringify(this.modules)))
 
                     this.loading = true
-                    window.top.postMessage({
+                    window.parent.opener.postMessage({
                         type: 'create', data: {
                             name: this.model.name,
                             bg  : this.bg,
@@ -111,7 +116,7 @@
             },
 
             close() {
-                window.top.postMessage({type: 'close'}, '*')
+                window.parent.opener.postMessage({type: 'close'}, '*')
             },
 
             ...mapActions([
