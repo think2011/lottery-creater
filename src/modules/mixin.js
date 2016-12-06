@@ -101,7 +101,6 @@ export default {
             let that = this
             let act  = that.act
 
-            // TODO ZH 12/2/16 下单抽奖
             switch (type) {
                 case 'shopping':
                 case 'collect':
@@ -112,11 +111,26 @@ export default {
 
                     gameDialog.doTask(type, params, function (res) {
                         if (res.data.appendCount) {
+                            that.SET_DRAW_TOTAL(that.gameData.drawTotal + res.data.appendCount)
                             $.toast("成功增加" + res.data.appendCount + "次抽奖机会");
                         } else if (res.data.maxLimit && res.data.maxCount) {
                             $.toast("对不起, 最多只能奖励" + res.data.maxCount + "次抽奖机会");
                         }
                     })
+                    break;
+
+                case 'order':
+                    gameDialog.buy(act.extraCount, function (res) {
+                        if (res.success) {
+                            var appendCount = res.data.remainCount - that.gameData.drawTotal;
+                            if (appendCount > 0) {
+                                $.toast("成功增加" + appendCount + "次抽奖机会");
+                                that.SET_DRAW_TOTAL(res.data.remainCount)
+                                return;
+                            }
+                        }
+                        $.toast("没有新的抽奖机会");
+                    });
                     break;
 
                 case 'share':

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-center">
+    <div class="draw-total flex-center">
         您还有<span>{{gameData.drawTotal}}</span>次抽奖机会
     </div>
 </template>
@@ -22,5 +22,7 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-
+    .draw-total {
+        white-space: nowrap;
+    }
 </style>
