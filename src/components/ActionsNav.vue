@@ -1,7 +1,10 @@
 <template>
     <div>
         <div class="actions">
-            <a :href="psdPath" class="el-button el-button--success el-button--large" @click="save">下载PSD</a>
+            <div v-if="psdPath">
+                <a :href="psdPath" class="el-button el-button--success el-button--large">下载PSD</a>
+                <div class="line"></div>
+            </div>
 
             <el-button @click="isShowSave=true;loading=false" type="primary" size="large">保存模板</el-button>
 
@@ -138,7 +141,7 @@
             margin-bottom: 10px;
         }
 
-        button {
+        .el-button {
             width: 100%;
             text-align: center;
             display: block;
