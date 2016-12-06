@@ -1,10 +1,12 @@
 import * as types from './mutation-types'
 
 export default {
-    [types.INIT_LOTTERY](state, {modules, name, bg}) {
-        state.bg      = bg
-        state.modules = modules
-        state.name    = name
+    [types.INIT_LOTTERY](state, config) {
+        for (let p in config) {
+            if (!config.hasOwnProperty(p)) continue;
+
+            state[p] = config[p]
+        }
     },
 
     [types.UPDATE_MODULE](state, {module}) {

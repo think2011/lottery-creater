@@ -1,7 +1,8 @@
 <template>
     <div>
         <div class="actions">
-            <el-button @click="save" type="success" size="large">下载PSD</el-button>
+            <a :href="psdPath" class="el-button el-button--success el-button--large" @click="save">下载PSD</a>
+
             <el-button @click="isShowSave=true;loading=false" type="primary" size="large">保存模板</el-button>
 
             <el-popover
@@ -66,7 +67,7 @@
             ...mapState([
                 'modules',
                 'curModule',
-                'temp'
+                'psdPath'
             ]),
             ...mapGetters([
                 'builtModules'
@@ -113,9 +114,7 @@
             ...mapActions([
                 'updateModule',
                 'activeModule',
-            ]),
-
-            ...mapMutations([])
+            ])
         }
     }
 </script>

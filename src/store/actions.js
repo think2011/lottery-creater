@@ -2,7 +2,9 @@ import {convertRem} from '../assets/js/common'
 import * as types from './mutation-types'
 
 export default {
-    initLottery({commit, dispatch, state}, {modules, name, bg}) {
+    initLottery({commit, dispatch, state}, config) {
+        let {modules, name, bg} = config
+
         modules.forEach((item) => {
             if (item.style) convertRem(item.style)
 
@@ -21,7 +23,7 @@ export default {
         }
         img.src    = bg.src
 
-        commit(types.INIT_LOTTERY, {modules, name, bg})
+        commit(types.INIT_LOTTERY, config)
     },
 
     updateBg ({commit, state}, bg) {
