@@ -1,8 +1,7 @@
 module.exports = {
     bg     : {
-       /* height: 2018,*/
         src   : '//img.alicdn.com/imgextra/i3/92779311/TB297o8XxlmpuFjSZPfXXc9iXXa-92779311.png',
-        style: {
+        style: {height:'1108px',
           backgroundColor:"#fff"
         }
     },
