@@ -5,13 +5,11 @@
                 <div>
                     <el-popover
                             @show="showBGCfg"
-                            @hide="hideBGCfg"
                             ref="popover1"
                             placement="right"
                             width="350"
                             trigger="hover">
                         <el-form label-position="top">
-
                             <div class="el-form-item">
                                 <label class="el-form-item__label">
                                     背景图片
@@ -19,17 +17,9 @@
                                         <div slot="content">
                                             <ul>
                                                 <li>
-                                                    1. 淘宝规定仅能使用 图片空间 的地址
-                                                </li>
-                                                <li>
-                                                    2. 背景可能不够一屏显示时, 请配置合适的背景颜色
-                                                </li>
-                                                <li>
-                                                    <img src="../assets/img/tips-1.png" alt="">
+                                                    淘宝规定仅能使用 图片空间 的地址
                                                 </li>
                                             </ul>
-
-
                                         </div>
 
                                         <i class="el-icon-information"></i>
@@ -37,12 +27,44 @@
                                 </label>
 
                                 <div class="el-form-item__content">
-                                    <el-col :span="20">
+                                    <el-col :span="15">
                                         <el-input v-model="bg.src"></el-input>
                                     </el-col>
-                                    <el-col :offset="1" :span="3">
-                                        <color-picker v-model="bg.style.backgroundColor"></color-picker>
+                                    <el-col :offset="1" :span="8">
+                                        <el-tooltip>
+                                            <div slot="content">
+                                                页面高度
+                                            </div>
+
+                                            <el-input v-model="bgHeight">
+                                                <template slot="append">px</template>
+                                            </el-input>
+                                        </el-tooltip>
                                     </el-col>
+                                </div>
+                            </div>
+
+                            <div class="el-form-item">
+                                <label class="el-form-item__label">
+                                    背景颜色
+                                    <el-tooltip>
+                                        <div slot="content">
+                                            <ul>
+                                                <li>
+                                                    有些设备上背景可能不足一屏显示, 请配置合适的背景颜色
+                                                </li>
+                                                <li>
+                                                    <br>
+                                                    <img src="../assets/img/tips-1.png" alt="">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <i class="el-icon-information"></i>
+                                    </el-tooltip>
+                                </label>
+
+                                <div class="el-form-item__content">
+                                    <color-picker v-model="bg.style.backgroundColor"></color-picker>
                                 </div>
                             </div>
                         </el-form>
@@ -183,6 +205,12 @@
             ])
         },
 
+        watch: {
+            bgHeight(newVal) {
+                this.bg.style.height = `${window.hotcss.px2rem(parseFloat(newVal), 750)}rem`
+            }
+        },
+
         methods: {
             toggleDel(item, state) {
                 item._del = state
@@ -192,10 +220,6 @@
 
             showBGCfg() {
                 this.bgHeight = window.hotcss.rem2px(parseFloat(this.bg.style.height), 750).toFixed(2)
-            },
-
-            hideBGCfg() {
-                this.bg.style.height = `${window.hotcss.px2rem(parseFloat(this.bgHeight), 750)}rem`
             },
 
             mapActiveModule(item) {

@@ -97,7 +97,7 @@
                     },
                     // call this function on every dragend event
                     onend : function (event) {
-//                        that.$emit('update', that.getPosition(event))
+                        that.$emit('update', that.getPosition(event))
                     }
                 })
                 .resizable({
@@ -136,6 +136,7 @@
                         // update the position attributes
                         target.setAttribute('data-x', x);
                         target.setAttribute('data-y', y);
+                        that.$emit('update', that.getPosition(event))
                     },
 
                     onend: function (event) {

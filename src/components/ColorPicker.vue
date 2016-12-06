@@ -1,11 +1,17 @@
 <template>
     <div class="color-container">
-        <el-popover
-                class="color-popover"
-                trigger="hover">
-            <chrome-picker v-model="value" @change-color="onChange"></chrome-picker>
-            <span slot="reference" :style="{background:value}" class="color"></span>
-        </el-popover>
+        <el-col :span="8">
+            <el-input v-model="value"></el-input>
+        </el-col>
+        <el-col :offset="1" :span="5">
+            <span :style="{background:value}" class="color"></span>
+        </el-col>
+        <!--  <el-popover
+                  class="color-popover"
+                  trigger="hover">
+              <chrome-picker v-model="value" @change-color="onChange"></chrome-picker>
+
+          </el-popover>-->
     </div>
 </template>
 

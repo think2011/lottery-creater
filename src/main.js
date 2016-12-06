@@ -15,11 +15,6 @@ window.QUERYSTRING = (function () {
 
 window.DEV_MODE = !!window.QUERYSTRING.dev
 
-// 临时开发模板用
-if (window.QUERYSTRING.tpl) {
-    window.lotteryConfig = require(`../templates/tpl-${window.QUERYSTRING.tpl}.js`)
-}
-
 $(function () {
     FastClick.attach(document.body)
 })

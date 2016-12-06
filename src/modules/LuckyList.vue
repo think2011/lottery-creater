@@ -47,7 +47,7 @@
                                 giftName : item.giftName
                             })
                         } else {
-                            html = '<li>${time}　${buyerNick}**获得${giftName}</li>'.render({
+                            html = '<li><span>${time}</span>　<span>${buyerNick}**获得${giftName}</span></li>'.render({
                                 time     : item.drawTime,
                                 buyerNick: item.buyerNick[0],
                                 giftName : item.giftName
@@ -93,6 +93,10 @@
         &.type2 {
             li {
                 margin-bottom: px2rem(5);
+
+                span:first-child {
+                    margin-right: px2rem(20);
+                }
             }
         }
 
