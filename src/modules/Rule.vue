@@ -2,7 +2,7 @@
     <div>
         <div @click="show" v-if="data.type === 1">
         </div>
-        <div v-if="data.type === 2">
+        <div :style="data.textStyle" v-if="data.type === 2">
             <pre>{{gameData.rule}}</pre>
         </div>
     </div>
@@ -49,7 +49,6 @@
     @import "../assets/styles/common";
 
     pre {
-        line-height: px2rem(35);
         word-wrap: break-word;
         white-space: pre-wrap;
     }

@@ -88,7 +88,17 @@ module.exports = {
                 "top"   : "210px",
                 "color" : "#555"
             },
-            "data" : {}
+            "data" : {
+                descStyle: {
+                    fontSize: '28px',
+                    color   : '#fff',
+                },
+
+                timeStyle: {
+                    fontSize: '30px',
+                    color   : 'skyblue',
+                },
+            }
         },
         {
             "type" : "myPrize",
@@ -172,7 +182,12 @@ module.exports = {
                 "right" : "0"
             },
             "data" : {
-                "type": 1
+                "type"   : 1,
+                textStyle: {
+                    fontSize  : '200px',
+                    lineHeight: '1.5',
+                    color     : 'skyblue'
+                }
             }
         }
     ]

@@ -5,10 +5,10 @@
                 <div class="property">{{styleMap[key]}}</div>
                 <div v-show="!(editIndex === $index)"
                      @click="edit($index)"
-                     class="value">{{val}}
+                     class="value">{{val || '默认'}}
                 </div>
                 <div v-if="editIndex === $index">
-                    <input @blur="editIndex = null" ref="input" type="text" v-model="value[key]">
+                    <input @key.enter="say" @blur="editIndex = null" ref="input" type="text" v-model="value[key]">
                 </div>
             </li>
         </ul>
@@ -30,11 +30,13 @@
         data () {
             return {
                 styleMap : {
-                    width : '宽度',
-                    height: '高度',
-                    left  : 'X坐标',
-                    top   : 'Y坐标',
-                    color : '颜色',
+                    width     : '宽度',
+                    height    : '高度',
+                    left      : 'X坐标',
+                    top       : 'Y坐标',
+                    color     : '颜色',
+                    fontSize  : '字体大小',
+                    lineHeight: '上下间距',
                 },
                 editIndex: null
             }

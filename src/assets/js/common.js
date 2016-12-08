@@ -29,9 +29,9 @@ export const convertPx = function (style) {
         if (!style.hasOwnProperty(p)) continue;
         let property = style[p]
 
-        // 转换单位为rem
+        // 转换单位为px
         if (`${property}`.endsWith('rem')) {
-            style[p] = `${window.hotcss.rem2px(parseFloat(property), 750)}px`
+            style[p] = `${window.hotcss.rem2px(parseFloat(property), 750).toFixed(2)}px`
         }
     }
 

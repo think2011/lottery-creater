@@ -1,8 +1,12 @@
 <template>
     <div>
         <el-form label-position="top">
-            <el-form-item label="样式">
-                <style-editor v-model="pStyle"></style-editor>
+            <el-form-item label="描述样式">
+                <style-editor v-model="data.descStyle"></style-editor>
+            </el-form-item>
+
+            <el-form-item label="次数样式">
+                <style-editor v-model="data.timeStyle"></style-editor>
             </el-form-item>
         </el-form>
     </div>

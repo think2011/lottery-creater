@@ -6,7 +6,7 @@ export default {
         let {modules, name, bg} = config
 
         modules.forEach((item) => {
-            // if (item.style) convertRem(item.style)
+            if (item.style) convertRem(item.style)
 
             if (item.children) {
                 item.children.forEach((childItem) => {
@@ -22,12 +22,13 @@ export default {
             dispatch('updateBg', bg)
         }
         img.src    = bg.src
+        dispatch('updateBg', bg)
 
         commit(types.INIT_LOTTERY, config)
     },
 
     updateBg ({commit, state}, bg) {
-        // convertRem(bg.style)
+        convertRem(bg.style)
         commit(types.UPDATE_BG, bg)
     },
 

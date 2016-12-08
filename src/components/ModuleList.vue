@@ -5,7 +5,6 @@
                 <div>
                     <el-popover
                             @show="showBGCfg"
-                            ref="popover1"
                             placement="right"
                             width="350"
                             trigger="hover">

@@ -154,6 +154,7 @@
 
                     &.active {
                         cursor: move;
+                        z-index: 100;
                     }
 
                     > :first-child {
