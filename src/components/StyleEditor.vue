@@ -8,7 +8,11 @@
                      class="value">{{val || '默认'}}
                 </div>
                 <div v-show="editIndex === $index">
-                    <input @key.a="next" @blur="editIndex = null" ref="input" type="text" v-model="value[key]">
+                    <input @keydown.enter="stopPrevDefault"
+                           @blur="editIndex = null"
+                           ref="input"
+                           type="text"
+                           v-model="value[key]">
                 </div>
             </li>
         </ul>
@@ -50,14 +54,15 @@
 
         methods: {
             edit(index) {
-                this.editIndex = index
                 setTimeout(() => {
+                    this.editIndex = index
                     this.$refs.input[index].focus()
                 }, 0)
             },
 
-            next(index) {
-                console.log('yes')
+            stopPrevDefault() {
+                window.event.preventDefault()
+                this.editIndex = null
             }
         },
     }
