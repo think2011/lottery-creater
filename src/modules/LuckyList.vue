@@ -1,5 +1,5 @@
 <template>
-    <ul class="list" :class="['type' + data.type]"></ul>
+    <ul :style="data.textStyle" class="list" :class="['type' + data.type]"></ul>
 </template>
 
 <script type="text/ecmascript-6">

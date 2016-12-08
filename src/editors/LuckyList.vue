@@ -6,6 +6,10 @@
                 <el-radio :label="2">往上滚动</el-radio>
             </el-radio-group>
         </el-form-item>
+
+        <el-form-item label="样式">
+            <style-editor v-model="data.textStyle"></style-editor>
+        </el-form-item>
     </el-form>
 </template>
 

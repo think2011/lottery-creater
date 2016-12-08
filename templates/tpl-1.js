@@ -22,8 +22,8 @@ module.exports = {
             "type" : "pic",
             "alias": "标题",
             "style": {
-                "top" : "1.088rem",
-                "left": "1.5146666666666666rem"
+                "top" : "0",
+                "left": "0"
             },
             "data" : {}
         },
@@ -104,8 +104,8 @@ module.exports = {
             "type" : "myPrize",
             "alias": "我的奖品",
             "style": {
-                "width" : "1.7066666666666666rem",
-                "height": "1.0666666666666667rem"
+                "width" : "0",
+                "height": "0"
             },
             "data" : {}
         },
@@ -169,7 +169,11 @@ module.exports = {
                 "left"  : "250px"
             },
             "data" : {
-                "type": 1
+                "type"   : 1,
+                textStyle: {
+                    fontSize: '16px',
+                    color   : '#fff'
+                }
             }
         },
         {

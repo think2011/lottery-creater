@@ -3,38 +3,33 @@ import * as types from './mutation-types'
 
 export default {
     initLottery({commit, dispatch, state}, config) {
-        let {modules, name, bg} = config
+        let {modules, name, bg, toRem} = config
 
-        modules.forEach((item) => {
-            if (item.style) convertRem(item.style)
+        if (toRem) {
+            (function convertRemFn(obj) {
+                if (Object.prototype.toString.call(obj) === '[object Array]') {
+                    obj.forEach(convertRemFn)
+                }
+                else if (Object.prototype.toString.call(obj) === '[object Object]') {
+                    for (let p in obj) {
+                        if (!obj.hasOwnProperty(p)) continue;
 
-            if (item.children) {
-                item.children.forEach((childItem) => {
-                    if (childItem.style) convertRem(childItem.style)
-                })
-            }
-        })
+                        if (/.*style$/gi.test(p)) {
+                            // 转换rem
+                            convertRem(obj[p])
+                        }
 
-        // 更新背景尺寸
-        let img    = new Image()
-        img.onload = function () {
-            bg.style.height = `${img.naturalHeight}px`
-            dispatch('updateBg', bg)
+                        // 子组件以及data
+                        if (/children|data/g.test(p)) convertRemFn(obj[p])
+                    }
+                }
+            })(modules)
         }
-        img.src    = bg.src
-        dispatch('updateBg', bg)
 
         commit(types.INIT_LOTTERY, config)
     },
 
-    updateBg ({commit, state}, bg) {
-        convertRem(bg.style)
-        commit(types.UPDATE_BG, bg)
-    },
-
     updateModule ({commit, state}, {module}) {
-        // if (module.style) convertRem(module.style)
-
         commit(types.UPDATE_MODULE, {module})
     },
 

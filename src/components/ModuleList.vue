@@ -89,7 +89,7 @@
                 </el-popover>
             </li>
             <li v-for="item in modules">
-                <a @mouseover="mapActiveModule(item)"
+                <a @mouseover="mapActiveModule(item);toPosition(item.style.top)"
                    :class="{'has-children':item.children, active:mapCurModule === item}"
                    href="javascript:">
                     {{item.alias}}
@@ -121,7 +121,7 @@
 
                 <ul>
                     <li v-for="childItem in item.children">
-                        <a @mouseover="mapActiveModule(childItem)"
+                        <a @mouseover="mapActiveModule(childItem);toPosition(childItem.style.top)"
                            :class="{active:mapCurModule === childItem}"
                            href="javascript:">
                             {{childItem.alias}}
@@ -227,6 +227,10 @@
                 this.activeModule({
                     module: this.builtModules.filter((builtItem) => builtItem.type === item.type)[0] || {}
                 })
+            },
+
+            toPosition(height) {
+                console.log(height)
             },
 
             ...mapActions([

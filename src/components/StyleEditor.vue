@@ -7,8 +7,8 @@
                      @click="edit($index)"
                      class="value">{{val || '默认'}}
                 </div>
-                <div v-if="editIndex === $index">
-                    <input @key.enter="say" @blur="editIndex = null" ref="input" type="text" v-model="value[key]">
+                <div v-show="editIndex === $index">
+                    <input @key.a="next" @blur="editIndex = null" ref="input" type="text" v-model="value[key]">
                 </div>
             </li>
         </ul>
@@ -52,8 +52,12 @@
             edit(index) {
                 this.editIndex = index
                 setTimeout(() => {
-                    this.$refs.input[0].focus()
+                    this.$refs.input[index].focus()
                 }, 0)
+            },
+
+            next(index) {
+                console.log('yes')
             }
         },
     }

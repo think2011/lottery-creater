@@ -1,7 +1,8 @@
 <template>
-    <resize @click="stopPropagation" class="property-container"
+    <resize @click="stopPropagation"
+            class="property-container"
             handle=".title"
-            v-show="curModuleInfo._alias"
+            v-show="curModuleInfo.data"
             :drag="true">
         <div class="close pull-right">
             <el-button @click="closeEditor" type="text">
@@ -63,8 +64,7 @@
 
             ...mapState([
                 'modules',
-                'curModule',
-                'temp'
+                'curModule'
             ]),
             ...mapGetters([
                 'builtModules'

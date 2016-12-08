@@ -21,7 +21,9 @@
         created() {
             // 临时开发
             if (window.QUERYSTRING.tpl) {
-                this.initLottery(require(`../templates/tpl-${window.QUERYSTRING.tpl}.js`))
+                let config = require(`../templates/tpl-${window.QUERYSTRING.tpl}.js`)
+
+                this.initLottery({...config, toRem:!this.DEV_MODE})
             }
             // 用户编辑
             else if (window.parent.opener) {
@@ -30,7 +32,7 @@
 
                     switch (res.type) {
                         case 'model':
-                            this.initLottery(res.data)
+                            this.initLottery({...res.data, toRem:!this.DEV_MODE})
                             break;
 
                         default:
@@ -43,7 +45,7 @@
             // 正式使用
             else {
                 try {
-                    this.initLottery(window.lotteryConfig)
+                    this.initLottery({...window.lotteryConfig, toRem:!this.DEV_MODE})
                 } catch (err) {
                     console.error('初始化失败，没有找到【lotteryConfig】字段')
                 }
