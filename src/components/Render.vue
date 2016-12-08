@@ -51,7 +51,6 @@
         margin: 0 auto;
         background: #F9FAFC;
         position: relative;
-        font-size: px2rem(16);
 
         .module {
             position: absolute;

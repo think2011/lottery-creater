@@ -85,7 +85,8 @@ module.exports = {
                 "width" : "300px",
                 "height": "30px",
                 "left"  : "225px",
-                "top"   : "210px"
+                "top"   : "210px",
+                "color" : "#555"
             },
             "data" : {}
         },

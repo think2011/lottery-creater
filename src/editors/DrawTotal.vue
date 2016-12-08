@@ -1,5 +1,10 @@
 <template>
     <div>
+        <el-form label-position="top">
+            <el-form-item label="样式">
+                <style-editor v-model="pStyle"></style-editor>
+            </el-form-item>
+        </el-form>
     </div>
 </template>
 

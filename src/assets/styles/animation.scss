@@ -1,0 +1,20 @@
+@keyframes rotateLoop {
+  from {
+    will-change: transform;
+    transform: rotate(0deg);
+  }
+
+  to {
+    will-change: transform;
+    transform: rotate(360deg);
+  }
+}
+
+.ani-paused {
+  animation-play-state: paused !important;
+}
+
+.ani-rotate-loop {
+  animation: rotateLoop 60s linear infinite;
+  animation-play-state: running;
+}

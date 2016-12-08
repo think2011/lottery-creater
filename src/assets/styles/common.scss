@@ -4,8 +4,21 @@
 
 $designWidth: 750;
 
+@import "./animation";
+
 .pull-right {
   float: right;
+}
+
+.clearfix {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
 }
 
 .flex-center {

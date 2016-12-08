@@ -6,7 +6,7 @@ export default {
         let {modules, name, bg} = config
 
         modules.forEach((item) => {
-            if (item.style) convertRem(item.style)
+            // if (item.style) convertRem(item.style)
 
             if (item.children) {
                 item.children.forEach((childItem) => {
@@ -27,12 +27,12 @@ export default {
     },
 
     updateBg ({commit, state}, bg) {
-        convertRem(bg.style)
+        // convertRem(bg.style)
         commit(types.UPDATE_BG, bg)
     },
 
     updateModule ({commit, state}, {module}) {
-        if (module.style) convertRem(module.style)
+        // if (module.style) convertRem(module.style)
 
         commit(types.UPDATE_MODULE, {module})
     },

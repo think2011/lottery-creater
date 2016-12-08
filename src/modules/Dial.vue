@@ -1,6 +1,9 @@
 <template>
     <div class="module-dial">
-        <div :style="degStyle" class="bg" v-if="type ==='bg'">
+        <div :style="degStyle"
+             class="bg ani-rotate-loop"
+             :class="{'ani-paused': drawing}"
+             v-if="type ==='bg'">
             <pic :module="module"
                  :style="tweenStyle"
                  :p-style="module.style"
@@ -64,14 +67,26 @@
 
         data () {
             return {
-                prizeId: null
+                prizeId  : null,
+                drawing  : false,
+                drawTween: new DrawTween({
+                        multipleValue: 360,
+                        startValue   : 0,
+                        endValue     : 360,
+                        startSpeed   : 1500,
+                        loopSpeed    : 1500 * 0.3,
+                        endSpeed     : 2500,
+                        minTime      : 3500,
+                        startEasing  : TWEEN.Easing.Quartic.In,
+                        loopEasing   : TWEEN.Easing.Linear.None,
+                        endEasing    : TWEEN.Easing.Quartic.Out,
+                    }
+                )
             }
         },
 
         methods: {
             draw() {
-                this.getPrizeDeg()
-
                 if (this.drawing) return
                 if (!this.checkTicket()) return
 
@@ -86,16 +101,19 @@
                     let prizeDeg = this.getPrizeDeg()
 
                     if (this.prizeDeg) {
-                        this.drawTween.stop(prizeDeg, () => {
-                            this.showLotteryResult(data)
-                            this.drawing = false
-                        })
+                        this.drawTween.stop(prizeDeg, stopFn.bind(this))
                     } else {
                         alert('慢慢转啊')
-                        this.showLotteryResult(data)
-                        this.drawing = false
+                        stopFn.bind(this)
                     }
                 })
+
+                function stopFn(data) {
+                    setTimeout(() => {
+                        this.showLotteryResult(data)
+                        this.drawing = false
+                    }, 500)
+                }
             },
 
             getPrizeDeg(id) {
@@ -134,19 +152,6 @@
         },
 
         created() {
-            this.drawTween = new DrawTween({
-                    multipleValue: 360,
-                    startValue   : 0,
-                    endValue     : 360,
-                    startSpeed   : 1500,
-                    loopSpeed    : 1500 * 0.3,
-                    endSpeed     : 2500,
-                    minTime      : 3500,
-                    startEasing  : TWEEN.Easing.Quartic.In,
-                    loopEasing   : TWEEN.Easing.Linear.None,
-                    endEasing    : TWEEN.Easing.Quartic.Out,
-                }
-            )
         }
     }
 </script>

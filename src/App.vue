@@ -61,6 +61,10 @@
 <style lang="scss" rel="stylesheet/scss">
     @import "./assets/styles/common";
 
+    body {
+        font-size: px2rem(32);
+    }
+
     .more-draw-time {
         .tasks {
             text-align: center;

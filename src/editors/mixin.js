@@ -1,7 +1,9 @@
 import {mapActions, mapState, mapGetters} from 'vuex'
 import Vue from 'vue'
+import StyleEditor from '../components/StyleEditor.vue'
 
 export default {
+    components:{StyleEditor},
     props: {
         module: Object,
         pStyle: Object,
