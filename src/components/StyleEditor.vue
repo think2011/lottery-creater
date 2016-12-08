@@ -54,8 +54,8 @@
 
         methods: {
             edit(index) {
+                this.editIndex = index
                 setTimeout(() => {
-                    this.editIndex = index
                     this.$refs.input[index].focus()
                 }, 0)
             },
