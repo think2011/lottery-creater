@@ -2,6 +2,7 @@
     <resize @click="stopPropagation"
             class="property-container"
             handle=".title"
+            restriction="body"
             v-show="curModuleInfo.data"
             :drag="true">
         <div class="close pull-right">
