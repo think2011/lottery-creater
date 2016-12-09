@@ -2,6 +2,7 @@
     <div class="module-dial">
         <div :style="degStyle"
              class="bg ani-rotate-loop"
+             :class="{'ani-paused':drawing}"
              v-if="type ==='bg'">
             <pic :module="module"
                  :style="tweenStyle"
@@ -111,7 +112,7 @@
                         if (prizeDeg !== null) {
                             this.drawTween.stop(prizeDeg, () => {
                                 setTimeout(() => {
-                                    stopFn.bind(this, data)
+                                    stopFn.call(this, data)
                                 }, 2000)
                             })
                         } else {
@@ -123,7 +124,7 @@
                     })
 
                 function stopFn(data) {
-                    this.showLotteryResult(data)
+                    data && this.showLotteryResult(data)
                     this.SET_DRAW_STATE(false)
                 }
             },
