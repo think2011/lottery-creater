@@ -24,6 +24,9 @@ export default {
                     }
                 }
             })(modules)
+
+            // 处理背景
+            convertRem(bg.style)
         }
 
         commit(types.INIT_LOTTERY, config)

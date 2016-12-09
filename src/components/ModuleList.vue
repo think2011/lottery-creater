@@ -4,7 +4,6 @@
             <li class="actions">
                 <div>
                     <el-popover
-                            @show="showBGCfg"
                             placement="right"
                             width="350"
                             trigger="hover">
@@ -35,9 +34,7 @@
                                                 页面高度
                                             </div>
 
-                                            <el-input v-model="bgHeight">
-                                                <template slot="append">px</template>
-                                            </el-input>
+                                            <el-input v-model="bg.style.height"></el-input>
                                         </el-tooltip>
                                     </el-col>
                                 </div>
@@ -204,21 +201,13 @@
             ])
         },
 
-        watch: {
-            bgHeight(newVal) {
-                this.bg.style.height = `${window.hotcss.px2rem(parseFloat(newVal), 750)}rem`
-            }
-        },
+        watch: {},
 
         methods: {
             toggleDel(item, state) {
                 item._del = state
                 if (!item._isChild) this.modules[this.modules.indexOf(item)]._del = state
                 this.$forceUpdate()
-            },
-
-            showBGCfg() {
-                this.bgHeight = window.hotcss.rem2px(parseFloat(this.bg.style.height), 750).toFixed(2)
             },
 
             mapActiveModule(item) {

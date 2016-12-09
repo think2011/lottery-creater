@@ -88,16 +88,16 @@
                 this.$refs.model.validate((valid) => {
                     if (!valid) return
 
-                    let modules = clear(JSON.parse(JSON.stringify(this.modules)))
+                    let data = {
+                        name   : this.model.name,
+                        bg     : this.bg,
+                        psdPath: this.psdPath,
+                        modules: clear(JSON.parse(JSON.stringify(this.modules)))
+                    }
 
                     this.loading = true
                     window.parent.opener.postMessage({
-                        type: 'create', data: {
-                            name   : this.model.name,
-                            bg     : this.bg,
-                            psdPath: this.psdPath,
-                            modules
-                        }
+                        type: 'create', data
                     }, '*')
                 })
 
