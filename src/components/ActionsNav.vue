@@ -95,6 +95,8 @@
                         modules: clear(JSON.parse(JSON.stringify(this.modules)))
                     }
 
+                    console.log(JSON.stringify(data))
+
                     this.loading = true
                     window.parent.opener.postMessage({
                         type: 'create', data
