@@ -194,10 +194,6 @@
 <style lang="scss" rel="stylesheet/scss">
     @import "../assets/styles/common";
 
-    .ani-rotate-loop {
-        animation: initial !important;
-    }
-
     .editor-dial {
         .el-tag {
             margin-right: 5px;

@@ -1,8 +1,7 @@
 <template>
     <div class="module-dial">
         <div :style="degStyle"
-             class="bg ani-rotate-loop"
-             :class="{'ani-paused':drawing}"
+             class="bg"
              v-if="type ==='bg'">
             <pic :module="module"
                  :style="tweenStyle"
@@ -73,37 +72,21 @@
         data () {
             return {
                 prizeId  : null,
-                drawTween: new DrawTween({
-                        multipleValue: 360,
-                        startValue   : 0,
-                        endValue     : 360,
-                        startSpeed   : 1500,
-                        loopSpeed    : 1500 * 0.3,
-                        endSpeed     : 2500,
-                        minTime      : 3500,
-                        startEasing  : TWEEN.Easing.Quartic.In,
-                        loopEasing   : TWEEN.Easing.Linear.None,
-                        endEasing    : TWEEN.Easing.Quartic.Out,
-                    }
-                )
+                drawTween: null
             }
         },
 
         methods: {
             draw() {
                 if (this.drawing) return
-                if (!this.checkTicket()) return
+//                if (!this.checkTicket()) return
 
                 let drawTween = this.drawTween
 
+                this.SET_DRAW_STATE(true)
                 drawTween.start(({value}) => {
                     this.SET_CUR_TWEEN_VALUE(value)
                 })
-
-                // 加一些延迟看起来是跟缓动是平滑进行的
-                setTimeout(() => {
-                    this.SET_DRAW_STATE(true)
-                }, 300)
 
                 this.drawLottery()
                     .then((data) => {
@@ -120,12 +103,13 @@
                         }
                     })
                     .catch(() => {
-                        this.drawTween.stop(0)
+                        this.drawTween.stop(0, stopFn.bind(this))
                     })
 
                 function stopFn(data) {
                     data && this.showLotteryResult(data)
                     this.SET_DRAW_STATE(false)
+                    drawTween.startSlowLoop()
                 }
             },
 
@@ -166,7 +150,34 @@
         },
 
         created() {
-            window.dialInstance = this.drawTween
+            this.drawTween = new DrawTween({
+                    slowLoopFn   : DEV_MODE ? false : ({value}) => {
+                        this.SET_CUR_TWEEN_VALUE(value)
+                    },
+                    multipleValue: 360,
+                    startSpeed   : 1500,
+                    loopSpeed    : 1500 * 0.3,
+                    endSpeed     : 2500,
+                    minTime      : 3500,
+                    startEasing  : TWEEN.Easing.Quartic.In,
+                    loopEasing   : TWEEN.Easing.Linear.None,
+                    endEasing    : TWEEN.Easing.Quartic.Out,
+                }
+            )
+
+            this.drawTween.startSlowLoop()
+
+            window.dialTest = () => {
+                this.drawTween.start(({value}) => {
+                    this.SET_CUR_TWEEN_VALUE(value)
+                })
+
+                setTimeout(() => {
+                    this.drawTween.stop(0, () => {
+                        this.drawTween.startSlowLoop()
+                    })
+                }, 0)
+            }
         }
     }
 </script>

@@ -1,10 +1,11 @@
 let TWEEN = window.TWEEN
 
 export default class {
-    constructor({multipleValue, startValue, endValue, startSpeed, loopSpeed, endSpeed, startEasing, loopEasing, endEasing, minTime}) {
+    constructor({slowLoopFn, multipleValue, startSpeed, loopSpeed, endSpeed, startEasing, loopEasing, endEasing, minTime}) {
+        this.slowLoopFn    = slowLoopFn
         this.multipleValue = multipleValue
-        this.startValue    = startValue
-        this.endValue      = endValue
+        this.startValue    = 0
+        this.endValue      = this.multipleValue
         this.startSpeed    = startSpeed
         this.loopSpeed     = loopSpeed
         this.endSpeed      = endSpeed
@@ -21,6 +22,9 @@ export default class {
 
 
     start(updateCallback) {
+        if (this.slowLoopTween) this.slowLoopTween.stop()
+        this._clear()
+
         let that            = this
         this.startTime      = Date.now()
         this.updateCallback = updateCallback
@@ -50,17 +54,46 @@ export default class {
             updateCallback(this)
             that._checkStop(this)
         }
+
+        return this
+    }
+
+    startSlowLoop() {
+        let that = this
+
+        if (!this.slowLoopFn) return
+
+        this.slowLoopTween = new TWEEN.Tween({value: this.startValue, isSlowLoop: true})
+            .to({value: this.endValue}, 10000)
+            .repeat(Infinity)
+            .easing(TWEEN.Easing.Linear.None)
+            .onUpdate(function () {
+                that.slowLoopFn(this)
+                that.lastValue = this.value
+            })
+            .start()
+
+        ;
+        // 启动定时器
+        (function loop() {
+            that.loopTimer = requestAnimationFrame(loop)
+            TWEEN.update()
+        })()
+
+        return this
     }
 
     stop(value, callback) {
         this.stopValue    = value
         this.stopCallBack = callback
+
+        return this
     }
 
     _clear() {
-        this.stopValue      = null
-        this.stopCallBack   = null
-        this.updateCallback = null
+        // 提前计算下一次的值
+        this.startValue = this.lastValue || this.startValue
+        this.endValue   = this.startValue + this.multipleValue
 
         cancelAnimationFrame(this.loopTimer)
         TWEEN.removeAll()
@@ -72,15 +105,11 @@ export default class {
         // 当前是循环,有stopValue, 以及超过了minTime, 执行结束动画, 不然 return
         if (!(isLoop && this.stopValue !== null && (Date.now() - this.startTime > this.minTime))) return
 
-        let nextValue = this.multipleValue - (value % this.multipleValue) + value + this.stopValue
-
-        // 提前计算下一次的值
-        that.startValue = nextValue
-        that.endValue   = nextValue + this.multipleValue
+        let lastValue = this.lastValue = this.multipleValue - (value % this.multipleValue) + value + this.stopValue
 
         this.loopTween.stop()
         new TWEEN.Tween({value: value, isLoop: true})
-            .to({value: nextValue + this.multipleValue}, this.endSpeed)
+            .to({value: lastValue + this.multipleValue}, this.endSpeed)
             .easing(this.endEasing)
             .onUpdate(function () {
                 that.updateCallback(this)
@@ -90,8 +119,8 @@ export default class {
 
         function onComplete() {
             setTimeout(() => {
-                that.stopCallBack && that.stopCallBack()
                 that._clear()
+                that.stopCallBack && that.stopCallBack()
             }, 300)
         }
     }
