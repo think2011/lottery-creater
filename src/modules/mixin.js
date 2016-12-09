@@ -143,7 +143,7 @@ export default {
 
         showLotteryResult(data) {
             if (data.changeRemainCount !== false) {
-                that.SET_DRAW_TOTAL(this.gameData.drawTotal + data.appendCount)
+                this.SET_DRAW_TOTAL(this.gameData.drawTotal + data.remainCount)
             }
 
             if (!data.resultType.match(/TOO_MUCH|FORBID/)) {

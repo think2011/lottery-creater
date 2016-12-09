@@ -3,7 +3,7 @@
         <div v-if="parentModule.children[1]" class="el-form-item">
             <label class="el-form-item__label">
                 指针
-                <el-tooltip>
+                <el-tooltip placement="top">
                     <div slot="content">
                         淘宝规定仅能使用 图片空间 的地址
                     </div>
@@ -19,7 +19,7 @@
         <div v-if="parentModule.children[0]" class="el-form-item">
             <label class="el-form-item__label">
                 转盘
-                <el-tooltip>
+                <el-tooltip placement="top">
                     <div slot="content">
                         淘宝规定仅能使用 图片空间 的地址
                     </div>
@@ -33,20 +33,60 @@
             </div>
         </div>
 
-        <el-form-item label="中奖位置">
-            <el-popover
-                    v-for="(item,index) in prizes"
-                    placement="top-start"
-                    width="300"
-                    trigger="hover">
-                <el-slider
-                        :show-input="true"
-                        :min="0"
-                        :max="360"
-                        v-model="item.deg">
-                </el-slider>
+        <div class="el-form-item">
+            <label class="el-form-item__label">
+                中奖位置
+                <el-tooltip placement="left">
+                    <div slot="content">
+                        <ul>
+                            <li>
+                                每个奖品的位置与要用的活动的【奖品】是【一一对应】的
+                            </li>
+                            <li>
+                                例如截图中的
+                                <ul>
+                                    <li>
+                                        【流量包】=【奖品1】
+                                    </li>
+                                    <li>
+                                        【优惠券】=【奖品2】
+                                    </li>
+                                    <li>
+                                        【实　物】=【奖品3】
+                                    </li>
+                                    <li>
+                                        ...
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                请务必核实清楚
+                            </li>
+                            <li>
+                                <br>
+                                <img style="width: 550px;" src="../assets/img/tips-2.png" alt="">
+                            </li>
+                        </ul>
+                    </div>
 
-                <span @mouseover="SET_CUR_PRIZE(item)" slot="reference">
+                    <i class="el-icon-information"></i>
+                </el-tooltip>
+            </label>
+
+            <div class="el-form-item__content">
+                <el-popover
+                        v-for="(item,index) in prizes"
+                        placement="top-start"
+                        width="300"
+                        trigger="hover">
+                    <el-slider
+                            :show-input="true"
+                            :min="0"
+                            :max="360"
+                            v-model="item.deg">
+                    </el-slider>
+
+                    <span @mouseover="SET_CUR_PRIZE(item)" slot="reference">
                         <el-tag
                                 :closable="true"
                                 type="danger"
@@ -56,30 +96,42 @@
                             奖品{{index+1}}
                         </el-tag>
                     </span>
-            </el-popover>
+                </el-popover>
 
-            <el-button @click="addDeg(prizes)"
-                       type="primary"
-                       :disabled="prizes.length >= 10"
-                       size="mini">添加
-            </el-button>
+                <el-button @click="addDeg(prizes)"
+                           type="primary"
+                           :disabled="prizes.length >= 10"
+                           size="mini">添加
+                </el-button>
+            </div>
+        </div>
 
-        </el-form-item>
+        <div class="el-form-item">
+            <label class="el-form-item__label">
+                没有中奖位置
+                <el-tooltip placement="top">
+                    <div slot="content">
+                        如果没有中奖，随机停在下面任意一个位置
+                    </div>
 
-        <el-form-item label="没有中奖位置">
-            <el-popover
-                    v-for="(item,index) in emptyPrizes"
-                    placement="top-start"
-                    width="300"
-                    trigger="hover">
-                <el-slider
-                        :show-input="true"
-                        :min="0"
-                        :max="360"
-                        v-model="item.deg">
-                </el-slider>
+                    <i class="el-icon-information"></i>
+                </el-tooltip>
+            </label>
 
-                <span @mouseover="SET_CUR_PRIZE(item)" slot="reference">
+            <div class="el-form-item__content">
+                <el-popover
+                        v-for="(item,index) in emptyPrizes"
+                        placement="top-start"
+                        width="300"
+                        trigger="hover">
+                    <el-slider
+                            :show-input="true"
+                            :min="0"
+                            :max="360"
+                            v-model="item.deg">
+                    </el-slider>
+
+                    <span @mouseover="SET_CUR_PRIZE(item)" slot="reference">
                         <el-tag
                                 :closable="true"
                                 type="gray"
@@ -89,14 +141,15 @@
                             {{item.deg}}度
                         </el-tag>
                     </span>
-            </el-popover>
+                </el-popover>
 
-            <el-button @click="addDeg(emptyPrizes)"
-                       type="primary"
-                       :disabled="emptyPrizes.length > 6"
-                       size="mini">添加
-            </el-button>
-        </el-form-item>
+                <el-button @click="addDeg(emptyPrizes)"
+                           type="primary"
+                           :disabled="emptyPrizes.length > 6"
+                           size="mini">添加
+                </el-button>
+            </div>
+        </div>
     </el-form>
 </template>
 

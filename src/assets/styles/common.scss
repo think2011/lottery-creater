@@ -53,3 +53,10 @@ $designWidth: 750;
     background: transparent;
   }
 }
+
+.el-tooltip__popper {
+  ul li {
+    margin: 0 0 5px;
+    font-size: 14px;
+  }
+}
