@@ -95,6 +95,8 @@
 
         &.type1 {
             display: inline-flex;
+            justify-content: center;
+            align-items: center;
 
             li {
                 margin-right: px2rem(10);

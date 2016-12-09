@@ -1,20 +1,39 @@
-@keyframes rotateLoop {
+@-webkit-keyframes rotateLoop {
   from {
     will-change: transform;
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 
   to {
     will-change: transform;
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateLoop {
+  from {
+    will-change: transform;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    will-change: transform;
+    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
 
 .ani-paused {
+  -webkit-animation-play-state: paused !important;
   animation-play-state: paused !important;
 }
 
 .ani-rotate-loop {
+  -webkit-animation: rotateLoop 60s linear infinite;
   animation: rotateLoop 60s linear infinite;
+  -webkit-animation-play-state: running;
   animation-play-state: running;
 }

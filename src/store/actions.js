@@ -29,6 +29,7 @@ export default {
             convertRem(bg.style)
         }
 
+        dispatch('updateDrawTotal')
         commit(types.INIT_LOTTERY, config)
     },
 
@@ -38,6 +39,35 @@ export default {
 
     activeModule({commit, state}, {module}) {
         commit(types.SET_ACTIVE_MODULE, {module})
+    },
+
+    updateDrawTotal({commit, dispatch, state}) {
+        if (DEV_MODE) {
+            return commit(types.SET_DRAW_TOTAL, 10)
+        }
+
+        if (!window.nick || window.remainCount == undefined) {
+            $.tida.getUserNick(function (nick) {
+                $.doAjax({
+                    url    : "act-data",
+                    data   : {
+                        needRemainCount: true,
+                        nick           : nick
+                    },
+                    success: function (rst) {
+                        commit(types.SET_USER_NICK, nick)
+                        window.nick = nick
+
+                        if (rst.data && rst.data.remainCount) {
+                            window.remainCount = rst.data.remainCount;
+                        } else {
+                            window.remainCount = 0;
+                        }
+                        commit(types.SET_DRAW_TOTAL, window.remainCount)
+                    }
+                });
+            });
+        }
     },
 
     delModule({commit, dispatch, state}, ...args) {
