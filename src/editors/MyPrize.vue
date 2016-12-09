@@ -1,12 +1,11 @@
 <template>
-    <el-form label-position="top">
-        <el-form-item label="透明度">
-            <el-slider :min="0"
-                       :max="100"
-                       v-model="opacity">
-            </el-slider>
-        </el-form-item>
-    </el-form>
+    <div class="click-tips">
+        <el-alert
+                title="提示：点击了此区域会【弹出】我的奖品"
+                :closable="false"
+                show-icon>
+        </el-alert>
+    </div>
 </template>
 
 <script type="text/ecmascript-6">

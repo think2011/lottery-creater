@@ -19,6 +19,9 @@ $(function () {
     FastClick.attach(document.body)
 })
 
+
+require('babel-polyfill')
+
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import store from './store'

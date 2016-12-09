@@ -21,9 +21,9 @@
         created() {
             // 临时开发
             if (window.QUERYSTRING.tpl) {
-                let config = require(`../templates/tpl-${window.QUERYSTRING.tpl}.js`)
-
-                this.initLottery({...config, toRem: !this.DEV_MODE})
+                require([`../templates/tpl-${window.QUERYSTRING.tpl}.js`], (config) => {
+                    this.initLottery({...config, toRem: !this.DEV_MODE})
+                })
             }
             // 用户编辑
             else if (window.parent.opener) {

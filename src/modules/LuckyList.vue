@@ -31,12 +31,20 @@
             }
         },
 
+        watch: {
+            'gameData.luckyList': {
+                handler: function (val, oldVal) {
+                    this.render()
+                },
+                deep   : true
+            }
+        },
+
         methods: {
             render() {
                 let that  = this
                 let $list = $(this.$el)
 
-                this.fetchLucyList()
                 $list.empty()
                 if (this.gameData.luckyList.length) {
                     this.gameData.luckyList.forEach(function (item) {
@@ -67,11 +75,14 @@
         },
 
         mounted(){
-            this.render()
         },
 
         updated() {
             this.render()
+        },
+
+        created() {
+            this.fetchLucyList()
         }
     }
 </script>

@@ -1,6 +1,10 @@
 <template>
-    <div>
-        编辑器1
+    <div class="click-tips">
+        <el-alert
+                title="提示：点击了此区域会【开始】做任务"
+                :closable="false"
+                show-icon>
+        </el-alert>
     </div>
 </template>
 

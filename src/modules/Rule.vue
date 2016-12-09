@@ -37,7 +37,13 @@
             ])
         },
 
-        mounted() {
+        updated() {
+            if (this.data.type === 2) {
+                this.fetchRule()
+            }
+        },
+
+        created() {
             if (this.data.type === 2) {
                 this.fetchRule()
             }

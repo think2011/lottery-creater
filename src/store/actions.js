@@ -51,7 +51,7 @@ export default {
 
     fetchRule({commit, state}) {
         if (DEV_MODE) {
-            commit(types.FETCH_RULE, '1、活动期间每个用户每天有3次抽奖机会\n2、流量包实时发放\n3、活动最终解释权归智友网络所有，如有疑问请联系智友设计咨询')
+            commit(types.FETCH_RULE, '1、活动期间每个用户每天有3次抽奖机会\n2、流量包实时发放\n3、活动最终解释权归XXX所有，如有疑问请联系XXX咨询')
         } else {
             $.doAjax({
                 url    : 'act-data',
@@ -65,7 +65,7 @@ export default {
         }
     },
 
-    fetchLucyList({commit, state}) {
+    fetchLucyList({commit, dispatch, state}) {
         if (DEV_MODE) {
             commit(types.FETCH_LUCKY_LIST, [{
                     "id"          : 206503,
