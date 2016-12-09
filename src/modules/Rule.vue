@@ -51,5 +51,6 @@
     pre {
         word-wrap: break-word;
         white-space: pre-wrap;
+        font-family: "Helvetica Neue Light", HelveticaNeue-Light, "Helvetica Neue", Calibri, Helvetica, Arial, 'Microsoft YaHei';
     }
 </style>

@@ -60,15 +60,19 @@
                 }
             },
 
+            drawing() {
+                return this.gameData.drawing
+            },
+
             ...mapState([
-                'dialData'
+                'dialData',
+                'gameData'
             ])
         },
 
         data () {
             return {
                 prizeId  : null,
-                drawing  : false,
                 drawTween: new DrawTween({
                         multipleValue: 360,
                         startValue   : 0,
@@ -90,29 +94,38 @@
                 if (this.drawing) return
                 if (!this.checkTicket()) return
 
-                this.drawing  = true
                 let drawTween = this.drawTween
 
                 drawTween.start(({value}) => {
                     this.SET_CUR_TWEEN_VALUE(value)
                 })
 
+                // 加一些延迟看起来是跟缓动是平滑进行的
+                setTimeout(() => {
+                    this.SET_DRAW_STATE(true)
+                }, 300)
+
                 this.drawLottery().then((data) => {
                     let prizeDeg = this.getPrizeDeg()
 
                     if (this.prizeDeg) {
-                        this.drawTween.stop(prizeDeg, stopFn.bind(this))
+                        this.drawTween.stop(prizeDeg, () => {
+                            setTimeout(() => {
+                                stopFn.bind(this)
+                            }, 2000)
+                        })
                     } else {
-                        alert('慢慢转啊')
-                        stopFn.bind(this)
+                        this.drawTween.stop(0, stopFn.bind(this))
                     }
                 })
 
+                setTimeout(() => {
+                    this.drawTween.stop(30, stopFn.bind(this))
+                }, 500)
+
                 function stopFn(data) {
-                    setTimeout(() => {
-                        this.showLotteryResult(data)
-                        this.drawing = false
-                    }, 500)
+                    this.showLotteryResult(data)
+                    this.SET_DRAW_STATE(false)
                 }
             },
 
@@ -148,10 +161,12 @@
 
             ...mapMutations([
                 'SET_CUR_TWEEN_VALUE',
+                'SET_DRAW_STATE'
             ])
         },
 
         created() {
+            window.dialInstance = this.drawTween
         }
     }
 </script>

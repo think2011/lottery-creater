@@ -24,6 +24,7 @@ const state = {
     activityId: settings.activityId,
     gameData  : {
         drawTotal    : 0,
+        drawing:false,
         prizes       : [],
         curPrize     : null,
         tweenValue   : null,

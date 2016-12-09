@@ -50,6 +50,10 @@ export default {
         state.gameData.tweenValue = value
     },
 
+    [types.SET_DRAW_STATE](state, value) {
+        state.gameData.drawing = value
+    },
+
     [types.SET_LOTTERY_RESULT](state, result) {
         state.gameData.lotteryResult = result
     },

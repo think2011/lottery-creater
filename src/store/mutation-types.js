@@ -12,5 +12,6 @@ export const SET_CUR_PRIZE       = 'SET_CUR_PRIZE'
 export const SET_CUR_TWEEN_VALUE = 'SET_CUR_TWEEN_VALUE'
 export const SET_USER_NICK       = 'SET_USER_NICK'
 export const SET_LOTTERY_RESULT  = 'SET_LOTTERY_RESULT'
+export const SET_DRAW_STATE  = 'SET_DRAW_STATE'
 
 // 其他
