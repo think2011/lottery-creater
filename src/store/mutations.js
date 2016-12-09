@@ -27,6 +27,10 @@ export default {
         state.gameData.rule = desc
     },
 
+    [types.FETCH_LUCKY_LIST](state, items) {
+        state.gameData.luckyList = items
+    },
+
     [types.SET_DRAW_TOTAL](state, total) {
         state.gameData.drawTotal = total
     },

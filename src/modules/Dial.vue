@@ -119,10 +119,6 @@
                     }
                 })
 
-                setTimeout(() => {
-                    this.drawTween.stop(30, stopFn.bind(this))
-                }, 500)
-
                 function stopFn(data) {
                     this.showLotteryResult(data)
                     this.SET_DRAW_STATE(false)
