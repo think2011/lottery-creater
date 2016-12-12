@@ -128,7 +128,7 @@ export default class {
             .onComplete(onComplete)
             .start()
 
-        let nearEndSpeed = this.endSpeed - 800
+        let nearEndSpeed = this.endSpeed - 1000
         setTimeout(() => {
             that.nearCallback && that.nearCallback()
         }, nearEndSpeed)
