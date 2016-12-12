@@ -6,7 +6,7 @@
                 <div class="line"></div>
             </div>
 
-            <el-button @click="isShowSave=true;loading=false" type="primary" size="large">保存模板</el-button>
+            <el-button @click="showSave" type="primary" size="large">保存模板</el-button>
 
             <el-popover
                     class="del"
@@ -79,11 +79,13 @@
             ])
         },
 
-        created() {
-            this.model.name = this.name || '我的自定义模板'
-        },
-
         methods: {
+            showSave() {
+                this.isShowSave = true
+                this.loading    = false
+                this.model.name = this.name || '我的自定义模板'
+            },
+
             save() {
                 this.$refs.model.validate((valid) => {
                     if (!valid) return
@@ -99,7 +101,7 @@
 
                     this.loading = true
                     window.parent.opener.postMessage({
-                        type: 'create', data
+                        type: 'save', data
                     }, '*')
                 })
 

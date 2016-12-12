@@ -15,7 +15,10 @@ const nick     = window.nick
 
 const state = {
     name      : '',
-    bg        : {},
+    psdPath   : '',
+    bg        : {
+        style: {}
+    },
     modules   : [],
     curModule : {},
     act       : act,

@@ -78,7 +78,7 @@
                         v-for="(item,index) in prizes"
                         placement="top-start"
                         width="300"
-                        trigger="hover">
+                        trigger="click">
                     <el-slider
                             :show-input="true"
                             :min="0"
@@ -86,7 +86,7 @@
                             v-model="item.deg">
                     </el-slider>
 
-                    <span @mouseover="SET_CUR_PRIZE(item)" slot="reference">
+                    <span @click="SET_CUR_PRIZE(item)" slot="reference">
                         <el-tag
                                 :closable="true"
                                 type="danger"
@@ -123,7 +123,7 @@
                         v-for="(item,index) in emptyPrizes"
                         placement="top-start"
                         width="300"
-                        trigger="hover">
+                        trigger="click">
                     <el-slider
                             :show-input="true"
                             :min="0"
@@ -131,7 +131,7 @@
                             v-model="item.deg">
                     </el-slider>
 
-                    <span @mouseover="SET_CUR_PRIZE(item)" slot="reference">
+                    <span @click="SET_CUR_PRIZE(item)" slot="reference">
                         <el-tag
                                 :closable="true"
                                 type="gray"

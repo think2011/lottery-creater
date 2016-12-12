@@ -8,6 +8,7 @@
 <script type="text/ecmascript-6">
     import components from './components'
     import {mapActions, mapState, mapGetters} from 'vuex'
+    import {Loading} from 'element-ui'
 
     export default {
         components,
@@ -27,12 +28,15 @@
             }
             // 用户编辑
             else if (window.parent.opener) {
+                let loading = Loading.service({fullscreen: true, text: '正在加载编辑器..'})
+
                 window.addEventListener('message', () => {
                     let res = window.event.data
 
                     switch (res.type) {
                         case 'model':
                             this.initLottery({...res.data, toRem: !this.DEV_MODE})
+                            loading.close()
                             break;
 
                         default:
