@@ -82,6 +82,7 @@
                 if (!this.checkTicket()) return
 
                 let drawTween = this.drawTween
+                let that      = this
 
                 this.SET_DRAW_STATE(true)
                 drawTween.start(({value}) => {
@@ -103,23 +104,22 @@
                     })
 
                 function stopWithPrize(deg, data) {
-                    this.drawTween.stop(deg, () => {
-                        this.showLotteryResult(data)
-                        this.SET_DRAW_STATE(false)
+                    that.drawTween.stop(deg, () => {
+                        that.showLotteryResult(data)
+                        that.SET_DRAW_STATE(false)
                         drawTween.startSlowLoop()
                     })
                 }
 
                 function stopWithoutPrize(data) {
-                    this.drawTween.stop(0,
+                    that.drawTween.stop(0,
                         () => {
-                            data && this.showLotteryResult(data)
-                            this.SET_DRAW_STATE(false)
+                            that.SET_DRAW_STATE(false)
                             drawTween.startSlowLoop()
                         },
                         () => {
                             if (data) {
-
+                                data && that.showLotteryResult(data)
                             } else {
                                 $.alert('系统繁忙, 请稍后重试')
                             }
