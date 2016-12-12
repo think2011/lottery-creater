@@ -79,7 +79,7 @@
         methods: {
             draw() {
                 if (this.drawing) return
-//                if (!this.checkTicket()) return
+                if (!this.checkTicket()) return
 
                 let drawTween = this.drawTween
 
