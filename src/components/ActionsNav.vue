@@ -84,6 +84,11 @@
                 this.isShowSave = true
                 this.loading    = false
                 this.model.name = this.name || '我的自定义模板'
+
+                // 防止回车默认提交
+                setTimeout(() => {
+                    this.$refs.model.$el.setAttribute('action', 'javascript:')
+                }, 0)
             },
 
             save() {
@@ -128,6 +133,7 @@
             ...mapActions([
                 'updateModule',
                 'activeModule',
+                'stopPropagation'
             ])
         }
     }

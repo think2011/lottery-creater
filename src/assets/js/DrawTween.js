@@ -22,8 +22,7 @@ export default class {
 
 
     start(updateCallback) {
-        if (this.slowLoopTween) this.slowLoopTween.stop()
-        this._clear()
+        this.stopSlowLoop()
 
         let that            = this
         this.startTime      = Date.now()
@@ -83,9 +82,21 @@ export default class {
         return this
     }
 
-    stop(value, callback) {
+    stopSlowLoop() {
+        this._clear()
+        if (this.slowLoopTween) this.slowLoopTween.stop()
+    }
+
+    /**
+     * 停止
+     * @param value 角度
+     * @param callback 完全停止cb
+     * @param nearCallback 快要停止cb
+     */
+    stop(value, callback, nearCallback) {
         this.stopValue    = value
         this.stopCallBack = callback
+        this.nearCallback = nearCallback
 
         return this
     }
@@ -116,6 +127,11 @@ export default class {
             })
             .onComplete(onComplete)
             .start()
+
+        let nearEndSpeed = this.endSpeed - 800
+        setTimeout(() => {
+            that.nearCallback && that.nearCallback()
+        }, nearEndSpeed)
 
         function onComplete() {
             setTimeout(() => {

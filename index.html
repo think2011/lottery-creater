@@ -81,235 +81,139 @@
 <script type='text/javascript' src='//xgiftbag.ews.m.jaeapp.com/resources/lottery/js/marquee.js'></script>
 
 <script>
-    var act = window.act = {
-        "id"            : "97",
-        "sellerId"      : "2406822118",
+
+    var settings = {
+        sellerId   : 2406822118,
+        activityId : 128,
+        activityUrl: '',
+        shopId     : '116406112',
+        shopTitle  : '智友网络'
+    };
+
+    window.fromNick   = '';
+    window.sellerId   = '2406822118';
+    window.sellerNick = '智友设计';
+    window.act        = {
+        "id"            : 128,
+        "sellerId"      : 2406822118,
         "pageUrl"       : "https://shop116,406,112.m.taobao.com",
-        "actUrl"        : "http://xgiftbag.ews.m.jaeapp.com/lottery2/2406822118/97/index",
+        "actUrl"        : "http://xgiftbag.ews.m.jaeapp.com/lottery2/2406822118/128/index",
         "activityStatus": "Ongoing",
-        "isReturnIds"   : "",
+        "startTime"     : "2016-12-12 15:41",
+        "endTime"       : "2017-10-14 23:59",
         "giftsJson"     : [{
-            "id"              : 15146,
-            "giftType"        : "SHOP_COUPON",
-            "denomination"    : 500,
-            "denominationView": "5",
-            "name"            : "无门槛",
-            "position"        : [539, 9, 112, 62],
-            "title"           : "无门槛",
-            "_unit"           : "元",
-            "_denomination"   : "5",
-            "angle"           : 90
-        }, {
-            "id"              : 14973,
+            "id"              : 757,
             "giftType"        : "SHOP_COUPON",
             "denomination"    : 300,
             "denominationView": "3",
-            "name"            : "优惠券",
-            "position"        : [539, 9, 112, 62],
-            "title"           : "优惠券",
-            "_unit"           : "元",
-            "_denomination"   : "3",
-            "angle"           : 45
-        }, {
-            "id"              : 14974,
+            "name"            : "优惠券"
+        }, {"id": 758, "giftType": "THF", "denomination": 100, "denominationView": "1", "name": "1元淘话费"}, {
+            "id"              : 759,
             "giftType"        : "MOBILE_FLOW",
             "denomination"    : 1,
             "denominationView": "0",
-            "name"            : "1M流量",
-            "position"        : [710, 9, 116, 62],
-            "title"           : "1M流量",
-            "_unit"           : "M",
-            "_denomination"   : "1",
-            "angle"           : 135
-        }, {"id": -1, "giftType": "NONE", "denomination": 0, "denominationView": "0"}, {
-            "id"              : 14972,
-            "giftType"        : "REAL_STUFF",
-            "denomination"    : 0,
-            "denominationView": "0",
-            "name"            : "试试",
-            "position"        : null,
-            "title"           : "试试",
-            "_unit"           : null,
-            "_denomination"   : 0,
-            "angle"           : 225,
-            "_img"            : {}
-        }, {
-            "id"              : 14972,
-            "giftType"        : "REAL_STUFF",
-            "denomination"    : 0,
-            "denominationView": "0",
-            "name"            : "试试",
-            "position"        : null,
-            "title"           : "试试",
-            "_unit"           : null,
-            "_denomination"   : 0,
-            "_img"            : {},
-            "angle"           : 180
-        }, {
-            "id"              : 14974,
-            "giftType"        : "MOBILE_FLOW",
-            "denomination"    : 1,
-            "denominationView": "0",
-            "name"            : "1M流量",
-            "position"        : [710, 9, 116, 62],
-            "title"           : "1M流量",
-            "_unit"           : "M",
-            "_denomination"   : "1",
-            "angle"           : 315
-        }, {
-            "id"              : 14973,
-            "giftType"        : "SHOP_COUPON",
-            "denomination"    : 300,
-            "denominationView": "3",
-            "name"            : "优惠券",
-            "position"        : [539, 9, 112, 62],
-            "title"           : "优惠券",
-            "_unit"           : "元",
-            "_denomination"   : "3",
-            "angle"           : 270
+            "name"            : "1M流量"
         }],
         "extraCount"    : {
-            "shareEnabled"    : false,
-            "itemCartEnabled" : true,
-            "itemCartConfig"  : {
-                "countMeta": {"count": 1, "item": 1, "type": "mjsLinearCount"},
-                "items"    : [{
-                    "numIid"    : 43626013861,
-                    "title"     : "真皮单鞋头层胎牛皮浅口细高跟超时尚性感女子职业鞋",
-                    "price"     : "2001.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i4/TB1UnhqJFXXXXaaXFXXXXXXXXXX_!!0-item_pic.jpg",
-                    "listTime"  : "2016-11-24 16:06",
-                    "delistTime": "2016-12-01 16:06",
-                    "outerId"   : "打开速度来看",
-                    "itemId"    : 43626013861
-                }, {
-                    "numIid"    : 523285528885,
-                    "title"     : "【促销宝】【促销常见问题】如何快速删除宝贝的促销价格？",
-                    "price"     : "19999.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i1/TB1isgtLXXXXXbfXVXXXXXXXXXX_!!2-item_pic.png",
-                    "listTime"  : "2016-11-27 20:01",
-                    "delistTime": "2016-12-04 20:01",
-                    "itemId"    : 523285528885
-                }, {
-                    "numIid"    : 523274601679,
-                    "title"     : "【促销宝】新手快速入门必看教程秘籍",
-                    "price"     : "39989.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i2/TB1Eu1uKXXXXXa.XVXXXXXXXXXX_!!2-item_pic.png",
-                    "listTime"  : "2016-11-26 21:14",
-                    "delistTime": "2016-12-03 21:14",
-                    "itemId"    : 523274601679
-                }, {
-                    "numIid"    : 523284328038,
-                    "title"     : "【促销宝】创建好的促销活动？",
-                    "price"     : "39997.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i4/TB1fOiNKXXXXXbcXpXXXXXXXXXX_!!2-item_pic.png",
-                    "listTime"  : "2016-11-26 21:10",
-                    "delistTime": "2016-12-03 21:10",
-                    "itemId"    : 523284328038
-                }, {
-                    "numIid"    : 523276134105,
-                    "title"     : "【促销宝】如何取消促销活动？",
-                    "price"     : "39997.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i4/TB1_OSCKXXXXXXmXVXXXXXXXXXX_!!2-item_pic.png",
-                    "listTime"  : "2016-11-24 20:53",
-                    "delistTime": "2016-12-01 20:53",
-                    "itemId"    : 523276134105
-                }, {
-                    "numIid"    : 523275294577,
-                    "title"     : "【促销宝】淘宝搜索那里长时间不显示折扣价解决方法",
-                    "price"     : "39997.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i2/TB1PheFKXXXXXaKXFXXXXXXXXXX_!!2-item_pic.png",
-                    "listTime"  : "2016-11-23 20:51",
-                    "delistTime": "2016-11-30 20:51",
-                    "itemId"    : 523275294577
-                }, {
-                    "numIid"    : 523152202240,
-                    "title"     : "【好礼等你拆】怎样把好礼等你拆活动装修到手机店铺首页",
-                    "price"     : "19999.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i4/TB13q1dOpXXXXbcapXXXXXXXXXX_!!2-item_pic.png",
-                    "listTime"  : "2016-11-22 20:23",
-                    "delistTime": "2016-11-29 20:23",
-                    "itemId"    : 523152202240
-                }]
-            },
-            "itemFavorEnabled": true,
-            "itemFavorConfig" : {
-                "countMeta": {"count": 1, "item": 1, "type": "mjsLinearCount"},
-                "items"    : [{
-                    "numIid"    : 523285528885,
-                    "title"     : "【促销宝】【促销常见问题】如何快速删除宝贝的促销价格？",
-                    "price"     : "19999.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i1/TB1isgtLXXXXXbfXVXXXXXXXXXX_!!2-item_pic.png",
-                    "listTime"  : "2016-11-27 20:01",
-                    "delistTime": "2016-12-04 20:01",
-                    "itemId"    : 523285528885
-                }, {
-                    "numIid"    : 523274601679,
-                    "title"     : "【促销宝】新手快速入门必看教程秘籍",
-                    "price"     : "39989.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i2/TB1Eu1uKXXXXXa.XVXXXXXXXXXX_!!2-item_pic.png",
-                    "listTime"  : "2016-11-26 21:14",
-                    "delistTime": "2016-12-03 21:14",
-                    "itemId"    : 523274601679
-                }, {
-                    "numIid"    : 523284328038,
-                    "title"     : "【促销宝】创建好的促销活动？",
-                    "price"     : "39997.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i4/TB1fOiNKXXXXXbcXpXXXXXXXXXX_!!2-item_pic.png",
-                    "listTime"  : "2016-11-26 21:10",
-                    "delistTime": "2016-12-03 21:10",
-                    "itemId"    : 523284328038
-                }, {
-                    "numIid"    : 523276134105,
-                    "title"     : "【促销宝】如何取消促销活动？",
-                    "price"     : "39997.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i4/TB1_OSCKXXXXXXmXVXXXXXXXXXX_!!2-item_pic.png",
-                    "listTime"  : "2016-11-24 20:53",
-                    "delistTime": "2016-12-01 20:53",
-                    "itemId"    : 523276134105
-                }, {
-                    "numIid"    : 43626013861,
-                    "title"     : "真皮单鞋头层胎牛皮浅口细高跟超时尚性感女子职业鞋",
-                    "price"     : "2001.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i4/TB1UnhqJFXXXXaaXFXXXXXXXXXX_!!0-item_pic.jpg",
-                    "listTime"  : "2016-11-24 16:06",
-                    "delistTime": "2016-12-01 16:06",
-                    "outerId"   : "打开速度来看",
-                    "itemId"    : 43626013861
-                }, {
-                    "numIid"    : 523275294577,
-                    "title"     : "【促销宝】淘宝搜索那里长时间不显示折扣价解决方法",
-                    "price"     : "39997.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i2/TB1PheFKXXXXXaKXFXXXXXXXXXX_!!2-item_pic.png",
-                    "listTime"  : "2016-11-23 20:51",
-                    "delistTime": "2016-11-30 20:51",
-                    "itemId"    : 523275294577
-                }, {
-                    "numIid"    : 523152202240,
-                    "title"     : "【好礼等你拆】怎样把好礼等你拆活动装修到手机店铺首页",
-                    "price"     : "19999.00",
-                    "picUrl"    : "https://img.alicdn.com/bao/uploaded/i4/TB13q1dOpXXXXbcapXXXXXXXXXX_!!2-item_pic.png",
-                    "listTime"  : "2016-11-22 20:23",
-                    "delistTime": "2016-11-29 20:23",
-                    "itemId"    : 523152202240
-                }]
-            }
+            "shareEnabled"       : false,
+            "itemCartEnabled"    : false,
+            "itemFavorEnabled"   : false,
+            "tradeCountEnabled"  : false,
+            "tradePaymentEnabled": false
         },
-        "bizType"       : "Lottery2",
-        "taskTimesType" : null,
-        "lotterFlag"    : null,
-        "result"        : {"resultType": null, "giftType": null, "content": null, "isRetry": null, "giftId": null},
-        "attentionFlag" : false
-    }
-    var settings = window.settings = {
-        "sellerId"   : 2406822118,
-        "activityId" : 97,
-        "activityUrl": "http://xgiftbag.ews.m.jaeapp.com/lottery2/2406822118/97/index",
-        "shopId"     : "116406112",
-        "shopTitle"  : "智友网络"
-    }
-    var nick     = 'xxx'
-    var fromNick = 'fromNick';
+        "bizType"       : "Lottery2"
+    };
+
+    window.lotteryConfig = {
+        "name"   : "自定义测试",
+        "bg"     : {
+            "src"  : "//img.alicdn.com/imgextra/i4/92779311/TB2dWzlXBNkpuFjy0FaXXbRCVXa-92779311.jpg",
+            "style": {"height": "2018px", "backgroundColor": "#fff"}
+        },
+        "psdPath": "http://",
+        "modules": [{
+            "type" : "toShop",
+            "alias": "店铺链接",
+            "style": {"width": "192px", "height": "47px", "top": "14px", "left": "0"},
+            "data" : {}
+        }, {
+            "type" : "toShop",
+            "alias": "店铺链接",
+            "style": {"width": "192px", "height": "47px", "top": "14px", "right": "0"},
+            "data" : {}
+        }, {
+            "type" : "pic",
+            "alias": "标题",
+            "style": {"top": "1.088rem", "left": "1.5146666666666666rem"},
+            "data" : {}
+        }, {
+            "type"    : "dial",
+            "alias"   : "转盘",
+            "children": [{
+                "type" : "bg",
+                "alias": "转盘背景",
+                "style": {"width": "655px", "height": "655px", "top": "480px", "left": "45px"},
+                "data" : {"src": "//img.alicdn.com/imgextra/i2/92779311/TB2Uc2lXCXlpuFjy0FeXXcJbFXa-92779311.png"}
+            }, {
+                "type" : "pointer",
+                "alias": "指针(抽奖按钮)",
+                "style": {"width": "302px", "height": "302px", "top": "660px", "left": "224px"},
+                "data" : {"src": "//img.alicdn.com/imgextra/i2/92779311/TB2WBcYXtBopuFjSZPcXXc9EpXa-92779311.png"}
+            }],
+            "data"    : {
+                "rotateType" : "bg",
+                "prizes"     : [{"deg": 208}, {"deg": 249}, {"deg": 29}],
+                "emptyPrizes": [{"deg": 359}]
+            }
+        }, {
+            "type" : "drawTotal",
+            "alias": "抽奖次数",
+            "style": {"width": "260px", "height": "34px", "left": "241px", "top": "415px"},
+            "data" : {
+                "descStyle": {"fontSize": "24px", "color": "#fff"},
+                "timeStyle": {"fontSize": "32px", "color": "#f3dc1c"}
+            }
+        }, {
+            "type" : "myPrize",
+            "alias": "我的奖品",
+            "style": {"width": "90px", "height": "90px", "left": "536px", "top": "100px"},
+            "data" : {}
+        }, {
+            "type"    : "tasks",
+            "alias"   : "抽奖任务",
+            "children": [{
+                "type" : "shopping",
+                "alias": "加购",
+                "style": {"width": "124px", "height": "46px", "top": "1186px", "left": "110px"},
+                "data" : {}
+            }, {
+                "type" : "collect",
+                "alias": "收藏",
+                "style": {"width": "124px", "height": "46px", "top": "1186px", "left": "246px"},
+                "data" : {}
+            }, {
+                "type" : "share",
+                "alias": "分享",
+                "style": {"width": "124px", "height": "46px", "top": "1186px", "left": "380px"},
+                "data" : {}
+            }, {
+                "type" : "order",
+                "alias": "下单",
+                "style": {"width": "124px", "height": "46px", "top": "1186px", "left": "516px"},
+                "data" : {}
+            }]
+        }, {
+            "type" : "luckyList",
+            "alias": "中奖名单",
+            "style": {"width": "552px", "height": "205px", "top": "1370px", "left": "127px"},
+            "data" : {"type": 2, "textStyle": {"fontSize": "24px", "color": "#333", "lineHeight": "2"}}
+        }, {
+            "type" : "rule",
+            "alias": "游戏规则",
+            "style": {"width": "634px", "height": "210px", "top": "1736px", "left": "63px"},
+            "data" : {"type": 2, "textStyle": {"fontSize": "24px", "color": "#333", "lineHeight": "2"}}
+        }]
+    };
 </script>
 </body>
 </html>

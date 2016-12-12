@@ -77,6 +77,7 @@ export default {
 
     stopPropagation() {
         window.event.stopPropagation()
+        window.event.preventDefault()
     },
 
     fetchRule({commit, state}) {

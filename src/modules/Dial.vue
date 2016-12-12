@@ -90,26 +90,40 @@
 
                 this.drawLottery()
                     .then((data) => {
-                        let prizeDeg = this.getPrizeDeg()
+                        let prizeDeg = this.getPrizeDeg(data.giftId)
 
                         if (prizeDeg !== null) {
-                            this.drawTween.stop(prizeDeg, () => {
-                                setTimeout(() => {
-                                    stopFn.call(this, data)
-                                }, 2000)
-                            })
+                            stopWithPrize(prizeDeg, data)
                         } else {
-                            this.drawTween.stop(0, stopFn.bind(this, data))
+                            stopWithoutPrize(data)
                         }
                     })
                     .catch(() => {
-                        this.drawTween.stop(0, stopFn.bind(this))
+                        stopWithoutPrize()
                     })
 
-                function stopFn(data) {
-                    data && this.showLotteryResult(data)
-                    this.SET_DRAW_STATE(false)
-                    drawTween.startSlowLoop()
+                function stopWithPrize(deg, data) {
+                    this.drawTween.stop(deg, () => {
+                        this.showLotteryResult(data)
+                        this.SET_DRAW_STATE(false)
+                        drawTween.startSlowLoop()
+                    })
+                }
+
+                function stopWithoutPrize(data) {
+                    this.drawTween.stop(0,
+                        () => {
+                            data && this.showLotteryResult(data)
+                            this.SET_DRAW_STATE(false)
+                            drawTween.startSlowLoop()
+                        },
+                        () => {
+                            if (data) {
+
+                            } else {
+                                $.alert('系统繁忙, 请稍后重试')
+                            }
+                        })
                 }
             },
 
@@ -167,15 +181,20 @@
 
             this.drawTween.startSlowLoop()
 
-            window.dialTest = () => {
+            window.drawTween = this.drawTween
+            window.dialTest  = () => {
                 this.drawTween.start(({value}) => {
                     this.SET_CUR_TWEEN_VALUE(value)
                 })
 
                 setTimeout(() => {
-                    this.drawTween.stop(0, () => {
-                        this.drawTween.startSlowLoop()
-                    })
+                    this.drawTween.stop(0,
+                        () => {
+                            this.drawTween.startSlowLoop()
+                        },
+                        () => {
+                            layer.open({content: '错误错误'})
+                        })
                 }, 0)
             }
         }
