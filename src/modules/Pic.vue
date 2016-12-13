@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img :src="this.data.src" alt="">
+        <img :style="hidden" :src="this.data.src" alt="">
     </div>
 </template>
 
@@ -20,8 +20,10 @@
         },
 
         computed: {
-            bgStyle() {
-
+            hidden() {
+                return {
+                    visibility: this.data.type === 2 ? 'hidden' : 'visible'
+                }
             }
         },
 

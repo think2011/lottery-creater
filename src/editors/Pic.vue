@@ -1,6 +1,13 @@
 <template>
     <el-form label-position="top">
-        <div class="el-form-item">
+        <el-form-item label="显示方式">
+            <el-radio-group v-model="data.type">
+                <el-radio :label="1">图片</el-radio>
+                <el-radio :label="2">透明</el-radio>
+            </el-radio-group>
+        </el-form-item>
+
+        <div v-if="data.type === 1" class="el-form-item">
             <label class="el-form-item__label">
                 图片地址
                 <el-tooltip>
