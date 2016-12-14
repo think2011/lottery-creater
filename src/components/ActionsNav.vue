@@ -75,7 +75,6 @@
                 'name',
             ]),
             ...mapGetters([
-                'builtModules'
             ])
         },
 

@@ -4,9 +4,10 @@ let gameDialog = GameDialog = window.gameDialog
 
 export default {
     props: {
-        module: Object,
-        pStyle: Object,
-        data  : Object,
+        parentModule: Object,
+        module      : Object,
+        pStyle      : Object,
+        data        : Object,
     },
 
     data () {
@@ -16,10 +17,6 @@ export default {
     computed: {
         type() {
             return this.module.type
-        },
-
-        parentModule() {
-            return this.module._isChild ? this.module._getParent() : null
         },
 
         ...mapState([

@@ -1,5 +1,16 @@
 <template>
-    <div @click="doTask(type)">
+    <div>
+        <div v-if="data.children">
+            <ul class="tasks-all" :style="{textAlign:data.align}">
+                <li v-for="item in data.children"
+                    @click="doTask(item.type)">
+                    <img :src="item.data.src" alt="">
+                </li>
+            </ul>
+        </div>
+        <div @click="doTask(type)" v-else>
+            <img :src="data.src" alt="">
+        </div>
     </div>
 </template>
 
@@ -16,11 +27,22 @@
             return {}
         },
 
-        methods: {
-        },
+        computed: {},
+
+        methods: {},
     }
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+    @import "../assets/styles/common";
 
+    .tasks-all {
+        width: 100%;
+        text-align: center;
+
+        li {
+            margin: px2rem(10) px2rem(10);
+            display: inline-block;
+        }
+    }
 </style>

@@ -37,8 +37,8 @@ export default {
         commit(types.UPDATE_MODULE, {module})
     },
 
-    activeModule({commit, state}, {module}) {
-        commit(types.SET_ACTIVE_MODULE, {module})
+    activeModule({commit, state}, params) {
+        commit(types.SET_ACTIVE_MODULE, params)
     },
 
     updateDrawTotal({commit, dispatch, state}) {

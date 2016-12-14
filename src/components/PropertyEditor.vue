@@ -3,7 +3,7 @@
             class="property-container"
             handle=".title"
             restriction="body"
-            v-show="curModuleInfo.data"
+            v-show="curModule.module.type"
             :drag="true">
         <div class="close pull-right">
             <el-button @click="closeEditor" type="text">
@@ -11,17 +11,35 @@
             </el-button>
         </div>
 
-        <h1 class="title">
-            {{curModuleInfo._alias}}
-        </h1>
-
-        <div v-if="editorsMap[curModuleInfo._editor]" class="body">
-            <component :module="curModuleInfo"
-                       :p-style="curModuleInfo.style"
-                       :data="curModuleInfo.data"
-                       :is="curModuleInfo._editor">
-            </component>
+        <div v-if="curModule.parentModule">
+            <h1 class="title">
+                {{curModule.parentModule.alias + '-' + curModule.module.alias}}
+            </h1>
+            <div v-if="curModule.parentModule.type" class="body">
+                <component
+                        :parentModule="curModule.parentModule"
+                        :module="curModule.item"
+                        :p-style="curModule.parentModule.style"
+                        :data="curModule.parentModule.data"
+                        :is="curModule.parentModule.type + 'Editor'">
+                </component>
+            </div>
         </div>
+        <div v-else>
+            <h1 class="title">
+                {{curModule.module.alias}}
+            </h1>
+
+            <div v-if="curModule.module.type" class="body">
+                <component :module="curModule.module"
+                           :p-style="curModule.module.style"
+                           :data="curModule.module.data"
+                           :is="curModule.module.type + 'Editor'">
+                </component>
+            </div>
+        </div>
+
+
     </resize>
 </template>
 
@@ -44,32 +62,15 @@
         components: {...modules, resize, ...editorsMap, moduleList, actionsNav},
 
         data () {
-            return {
-                editorsMap,
-                test: false
-            }
+            return {}
         },
 
         computed: {
-            curModuleInfo() {
-                let curModule = this.curModule
-                if (!curModule) return {}
-
-                let isChild = curModule._isChild
-                return {
-                    ...curModule,
-                    _alias : isChild ? `${curModule._getParent().alias}-${curModule.alias}` : curModule.alias,
-                    _editor: isChild ? `${curModule._getParent().type}Editor` : `${curModule.type}Editor`
-                }
-            },
-
             ...mapState([
                 'modules',
                 'curModule'
             ]),
-            ...mapGetters([
-                'builtModules'
-            ])
+            ...mapGetters([])
         },
 
         methods: {

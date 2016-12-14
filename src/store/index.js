@@ -20,7 +20,10 @@ const state = {
         style: {}
     },
     modules   : [],
-    curModule : {},
+    curModule : {
+        module      : {},
+        parentModule: {}
+    },
     act       : act,
     settings  : settings,
     nick      : nick,

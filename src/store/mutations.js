@@ -10,17 +10,13 @@ export default {
     },
 
     [types.UPDATE_MODULE](state, {module}) {
-        if (module._isChild) {
-            let parent = module._getParent()
+        let index = state.modules.indexOf(module)
 
-            state.modules[parent._getIndex()].children[module._getIndex()] = module
-        } else {
-            state.modules[module._getIndex()] = module
-        }
+        if (index !== -1) state.modules.splice(index, 1, module)
     },
 
-    [types.SET_ACTIVE_MODULE](state, {module}) {
-        state.curModule = module
+    [types.SET_ACTIVE_MODULE](state, {module, parentModule}) {
+        state.curModule = {module, parentModule}
     },
 
     [types.FETCH_RULE](state, desc) {

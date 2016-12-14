@@ -3,11 +3,12 @@ import Vue from 'vue'
 import StyleEditor from '../components/StyleEditor.vue'
 
 export default {
-    components:{StyleEditor},
-    props: {
-        module: Object,
-        pStyle: Object,
-        data  : Object,
+    components: {StyleEditor},
+    props     : {
+        parentModule: Object,
+        module      : Object,
+        pStyle      : Object,
+        data        : Object,
     },
 
     data () {
@@ -19,37 +20,13 @@ export default {
             return this.module.type
         },
 
-        parentModule() {
-            return this.module._isChild ? this.module._getParent() : null
-        },
-
         ...mapState([
             'act'
-        ]),
-
-        opacity: {
-            get() {
-                let opacity = this.pStyle.opacity || 0
-
-                return +(opacity * 100).toFixed(2)
-            },
-
-            set(val) {
-                this.pStyle.opacity = +((val / 100).toFixed(2))
-            }
-        }
+        ])
     },
 
     watch: {
-        'parentModule': {
-            deep   : true,
-            handler: function (val, oldVal) {
-                if (!val) return
-
-                this.updateModule({module: val})
-            }
-        },
-        'module'      : {
+        'module': {
             deep   : true,
             handler: function (val, oldVal) {
                 if (!val) return

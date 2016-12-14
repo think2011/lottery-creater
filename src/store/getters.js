@@ -14,26 +14,6 @@ export const bgStyle = ({bg}) => {
     }
 }
 
-export const builtModules = ({modules}) => {
-    let newModules = []
-
-    modules.forEach((item, index) => {
-        item._getIndex = () => index
-
-        if (!item.children) return newModules.push(item)
-
-        item.children.forEach((childItem, childIndex) => {
-            childItem._isChild    = true
-            childItem._parentType = item.type
-            childItem._getParent  = () => item
-            childItem._getIndex   = () => childIndex
-            newModules.push(childItem)
-        })
-    })
-
-    return newModules
-}
-
 export const prizes = ({act}) => {
     return act.giftsJson
 }

@@ -197,7 +197,6 @@
                 'bg'
             ]),
             ...mapGetters([
-                'builtModules'
             ])
         },
 

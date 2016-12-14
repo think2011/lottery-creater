@@ -60,9 +60,10 @@
 
             let dragInstance = interact(this.$refs.drag)
                 .draggable({
-                    enabled : !!this.drag,
-                    inertia : true,
-                    restrict: {
+                    autoScroll: true,
+                    enabled   : !!this.drag,
+                    inertia   : true,
+                    restrict  : {
                         restriction: that.restriction,
                         endOnly    : true,
                         elementRect: {top: 0, left: 0, bottom: 1, right: 1}
@@ -118,8 +119,8 @@
                         let x      = (parseFloat(target.getAttribute('data-x')) || (style.left - parent.offsetLeft))
                         let y      = (parseFloat(target.getAttribute('data-y')) || style.top - -parent.offsetTop)
 
-                        if (event.rect.width <= 30) event.rect.width = 30
-                        if (event.rect.height <= 30) event.rect.height = 30
+                        if (event.rect.width <= 50) event.rect.width = 50
+                        if (event.rect.height <= 50) event.rect.height = 50
 
                         // update the element's style
                         target.style.width  = event.rect.width + 'px';
