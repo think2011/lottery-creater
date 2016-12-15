@@ -3,12 +3,13 @@
         <div v-if="data.children">
             <ul class="tasks-all" :style="{textAlign:data.align}">
                 <li v-for="item in data.children"
+                    :style="item.style"
                     @click="doTask(item.type)">
                     <img :src="item.data.src" alt="">
                 </li>
             </ul>
         </div>
-        <div @click="doTask(type)" v-else>
+        <div :style="pStyle" @click="doTask(type)" v-else>
             <img :src="data.src" alt="">
         </div>
     </div>
