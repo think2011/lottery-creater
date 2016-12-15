@@ -74,8 +74,7 @@
                 'bg',
                 'name',
             ]),
-            ...mapGetters([
-            ])
+            ...mapGetters([])
         },
 
         methods: {
@@ -95,6 +94,7 @@
                     if (!valid) return
 
                     let data = {
+                        type   : this.$store.state.type,
                         name   : this.model.name,
                         bg     : this.bg,
                         psdPath: this.psdPath,

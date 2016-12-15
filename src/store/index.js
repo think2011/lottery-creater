@@ -14,6 +14,7 @@ const fromNick = window.fromNick
 const nick     = window.nick
 
 const state = {
+    type      : '',
     name      : '',
     psdPath   : '',
     bg        : {
