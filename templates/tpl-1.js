@@ -41,8 +41,7 @@ module.exports = {
     "type"    : "tasks",
     "alias"   : "抽奖任务",
     "style"   : {"width": "750px", "height": "84px", "left": "0.5px", "top": "880px"},
-    "data"    : {"position": "manual", "align": "center", "children": null},
-    "children": [{
+    "data"    : {"position": "auto", "align": "center",  "children": [{
       "type" : "shopping",
       "alias": "加购",
       "style": {"width": "124px", "height": "50px", "top": "890px", "left": "46px"},
@@ -68,7 +67,8 @@ module.exports = {
       "style": {"width": "124px", "height": "52px", "top": "890px", "left": "579px"},
       "data" : {"src": "https://img.alicdn.com/imgextra/i1/92779311/TB2yCJsaHBmpuFjSZFuXXaG_XXa-92779311.png"}
     }
-    ]
+    ]}
+
   }, {
     "type": "luckyList",
     "alias": "中奖名单",
