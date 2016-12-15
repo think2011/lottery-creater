@@ -1,7 +1,7 @@
 module.exports = {
     "name"   : "我的自定义模板",
     "bg"     : {
-        "src"  : "//img.alicdn.com/imgextra/i4/92779311/TB2dWzlXBNkpuFjy0FaXXbRCVXa-92779311.jpg",
+        "src"  : "https://img.alicdn.com/imgextra/i1/92779311/TB2F38RaB0kpuFjSsziXXa.oVXa-92779311.jpg",
         "style": {"height": "2018px", "backgroundColor": "#fff"}
     },
     "modules": [{
@@ -12,25 +12,25 @@ module.exports = {
     }, {
         "type" : "toShop",
         "alias": "店铺链接",
-        "style": {"width": "192px", "height": "47px", "top": "14px", "right": "0"},
-        "data" : {}
+      "style": {"width": "192px", "height": "47px", "top": "14px", "right": "0"},
+      "data" : {}
     }, {
         "type" : "pic",
         "alias": "标题",
-        "style": {"top": "1.088rem", "left": "1.5146666666666666rem"},
-        "data" : {}
+        "style": {"width": "750px", "height": "361px","top": "70px", "left": "0"},
+      "data" : {"src": "https://img.alicdn.com/imgextra/i3/92779311/TB2B2dSaxXkpuFjy0FiXXbUfFXa-92779311.png"}
     }, {
         "type"    : "dial",
         "alias"   : "转盘",
         "children": [{
             "type" : "bg",
             "alias": "转盘背景",
-            "style": {"width": "655px", "height": "655px", "top": "480px", "left": "45px"},
+            "style": {"width": "655px", "height": "655px", "top": "478px", "left": "45px"},
             "data" : {"src": "//img.alicdn.com/imgextra/i2/92779311/TB2Uc2lXCXlpuFjy0FeXXcJbFXa-92779311.png"}
         }, {
             "type" : "pointer",
             "alias": "指针(抽奖按钮)",
-            "style": {"width": "302px", "height": "302px", "top": "660px", "left": "224px"},
+            "style": {"width": "302px", "height": "302px", "top": "658px", "left": "224px"},
             "data" : {"src": "//img.alicdn.com/imgextra/i2/92779311/TB2WBcYXtBopuFjSZPcXXc9EpXa-92779311.png"}
         }],
         "data"    : {
@@ -52,29 +52,36 @@ module.exports = {
         "style": {"width": "90px", "height": "90px", "left": "536px", "top": "100px"},
         "data" : {}
     }, {
-        "type"    : "tasks",
-        "alias"   : "抽奖任务",
-        "children": [{
-            "type" : "shopping",
-            "alias": "加购",
-            "style": {"width": "124px", "height": "46px", "top": "1186px", "left": "110px"},
-            "data" : {}
-        }, {
-            "type" : "collect",
-            "alias": "收藏",
-            "style": {"width": "124px", "height": "46px", "top": "1186px", "left": "246px"},
-            "data" : {}
-        }, {
-            "type" : "share",
-            "alias": "分享",
-            "style": {"width": "124px", "height": "46px", "top": "1186px", "left": "380px"},
-            "data" : {}
-        }, {
-            "type" : "order",
-            "alias": "下单",
-            "style": {"width": "124px", "height": "46px", "top": "1186px", "left": "516px"},
-            "data" : {}
-        }]
+      "type"    : "tasks",
+      "alias"   : "抽奖任务",
+      "style"   : {"width": "750px", "height": "60px", "left": "0.5px", "top": "1176px"},
+      "data"    : {"position": "auto", "align": "center", "children": [{
+        "type" : "shopping",
+        "alias": "加购",
+        "style": {"width": "127px", "height": "49px", "top": "1185px", "left": "46px"},
+        "data" : {"src": "https://img.alicdn.com/imgextra/i2/92779311/TB2WMtTawxlpuFjSszbXXcSVpXa-92779311.png"}
+      }, {
+        "type" : "collect",
+        "alias": "收藏",
+        "style": {"width": "127px", "height": "49px", "top": "1185px", "left": "180px"},
+        "data" : {"src": "https://img.alicdn.com/imgextra/i1/92779311/TB2k_pTawJlpuFjSspjXXcT.pXa-92779311.png"}
+      }, {
+        "type" : "share",
+        "alias": "分享",
+        "style": {"width": "127px", "height": "49px", "top": "1185px", "left": "314px"},
+        "data" : {"src": "https://img.alicdn.com/imgextra/i2/92779311/TB2QQpSawFkpuFjSspnXXb4qFXa-92779311.png"}
+      }, {
+        "type" : "order",
+        "alias": "下单",
+        "style": {"width": "127px", "height": "49px", "top": "1185px", "left": "446px"},
+        "data" : {"src": "https://img.alicdn.com/imgextra/i2/92779311/TB2Ko4PaxdkpuFjy0FbXXaNnpXa-92779311.png"}
+      },{
+        "type" : "praise",
+        "alias": "好评",
+        "style": {"width": "127px", "height": "49px", "top": "1185px", "left": "579px"},
+        "data" : {"src": "https://img.alicdn.com/imgextra/i1/92779311/TB2pSFNaCXlpuFjy0FeXXcJbFXa-92779311.png"}
+      }
+      ]}
     }, {
         "type" : "luckyList",
         "alias": "中奖名单",
