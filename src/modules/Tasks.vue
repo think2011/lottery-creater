@@ -41,7 +41,7 @@
         text-align: center;
 
         li {
-            margin: px2rem(10) px2rem(10);
+            margin: px2rem(5) px2rem(5);
             display: inline-block;
         }
     }
