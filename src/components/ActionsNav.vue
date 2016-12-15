@@ -94,7 +94,7 @@
                     if (!valid) return
 
                     let data = {
-                        type   : this.$store.state.type,
+                        type   : this.viewType,
                         name   : this.model.name,
                         bg     : this.bg,
                         psdPath: this.psdPath,
@@ -132,6 +132,7 @@
             ...mapActions([
                 'updateModule',
                 'activeModule',
+                'viewType',
                 'stopPropagation'
             ])
         }

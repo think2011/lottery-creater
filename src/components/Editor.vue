@@ -1,70 +1,92 @@
 <template>
     <div @click="mapActiveModule({module:{},parentModule:{}})" class="editor-container">
+        <header>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </header>
+
         <section class="container">
             <module-list></module-list>
 
             <div :style="bgStyle" class="main">
-                <div v-for="(item,index) in modules">
-                    <div v-if="!item.children">
-                        <resize
-                                :class="{active:curModule.module === item}"
-                                @update="updateStyle(item,$event)"
-                                @click="mapActiveModule({module:item})"
-                                restriction=".main"
-                                :p-style="item.style"
-                                :drag="true"
-                                :resize="true">
-                            <component class="module"
-                                       :module="item"
-                                       :style="item.style"
-                                       :p-style="item.style"
-                                       :data="item.data"
-                                       :is="item.type">
-                            </component>
+                <div :style="containerStyle">
+                    <div v-for="(item,index) in modules">
+                        <div v-if="!item.children">
+                            <resize
+                                    :class="{active:curModule.module === item}"
+                                    @update="updateStyle(item,$event)"
+                                    @click="mapActiveModule({module:item})"
+                                    restriction=".main"
+                                    :p-style="item.style"
+                                    :drag="true"
+                                    :resize="true">
+                                <component class="module"
+                                           :module="item"
+                                           :style="item.style"
+                                           :p-style="item.style"
+                                           :data="item.data"
+                                           :is="item.type">
+                                </component>
 
-                            <div class="handle">
-                                <div class="dot t"></div>
-                                <div class="dot r"></div>
-                                <div class="dot b"></div>
-                                <div class="dot l"></div>
-                                <div class="dot c-t"></div>
-                                <div class="dot c-r"></div>
-                                <div class="dot c-b"></div>
-                                <div class="dot c-l"></div>
-                            </div>
-                        </resize>
-                    </div>
+                                <div class="handle">
+                                    <div class="dot t"></div>
+                                    <div class="dot r"></div>
+                                    <div class="dot b"></div>
+                                    <div class="dot l"></div>
+                                    <div class="dot c-t"></div>
+                                    <div class="dot c-r"></div>
+                                    <div class="dot c-b"></div>
+                                    <div class="dot c-l"></div>
+                                </div>
+                            </resize>
+                        </div>
 
-                    <div v-else>
-                        <resize
-                                v-for="(childItem,childIndex) in item.children"
-                                :class="{active:curModule.module === childItem}"
-                                @update="updateStyle(childItem,$event)"
-                                @click="mapActiveModule({module:childItem, parentModule:item})"
-                                restriction=".main"
-                                :p-style="childItem.style"
-                                :drag="true"
-                                :resize="true">
-                            <component class="module"
-                                       :parentModule="item"
-                                       :module="childItem"
-                                       :style="childItem.style"
-                                       :p-style="childItem.style"
-                                       :data="childItem.data"
-                                       :is="item.type">
-                            </component>
+                        <div v-else>
+                            <resize
+                                    v-for="(childItem,childIndex) in item.children"
+                                    :class="{active:curModule.module === childItem}"
+                                    @update="updateStyle(childItem,$event)"
+                                    @click="mapActiveModule({module:childItem, parentModule:item})"
+                                    restriction=".main"
+                                    :p-style="childItem.style"
+                                    :drag="true"
+                                    :resize="true">
+                                <component class="module"
+                                           :parentModule="item"
+                                           :module="childItem"
+                                           :style="childItem.style"
+                                           :p-style="childItem.style"
+                                           :data="childItem.data"
+                                           :is="item.type">
+                                </component>
 
-                            <div class="handle">
-                                <div class="dot t"></div>
-                                <div class="dot r"></div>
-                                <div class="dot b"></div>
-                                <div class="dot l"></div>
-                                <div class="dot c-t"></div>
-                                <div class="dot c-r"></div>
-                                <div class="dot c-b"></div>
-                                <div class="dot c-l"></div>
-                            </div>
-                        </resize>
+                                <div class="handle">
+                                    <div class="dot t"></div>
+                                    <div class="dot r"></div>
+                                    <div class="dot b"></div>
+                                    <div class="dot l"></div>
+                                    <div class="dot c-t"></div>
+                                    <div class="dot c-r"></div>
+                                    <div class="dot c-b"></div>
+                                    <div class="dot c-l"></div>
+                                </div>
+                            </resize>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,7 +121,8 @@
                 'temp'
             ]),
             ...mapGetters([
-                'bgStyle'
+                'bgStyle',
+                'containerStyle'
             ])
         },
 
@@ -134,7 +157,7 @@
 
             ...mapActions([
                 'updateModule',
-                'activeModule',
+                'activeModule'
             ])
         }
     }

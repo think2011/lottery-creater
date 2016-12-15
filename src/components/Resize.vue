@@ -71,10 +71,16 @@
                     // call this function on every dragmove event
                     onmove: function dragMoveListener(event) {
                         let target = event.target
-                        let style  = $(target).offset()
-                        let parent = target.offsetParent || {offsetLeft: 0, offsetTop: 0}
-                        let x      = (parseFloat(target.getAttribute('data-x')) || (style.left - parent.offsetLeft))
-                        let y      = (parseFloat(target.getAttribute('data-y')) || style.top - -parent.offsetTop)
+                        let style  = null
+
+                        if (getComputedStyle(target).position === 'fixed') {
+                            style = target.getBoundingClientRect()
+                        } else {
+                            style = $(target).position()
+                        }
+
+                        let x = (parseFloat(target.getAttribute('data-x')) || style.left)
+                        let y = (parseFloat(target.getAttribute('data-y')) || style.top)
 
                         // 没有宽高时, 要设置宽高
                         if (that.pStyle && (!that.pStyle.width || !that.pStyle.height)) {
@@ -113,10 +119,9 @@
 
                     onmove: function (event) {
                         let target = event.target
-                        let style  = $(target).offset()
-                        let parent = target.offsetParent || {offsetLeft: 0, offsetTop: 0}
-                        let x      = (parseFloat(target.getAttribute('data-x')) || (style.left - parent.offsetLeft))
-                        let y      = (parseFloat(target.getAttribute('data-y')) || style.top - -parent.offsetTop)
+                        let style  = $(target).position()
+                        let x      = (parseFloat(target.getAttribute('data-x')) || style.left)
+                        let y      = (parseFloat(target.getAttribute('data-y')) || style.top)
 
                         if (event.rect.width <= 50) event.rect.width = 50
                         if (event.rect.height <= 50) event.rect.height = 50
