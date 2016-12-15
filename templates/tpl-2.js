@@ -27,12 +27,12 @@ module.exports = {
             "type" : "bg",
             "alias": "转盘背景",
             "style": {"width": "655px", "height": "655px", "top": "478px", "left": "45px"},
-            "data" : {"src": "//img.alicdn.com/imgextra/i2/92779311/TB2Uc2lXCXlpuFjy0FeXXcJbFXa-92779311.png"}
+            "data" : {"src": "https://img.alicdn.com/imgextra/i2/92779311/TB2Uc2lXCXlpuFjy0FeXXcJbFXa-92779311.png"}
         }, {
             "type" : "pointer",
             "alias": "指针(抽奖按钮)",
             "style": {"width": "302px", "height": "302px", "top": "658px", "left": "224px"},
-            "data" : {"src": "//img.alicdn.com/imgextra/i2/92779311/TB2WBcYXtBopuFjSZPcXXc9EpXa-92779311.png"}
+            "data" : {"src": "https://img.alicdn.com/imgextra/i2/92779311/TB2WBcYXtBopuFjSZPcXXc9EpXa-92779311.png"}
         }],
         "data"    : {
             "rotateType" : "bg",
