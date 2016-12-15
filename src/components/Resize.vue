@@ -62,7 +62,6 @@
                 .draggable({
                     autoScroll: true,
                     enabled   : !!this.drag,
-                    inertia   : true,
                     restrict  : {
                         restriction: that.restriction,
                         endOnly    : true,

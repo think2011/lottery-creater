@@ -157,8 +157,6 @@
             justify-content: center;
 
             .main {
-                width: 750px;
-                flex: 0 0 750px;
                 background: #fff;
                 box-shadow: 0 0 10px #999;
                 position: relative;

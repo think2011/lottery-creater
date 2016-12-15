@@ -3,31 +3,28 @@ import * as types from './mutation-types'
 
 export default {
     initLottery({commit, dispatch, state}, config) {
-        let {modules, name, bg, toRem} = config
+        let {modules, name, bg, type} = config
 
-        if (toRem) {
-            (function convertRemFn(obj) {
-                if (Object.prototype.toString.call(obj) === '[object Array]') {
-                    obj.forEach(convertRemFn)
-                }
-                else if (Object.prototype.toString.call(obj) === '[object Object]') {
-                    for (let p in obj) {
-                        if (!obj.hasOwnProperty(p)) continue;
+        let designSize = type === 'mobile' ? 750 : 1920;
 
-                        if (/.*style$/gi.test(p)) {
-                            // 转换rem
-                            convertRem(obj[p])
-                        }
+        (function convertRemFn(obj, designSize) {
+            if (Object.prototype.toString.call(obj) === '[object Array]') {
+                obj.forEach((item) => convertRemFn(item, designSize))
+            }
+            else if (Object.prototype.toString.call(obj) === '[object Object]') {
+                for (let p in obj) {
+                    if (!obj.hasOwnProperty(p)) continue;
 
-                        // 子组件以及data
-                        if (/children|data/g.test(p)) convertRemFn(obj[p])
+                    if (/.*style$/gi.test(p)) {
+                        // 转换rem
+                        convertRem(obj[p], designSize)
                     }
-                }
-            })(modules)
 
-            // 处理背景
-            convertRem(bg.style)
-        }
+                    // 子组件以及data
+                    if (/children|data/g.test(p)) convertRemFn(obj[p], designSize)
+                }
+            }
+        })(modules)
 
         dispatch('updateDrawTotal')
         commit(types.INIT_LOTTERY, config)
