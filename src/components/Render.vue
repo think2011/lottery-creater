@@ -1,13 +1,30 @@
 <template>
     <div :style="bgStyle" class="render-container">
-        <component class="module"
-                   v-for="(item,index) in builtModules"
-                   :module="item"
-                   :p-style="item.style"
-                   :style="item.style"
-                   :data="item.data"
-                   :is="item._isChild ? item._parentType : item.type">
-        </component>
+        <div v-for="(item,index) in modules">
+            <div v-if="!item.children">
+                <component class="module"
+                           :module="item"
+                           :style="item.style"
+                           :p-style="item.style"
+                           :data="item.data"
+                           :is="item.type">
+                </component>
+            </div>
+
+            <div v-else>
+                <div v-for="(childItem,childIndex) in item.children">
+                    <component class="module"
+                               :parentModule="item"
+                               :module="childItem"
+                               :style="childItem.style"
+                               :p-style="childItem.style"
+                               :data="childItem.data"
+                               :is="item.type">
+                    </component>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -33,7 +50,6 @@
                 'modules'
             ]),
             ...mapGetters([
-                'builtModules',
                 'bgStyle'
             ])
         },

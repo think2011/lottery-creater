@@ -67,7 +67,6 @@
 
                         <el-button
                                 slot="reference"
-                                :plain="true"
                                 type="primary"
                                 icon="picture">更换背景
                         </el-button>
@@ -86,66 +85,36 @@
                   </el-popover>-->
             </li>
             <li v-for="item in modules">
-                <a @mouseover="mapActiveModule(item)"
-                   :class="{'has-children':item.children, active:mapCurModule === item}"
+                <a @mouseover="mapActiveModule({module:item})"
+                   :class="{'has-children':item.children, active:curModule.module === item}"
                    href="javascript:">
                     {{item.alias}}
 
-                    <el-popover
+                    <el-button
                             class="del"
-                            placement="top"
-                            width="120"
-                            v-model="item._del"
-                            trigger="manual">
-                        <p>真的要删除吗？</p>
-                        <div class="text-right">
-                            <el-button type="text" size="mini"
-                                       @click="toggleDel(item,false)">取消
-                            </el-button>
-                            <el-button type="primary" size="mini"
-                                       @click="toggleDel(item,false);delModule(item)">确定
-                            </el-button>
-                        </div>
-                        <el-button
-                                @click="toggleDel(item,true)"
-                                slot="reference"
-                                size="mini"
-                                type="text"
-                                icon="delete">
-                        </el-button>
-                    </el-popover>
+                            @click="delModule({module:item})"
+                            slot="reference"
+                            size="mini"
+                            type="text"
+                            icon="delete">
+                    </el-button>
                 </a>
 
                 <ul>
                     <li v-for="childItem in item.children">
-                        <a @mouseover="mapActiveModule(childItem)"
-                           :class="{active:mapCurModule === childItem}"
+                        <a @mouseover="mapActiveModule({module:childItem, parentModule:item})"
+                           :class="{active:curModule.module === childItem}"
                            href="javascript:">
                             {{childItem.alias}}
 
-                            <el-popover
+                            <el-button
                                     class="del"
-                                    placement="top"
-                                    width="120"
-                                    v-model="childItem._del"
-                                    trigger="manual">
-                                <p>真的要删除吗？</p>
-                                <div class="text-right">
-                                    <el-button type="text" size="mini"
-                                               @click="toggleDel(childItem,false)">取消
-                                    </el-button>
-                                    <el-button type="primary" size="mini"
-                                               @click="toggleDel(childItem,false);delModule(childItem)">确定
-                                    </el-button>
-                                </div>
-                                <el-button
-                                        @click="toggleDel(childItem,true)"
-                                        slot="reference"
-                                        size="mini"
-                                        type="text"
-                                        icon="delete">
-                                </el-button>
-                            </el-popover>
+                                    @click="delModule({module:childItem,parentModule:item})"
+                                    slot="reference"
+                                    size="mini"
+                                    type="text"
+                                    icon="delete">
+                            </el-button>
                         </a>
                     </li>
                 </ul>
@@ -164,57 +133,26 @@
         components: {...modules, ColorPicker},
 
         data () {
-            return {
-                bgHeight: null
-            }
+            return {}
         },
 
         computed: {
-            mapCurModule() {
-                let module    = null
-                let curModule = this.curModule
-
-                this.modules.forEach((item) => {
-                    if (this.curModule._isChild) {
-                        let parent = curModule._getParent()
-
-                        if (item.type === parent.type) {
-                            parent.children.forEach((childItem) => {
-                                if (childItem.type === curModule.type) module = childItem
-                            })
-                        }
-                    } else {
-                        if (item.type === curModule.type) module = item
-                    }
-                })
-
-                return module
-            },
-
             ...mapState([
                 'modules',
                 'curModule',
                 'bg'
             ]),
-            ...mapGetters([
-            ])
+            ...mapGetters([])
         },
 
         watch: {},
 
         methods: {
-            toggleDel(item, state) {
-                item._del = state
-                if (!item._isChild) this.modules[this.modules.indexOf(item)]._del = state
-                this.$forceUpdate()
-            },
+            mapActiveModule({module, parentModule}){
+                if (module.children) return
 
-            mapActiveModule(item) {
-                if (!item) return
-
-                this.activeModule({
-                    module: this.builtModules.filter((builtItem) => builtItem.type === item.type)[0] || {}
-                })
+                window.event.stopPropagation()
+                this.activeModule({module, parentModule})
             },
 
             ...mapActions([

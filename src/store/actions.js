@@ -70,9 +70,9 @@ export default {
         }
     },
 
-    delModule({commit, dispatch, state}, ...args) {
+    delModule({commit, dispatch, state}, params) {
         dispatch('activeModule', {module: {}})
-        commit(types.DEL_MODULE, ...args)
+        commit(types.DEL_MODULE, params)
     },
 
     stopPropagation() {
