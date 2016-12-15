@@ -1,8 +1,9 @@
 module.exports = {
+    type     : 'pc',
     "name"   : "我的自定义模板",
     "bg"     : {
-        "src"  : "http://192.168.1.124:1991/static/img/bg.aca2fe9.png",
-        "style": {"height": "2018px", "backgroundColor": "#fff"}
+        "src"  : require('src/assets/temp/pc/bg.png'),
+        "style": {"height": "1154px", "backgroundColor": "#fff"}
     },
     "psdPath": "test",
     "modules": [{
@@ -10,16 +11,6 @@ module.exports = {
         "alias": "店铺链接",
         "style": {"width": "192px", "height": "47px", "top": "14px", "left": "0"},
         "data" : {}
-    }, {
-        "type" : "toShop",
-        "alias": "店铺链接",
-        "style": {"width": "192px", "height": "47px", "top": "14px", "right": "0"},
-        "data" : {}
-    }, {
-        "type" : "pic",
-        "alias": "标题",
-        "style": {"top": "1.088rem", "left": "1.5146666666666666rem"},
-        "data" : {"src": "http://192.168.1.124:1991/static/img/title.223b4a9.png"}
     }, {
         "type" : "drawTotal",
         "alias": "抽奖次数",
