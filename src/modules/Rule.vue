@@ -1,8 +1,9 @@
 <template>
-    <div>
-        <div @click="show" v-if="data.type === 1">
+    <div style="overflow: auto">
+        <div :style="pStyle" @click="showRule" v-if="data.type === 1">
         </div>
-        <div :style="data.textStyle" v-if="data.type === 2">
+        <div :style="data.textStyle"
+             v-if="data.type === 2">
             <pre>{{gameData.rule}}</pre>
         </div>
     </div>
@@ -27,7 +28,7 @@
         },
 
         methods: {
-            show() {
+            showRule() {
                 if (this.data.type !== 1) return
 
                 window.GameDialog.lotteryRule(this.sellerId, this.activityId);
