@@ -11,7 +11,7 @@
             </ul>
         </div>
 
-        <div v-if="tasksStatus2[type]" :style="pStyle" @click="doTask(type)" v-else>
+        <div v-show="tasksStatus2[type]" :style="pStyle" @click="doTask(type)" v-else>
             <img :src="data.src" alt="">
         </div>
     </div>

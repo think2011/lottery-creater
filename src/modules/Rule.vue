@@ -1,10 +1,13 @@
 <template>
-    <div style="overflow: auto">
+    <div>
         <div :style="pStyle" @click="showRule" v-if="data.type === 1">
         </div>
-        <div :style="data.textStyle"
-             v-if="data.type === 2">
-            <pre>{{gameData.rule}}</pre>
+
+        <div style="overflow: auto;height: 100%;">
+            <div :style="data.textStyle"
+                 v-if="data.type === 2">
+                <pre>{{gameData.rule}}</pre>
+            </div>
         </div>
     </div>
 </template>
