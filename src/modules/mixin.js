@@ -60,8 +60,8 @@ export default {
                 collect : '<li><i data-type="collect" class="pull-right collect">立即收藏 </i>收藏宝贝获得机会</li>',
                 shopping: '<li><i data-type="shopping" class="pull-right shopping">加购物车 </i>加购物车获得机会</li>',
                 share   : '<li><i data-type="share" class="pull-right share">立即分享 </i>分享好友获得机会</li>',
-                buy     : '<li><i data-target="buy" class="pull-right buy">去下单 </i>下单获得机会</li>',
-                rate    : '<li><i data-target="rate" class="pull-right rate">去好评 </i>好评获得机会</li>',
+                buy     : '<li><i data-type="buy" class="pull-right buy">去下单 </i>下单获得机会</li>',
+                rate    : '<li><i data-type="rate" class="pull-right rate">去好评 </i>好评获得机会</li>',
             }
 
             for (let p in types) {
@@ -113,20 +113,6 @@ export default {
                             $.toast("对不起, 最多只能奖励" + res.data.maxCount + "次抽奖机会");
                         }
                     })
-                    break;
-
-                case 'order':
-                    gameDialog.buy(act.extraCount, function (res) {
-                        if (res.success) {
-                            var appendCount = res.data.remainCount - that.gameData.drawTotal;
-                            if (appendCount > 0) {
-                                $.toast("成功增加" + appendCount + "次抽奖机会");
-                                that.SET_DRAW_TOTAL(res.data.remainCount)
-                                return;
-                            }
-                        }
-                        $.toast("没有新的抽奖机会");
-                    });
                     break;
 
                 case 'share':
