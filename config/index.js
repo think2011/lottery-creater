@@ -1,8 +1,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
 
-
-module.exports = {
+let config = {
     build: {
         env                     : require('./prod.env'),
         index                   : path.resolve(__dirname, '../dist/index.html'),
@@ -21,7 +20,7 @@ module.exports = {
         env               : require('./dev.env'),
         port              : 1991,
         assetsSubDirectory: 'static',
-        assetsPublicPath  : 'http://192.168.1.124/',
+        assetsPublicPath  : '//192.168.1.124:1991/',
         proxyTable        : {},
         // CSS Sourcemaps off by default because relative paths are "buggy"
         // with this option, according to the CSS-Loader README
@@ -31,3 +30,28 @@ module.exports = {
         cssSourceMap      : true
     }
 }
+
+const buildType = process.env.buildType
+switch (buildType) {
+    case 'editor':
+        Object.assign(config.build, {
+            index           : '/Users/think2011/Projects/cxb-trunk/src/assets/bower_components/lottery/index.html',
+            assetsRoot      : '/Users/think2011/Projects/cxb-trunk/src/assets/bower_components/lottery',
+            assetsPublicPath: './',
+        })
+        break;
+
+    case 'mobile':
+        Object.assign(config.build, {
+            index           : '/Users/think2011/Projects/lottery2/zy-module-lottery2-buyer-m/src/main/webapp/resources/lottery2/index.html',
+            assetsRoot      : '/Users/think2011/Projects/lottery2/zy-module-lottery2-buyer-m/src/main/webapp',
+            assetsPublicPath: '/',
+        })
+        break;
+
+    default:
+    //
+}
+
+
+module.exports = config

@@ -1,25 +1,5 @@
 <template>
     <div @click="mapActiveModule({module:{},parentModule:{}})" class="editor-container">
-        <header>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-        </header>
-
         <section class="container">
             <module-list></module-list>
 

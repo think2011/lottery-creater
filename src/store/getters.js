@@ -28,6 +28,46 @@ export const bgStyle = ({bg, type}) => {
     return style
 }
 
+export const containerStyle = ({type}) => {
+    let style = {}
+
+    if (type === 'pc') {
+        style = {
+            width   : '990px',
+            height  : '100%',
+            position: 'relative',
+            margin  : ' 0 auto'
+        }
+    }
+
+    return style
+}
+
+export const viewType = ({type}) => {
+    return type
+}
+
 export const prizes = ({act}) => {
     return act.giftsJson
+}
+
+export const tasksStatus = ({act}) => {
+    return {
+        shopping: act.extraCount.itemCartEnabled,
+        collect : act.extraCount.itemFavorEnabled,
+        share   : act.extraCount.shareEnabled,
+        buy     : act.extraCount.tradePaymentEnabled || act.extraCount.tradeCountEnabled,
+        rate    : act.extraCount.tradeRateEnabled
+    }
+}
+
+// 因为命名不一样，这个用于编辑器使用
+export const tasksStatus2 = ({act}) => {
+    return {
+        shopping: act.extraCount.itemCartEnabled,
+        collect : act.extraCount.itemFavorEnabled,
+        share   : act.extraCount.shareEnabled,
+        order   : act.extraCount.tradePaymentEnabled || act.extraCount.tradeCountEnabled,
+        praise  : act.extraCount.tradeRateEnabled
+    }
 }
