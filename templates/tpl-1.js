@@ -85,6 +85,6 @@ module.exports = {
         "type" : "rule",
         "alias": "游戏规则",
         "style": {"width": "119px", "height": "47px", "top": "33px", "right": "0"},
-        "data" : {"type": 1, "textStyle": {"fontSize": "24px", "lineHeight": "1.5", "color": "skyblue"}}
+        "data" : {"type": 1, "textStyle": {"fontSize": "24px", "lineHeight": "1.5", "color": "#FCEF86"}}
     }]
 }
