@@ -105,7 +105,8 @@
 
                     this.loading = true
                     window.parent.opener.postMessage({
-                        type: 'save', data
+                        type: 'save',
+                        data: JSON.parse(JSON.stringify(data))  // 父窗口修改了这个数据会报错
                     }, '*')
                 })
 
