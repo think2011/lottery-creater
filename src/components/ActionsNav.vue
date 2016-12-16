@@ -74,7 +74,9 @@
                 'bg',
                 'name',
             ]),
-            ...mapGetters([])
+            ...mapGetters([
+                'viewType',
+            ])
         },
 
         methods: {
@@ -133,7 +135,6 @@
             ...mapActions([
                 'updateModule',
                 'activeModule',
-                'viewType',
                 'stopPropagation'
             ])
         }
