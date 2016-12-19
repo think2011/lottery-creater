@@ -243,10 +243,10 @@
         width: 100%;
         padding: 15px 40px;
         display: flex;
-        background: #fff;
+        background: rgba(255, 255, 255, 0.95);
         position: fixed;
         z-index: 1000;
-        box-shadow: 0 0 5px #999;
+        box-shadow: 0 0 10px #999;
 
         h1 {
             color: #8492A6;

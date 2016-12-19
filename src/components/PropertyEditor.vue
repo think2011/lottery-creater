@@ -23,6 +23,18 @@
                         :data="curModule.parentModule.data"
                         :is="curModule.parentModule.type + 'Editor'">
                 </component>
+
+                <div class="line"></div>
+                <div class="text-right">
+                    </el-button>
+                    <el-button class="m-b-10"
+                               @click="delModule({module:curModule.module,parentModule:curModule.parentModule})"
+                               icon="delete"
+                               :plain="true"
+                               type="danger">
+                        删除
+                    </el-button>
+                </div>
             </div>
         </div>
         <div v-else>
@@ -36,6 +48,16 @@
                            :data="curModule.module.data"
                            :is="curModule.module.type + 'Editor'">
                 </component>
+                <div class="line"></div>
+                <div class="text-right">
+                    <el-button class="m-b-10"
+                               @click="delModule({module:curModule.module})"
+                               icon="delete"
+                               :plain="true"
+                               type="danger">
+                        删除
+                    </el-button>
+                </div>
             </div>
         </div>
 
@@ -79,6 +101,7 @@
             },
 
             ...mapActions([
+                'delModule',
                 'updateModule',
                 'activeModule',
                 'stopPropagation',

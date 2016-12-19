@@ -162,7 +162,11 @@
     }
 
     .editor-container {
-        overflow: hidden;
+
+        &:before {
+            content: '';
+            display: table;
+        }
 
         .container {
             margin-top: 66px;
