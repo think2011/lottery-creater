@@ -75,6 +75,7 @@
         },
 
         mounted(){
+            this.render()
         },
 
         updated() {

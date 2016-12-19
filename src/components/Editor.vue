@@ -35,6 +35,9 @@
                                     <div class="dot c-b"></div>
                                     <div class="dot c-l"></div>
                                 </div>
+                                <div v-if="isShowLabel" class="title-label">
+                                    <el-tag :hit="true" type="">{{item.alias}}</el-tag>
+                                </div>
                             </resize>
                         </div>
 
@@ -66,6 +69,9 @@
                                     <div class="dot c-r"></div>
                                     <div class="dot c-b"></div>
                                     <div class="dot c-l"></div>
+                                </div>
+                                <div v-if="isShowLabel" class="title-label">
+                                    <el-tag :hit="true" type="">{{item.alias + '-' + childItem.alias}}</el-tag>
                                 </div>
                             </resize>
                         </div>
@@ -99,7 +105,7 @@
             ...mapState([
                 'modules',
                 'curModule',
-                'temp'
+                'isShowLabel'
             ]),
             ...mapGetters([
                 'bgStyle',
@@ -156,8 +162,10 @@
     }
 
     .editor-container {
+        overflow: hidden;
 
         .container {
+            margin-top: 66px;
             display: flex;
             justify-content: center;
 
@@ -189,8 +197,12 @@
                     .el-tag {
                         position: absolute;
                         top: 0;
-                        right: 0;
+                        left: 0;
                         opacity: .9;
+                        background: #444;
+                        font-size: 14px;
+                        box-shadow: 0 5px 5px -3px #333;
+                        border-radius: 0 !important;
                     }
 
                     .handle {

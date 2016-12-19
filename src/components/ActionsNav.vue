@@ -7,7 +7,7 @@
                     :width="90"
                     :value="isShowLabel"
                     @change="SHOW_LABEL(!isShowLabel)"
-                    on-color="#13ce66"
+                    on-color="#20A0FF"
                     on-text="显示标签"
                     off-text="显示标签">
             </el-switch>
@@ -239,10 +239,11 @@
     @import "../assets/styles/common";
 
     header {
+        width: 100%;
         padding: 15px 40px;
         display: flex;
         background: #fff;
-        position: relative;
+        position: fixed;
         z-index: 1000;
         box-shadow: 0 0 5px #999;
 

@@ -11,7 +11,6 @@
             </ul>
         </div>
 
-        {{type}}
         <div v-else>
             <div v-if="tasksStatus[type]" :style="pStyle" @click="doTask(type)">
                 <img :src="data.src" alt="">
