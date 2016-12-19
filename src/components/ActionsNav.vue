@@ -75,7 +75,7 @@
                 'name',
             ]),
             ...mapGetters([
-                'viewType',
+                'viewType'
             ])
         },
 

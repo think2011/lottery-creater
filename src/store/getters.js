@@ -51,23 +51,31 @@ export const prizes = ({act}) => {
     return act.giftsJson
 }
 
-export const tasksStatus = ({act}) => {
-    return {
+export const tasksStatus = ({act}, {tasksStatusMap}) => {
+    let result = {
         shopping: act.extraCount.itemCartEnabled,
         collect : act.extraCount.itemFavorEnabled,
         share   : act.extraCount.shareEnabled,
         buy     : act.extraCount.tradePaymentEnabled || act.extraCount.tradeCountEnabled,
         rate    : act.extraCount.tradeRateEnabled
     }
+
+    for (let p in tasksStatusMap) {
+        if (!tasksStatusMap.hasOwnProperty(p)) continue;
+
+        result[p] = result[tasksStatusMap[p]]
+    }
+
+    return result
 }
 
 // 因为命名不一样，这个用于编辑器使用
-export const tasksStatus2 = ({act}) => {
+export const tasksStatusMap = () => {
     return {
-        shopping: act.extraCount.itemCartEnabled,
-        collect : act.extraCount.itemFavorEnabled,
-        share   : act.extraCount.shareEnabled,
-        order   : act.extraCount.tradePaymentEnabled || act.extraCount.tradeCountEnabled,
-        praise  : act.extraCount.tradeRateEnabled
+        shopping: 'shopping',
+        collect : 'collect',
+        share   : 'share',
+        order   : 'buy',
+        praise  : 'rate'
     }
 }

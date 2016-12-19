@@ -32,7 +32,7 @@ export default {
             'gameData',
             'prizes',
             'tasksStatus',
-            'tasksStatus2'
+            'tasksStatusMap'
         ])
     },
     watch   : {
@@ -60,8 +60,8 @@ export default {
                 collect : '<li><i data-type="collect" class="pull-right collect">立即收藏 </i>收藏宝贝获得机会</li>',
                 shopping: '<li><i data-type="shopping" class="pull-right shopping">加购物车 </i>加购物车获得机会</li>',
                 share   : '<li><i data-type="share" class="pull-right share">立即分享 </i>分享好友获得机会</li>',
-                buy     : '<li><i data-type="buy" class="pull-right buy">去下单 </i>下单获得机会</li>',
-                rate    : '<li><i data-type="rate" class="pull-right rate">去好评 </i>好评获得机会</li>',
+                buy     : '<li><i data-type="order" class="pull-right buy">去下单 </i>下单获得机会</li>',
+                rate    : '<li><i data-type="praise" class="pull-right rate">去好评 </i>好评获得机会</li>',
             }
 
             for (let p in types) {
@@ -97,7 +97,7 @@ export default {
             let that = this
             let act  = that.act
 
-            switch (type) {
+            switch (this.tasksStatusMap[type]) {
                 case 'shopping':
                 case 'collect':
                     let params = $.extend({

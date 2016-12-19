@@ -4,15 +4,17 @@
             <ul class="tasks-all" :style="{textAlign:data.align}">
                 <li v-for="item in data.children"
                     :style="item.style"
-                    v-if="tasksStatus2[item.type]"
+                    v-if="tasksStatus[item.type]"
                     @click="doTask(item.type)">
                     <img :src="item.data.src" alt="">
                 </li>
             </ul>
         </div>
 
-        <div v-show="tasksStatus2[type]" :style="pStyle" @click="doTask(type)" v-else>
-            <img :src="data.src" alt="">
+        <div  v-else>
+            <div v-if="tasksStatus[type]" :style="pStyle" @click="doTask(type)">
+                <img  :src="data.src" alt="">
+            </div>
         </div>
     </div>
 </template>

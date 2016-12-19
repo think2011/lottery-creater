@@ -82,7 +82,6 @@
         },
 
         created() {
-            this.fetchLucyList()
         }
     }
 </script>

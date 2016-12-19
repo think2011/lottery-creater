@@ -1,8 +1,9 @@
 <template>
     <div>
-        <div :style="pStyle" @click="showRule" v-if="data.type === 1">
+        <div v-if="data.type === 1">
+            <div @click="show"  :style="pStyle">
+            </div>
         </div>
-
         <div style="overflow: auto;height: 100%;">
             <div :style="data.textStyle"
                  v-if="data.type === 2">
@@ -31,26 +32,19 @@
         },
 
         methods: {
-            showRule() {
+            show() {
                 if (this.data.type !== 1) return
 
                 window.GameDialog.lotteryRule(this.sellerId, this.activityId);
             },
             ...mapActions([
-                'fetchRule'
             ])
         },
 
         updated() {
-            if (this.data.type === 2) {
-                this.fetchRule()
-            }
         },
 
         created() {
-            if (this.data.type === 2) {
-                this.fetchRule()
-            }
         }
     }
 </script>

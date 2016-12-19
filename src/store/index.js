@@ -11,7 +11,7 @@ Vue.use(Vuex)
 const act      = window.act
 const settings = window.settings
 const fromNick = window.fromNick
-const nick     = window.nick
+let nick     = window.nick
 
 const state = {
     type      : '',
