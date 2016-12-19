@@ -56,5 +56,11 @@
   "engines": {
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "url": "git@github.com:think2011/lottery-creater.git",
+    "type": "git"
+  },
+  "license": "MIT"
 }
