@@ -23,6 +23,10 @@ export default {
         state.gameData.rule = desc
     },
 
+    [types.SHOW_LABEL](state, status) {
+        state.isShowLabel = status
+    },
+
     [types.FETCH_LUCKY_LIST](state, items) {
         state.gameData.luckyList = items
     },

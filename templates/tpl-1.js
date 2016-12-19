@@ -1,5 +1,6 @@
 module.exports = {
     type     : 'mobile',
+    psdPath  : '/test',
     "name"   : "我的自定义模板",
     "bg"     : {
         "src"  : "https://img.alicdn.com/imgextra/i1/92779311/TB2ugxMarRkpuFjSspmXXc.9XXa-92779311.jpg",

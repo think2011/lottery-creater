@@ -37,6 +37,13 @@ $designWidth: 750;
   background: #eee;
   display: block;
   margin-bottom: 10px;
+
+  &.vertical {
+    width: 1px;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+  }
 }
 
 .click-tips {

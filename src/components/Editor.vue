@@ -1,7 +1,9 @@
 <template>
     <div @click="mapActiveModule({module:{},parentModule:{}})" class="editor-container">
+        <actions-nav></actions-nav>
+
         <section class="container">
-            <module-list></module-list>
+            <!--<module-list></module-list>-->
 
             <div :style="bgStyle" class="main">
                 <div :style="containerStyle">
@@ -71,7 +73,6 @@
                 </div>
             </div>
 
-            <actions-nav></actions-nav>
         </section>
 
         <property-editor></property-editor>
@@ -155,6 +156,7 @@
     }
 
     .editor-container {
+
         .container {
             display: flex;
             justify-content: center;

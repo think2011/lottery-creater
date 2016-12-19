@@ -11,7 +11,7 @@ Vue.use(Vuex)
 const act      = window.act
 const settings = window.settings
 const fromNick = window.fromNick
-let nick     = window.nick
+let nick       = window.nick
 
 const state = {
     type      : '',
@@ -20,6 +20,7 @@ const state = {
     bg        : {
         style: {}
     },
+    isShowLabel : false,
     modules   : [],
     curModule : {
         module      : {},

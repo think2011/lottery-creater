@@ -1,12 +1,98 @@
 <template>
-    <div>
-        <div class="actions">
-            <div v-if="psdPath">
-                <a :href="psdPath" target="_blank" class="el-button el-button--success el-button--large">下载PSD</a>
-                <div class="line"></div>
-            </div>
+    <header>
+        <h1>模板编辑器</h1>
 
-            <el-button @click="showSave" type="primary" size="large">保存模板</el-button>
+        <div class="actions">
+            <el-switch
+                    :width="90"
+                    :value="isShowLabel"
+                    @change="SHOW_LABEL(!isShowLabel)"
+                    on-color="#13ce66"
+                    on-text="显示标签"
+                    off-text="显示标签">
+            </el-switch>
+
+            <div class="line vertical"></div>
+
+            <a v-if="psdPath" :href="psdPath" target="_blank" class="el-button el-button--primary">
+                <i class="el-icon-picture"></i>
+                下载PSD
+            </a>
+            <el-popover
+                    placement="bottom"
+                    width="350"
+                    trigger="hover">
+                <el-form label-position="top">
+                    <div class="el-form-item">
+                        <label class="el-form-item__label">
+                            背景图片
+                            <el-tooltip>
+                                <div slot="content">
+                                    <ul>
+                                        <li>
+                                            淘宝规定仅能使用 图片空间 的地址
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <i class="el-icon-information"></i>
+                            </el-tooltip>
+                        </label>
+
+                        <div class="el-form-item__content">
+                            <el-col :span="15">
+                                <el-input v-model="bg.src"></el-input>
+                            </el-col>
+                            <el-col :offset="1" :span="8">
+                                <el-tooltip>
+                                    <div slot="content">
+                                        页面高度
+                                    </div>
+
+                                    <el-input v-model="bg.style.height"></el-input>
+                                </el-tooltip>
+                            </el-col>
+                        </div>
+                    </div>
+
+                    <div class="el-form-item">
+                        <label class="el-form-item__label">
+                            背景颜色
+                            <el-tooltip>
+                                <div slot="content">
+                                    <ul>
+                                        <li>
+                                            * 网页刚打开时背景可能还没完全下载好
+                                        </li>
+                                        <li>
+                                            * 以及有些设备上可能不足一屏显示, 请配置合适的背景颜色
+                                        </li>
+                                        <li>
+                                            <br>
+                                            <img src="../assets/img/tips-1.png" alt="">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <i class="el-icon-information"></i>
+                            </el-tooltip>
+                        </label>
+
+                        <div class="el-form-item__content">
+                            <color-picker v-model="bg.style.backgroundColor"></color-picker>
+                        </div>
+                    </div>
+                </el-form>
+
+                <el-button
+                        slot="reference"
+                        type="primary"
+                        icon="picture">更换背景
+                </el-button>
+            </el-popover>
+
+            <div class="line vertical"></div>
+
+            <el-button icon="document" @click="showSave" type="success">保存模板</el-button>
 
             <el-popover
                     class="del"
@@ -27,6 +113,7 @@
             </el-popover>
         </div>
 
+
         <el-dialog title="保存模板" v-model="isShowSave" v-if="isShowSave" size="tiny">
             <el-form label-position="top" ref="model" :rules="rules" :model="model">
                 <el-form-item prop="name" label="模板名称">
@@ -39,16 +126,18 @@
                 <el-button type="primary" :loading="loading" @click="save">立即保存</el-button>
             </div>
         </el-dialog>
-    </div>
+    </header>
+
 </template>
 
 <script type="text/ecmascript-6">
     import modules from '../modules'
     import editors from '../editors'
     import {mapActions, mapMutations, mapState, mapGetters} from 'vuex'
+    import ColorPicker from './ColorPicker.vue'
 
     export default {
-        components: {...modules},
+        components: {...modules, ColorPicker},
 
         data () {
             return {
@@ -73,6 +162,7 @@
                 'psdPath',
                 'bg',
                 'name',
+                'isShowLabel'
             ]),
             ...mapGetters([
                 'viewType'
@@ -132,6 +222,10 @@
                 window.parent.opener.postMessage({type: 'close'}, '*')
             },
 
+            ...mapMutations([
+                'SHOW_LABEL'
+            ]),
+
             ...mapActions([
                 'updateModule',
                 'activeModule',
@@ -144,30 +238,24 @@
 <style scoped lang="scss" rel="stylesheet/scss">
     @import "../assets/styles/common";
 
-    .actions {
+    header {
+        padding: 15px 40px;
+        display: flex;
         background: #fff;
-        box-shadow: 0 0 10px #999;
-        padding: 10px;
-        position: absolute;
-        left: 55%;
-        top: 0;
-        transform: translate(375px, 0);
+        position: relative;
+        z-index: 1000;
+        box-shadow: 0 0 5px #999;
 
-        .tag {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
+        h1 {
+            color: #8492A6;
         }
 
-        .el-button {
-            width: 100%;
-            text-align: center;
-            display: block;
-            margin: 0 0 10px 0 !important;
+        .actions {
+            flex: auto;
+            text-align: right;
 
-            &:last-child {
-                margin: 0 !important;
+            .el-button {
+                margin: 0 5px;
             }
         }
     }
