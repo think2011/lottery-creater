@@ -40,17 +40,18 @@
                         </label>
 
                         <div class="el-form-item__content">
-                            <el-col :span="15">
-                                <el-input v-model="bg.src"></el-input>
-                            </el-col>
-                            <el-col :offset="1" :span="8">
-                                <el-tooltip>
-                                    <div slot="content">
-                                        页面高度
-                                    </div>
+                            <el-input v-model="bg.src"></el-input>
+                        </div>
+                    </div>
 
-                                    <el-input v-model="bg.style.height"></el-input>
-                                </el-tooltip>
+                    <div class="el-form-item">
+                        <label class="el-form-item__label">
+                            页面高度
+                        </label>
+
+                        <div class="el-form-item__content">
+                            <el-col :span="8">
+                                <el-input v-model="bg.style.height"></el-input>
                             </el-col>
                         </div>
                     </div>
