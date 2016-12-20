@@ -106,7 +106,7 @@ export default {
             if (item.type === 'luckyList') conditions.needWinner = true
         })
 
-        dispatch('getUserNickByTida')
+        dispatch('getUserNick')
             .then((nick) => {
                 let params = {
                     url : "act-data",
@@ -143,7 +143,7 @@ export default {
         return new Promise((resolve, reject) => {
             if (window.realNick) return resolve(window.realNick)
 
-            return dispatch('getUserNickByTida')
+            return dispatch('getUserNick')
                 .then(() => {
                     // 这个函数从window得到nick
                     window.gameDialog.checkRealNickRequired(function (res) {
@@ -159,13 +159,10 @@ export default {
         })
     },
 
-    getUserNickByTida({commit, state}) {
+    getUserNick({commit, state}) {
         return new Promise((resolve, reject) => {
             if (window.nick) {
                 return resolve(window.nick)
-            }
-            else if (state.type === 'pc') {
-                return resolve(null)
             }
 
             $.tida.getUserNick(function (nick) {
