@@ -47,6 +47,7 @@
 
                     switch (res.type) {
                         case 'model':
+
                             this.initLottery({...res.data})
                             loading.close()
                             break;

@@ -114,6 +114,19 @@
         },
 
         created() {
+            let keyMap = {
+                38: 't',
+                39: 'r',
+                40: 'b',
+                37: 'l'
+            }
+
+            $(document).on('keydown', (e) => {
+                if (this.curModule.module && keyMap[e.keyCode]) {
+// TODO ZH 12/20/16
+                }
+            })
+
             window.addEventListener('message', () => {
                 let res = window.event.data
 
@@ -135,6 +148,10 @@
                     ...module.style,
                     ...position
                 }
+            },
+
+            moveCoord($el, direction, value) {
+
             },
 
             mapActiveModule(params){
