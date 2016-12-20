@@ -131,9 +131,8 @@ export default {
                     if (conditions.needRemainCount) {
                         if (res.data && res.data.remainCount) {
                             window.remainCount = res.data.remainCount;
-                        } else {
-                            window.remainCount = 0;
                         }
+
                         commit(types.SET_DRAW_TOTAL, window.remainCount)
                     }
                 })
@@ -148,11 +147,10 @@ export default {
                 .then(() => {
                     // 这个函数从window得到nick
                     window.gameDialog.checkRealNickRequired(function (res) {
-                        if (res.data && res.data.remainCount) {
+                        if (res && res.data && res.data.remainCount) {
                             window.remainCount = res.data.remainCount;
-                        } else {
-                            window.remainCount = 0;
                         }
+
                         commit(types.SET_DRAW_TOTAL, window.remainCount)
                         commit(types.SET_USER_NICK, window.realNick)
                         resolve(window.realNick)
