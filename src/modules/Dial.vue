@@ -11,6 +11,7 @@
 
         <div @click="draw" v-if="type === 'pointer'">
             <pic :module="module"
+                 class="pointer"
                  :style="tweenStyle"
                  :p-style="module.style"
                  :data="module.data"></pic>
@@ -205,5 +206,9 @@
     @import "../assets/styles/common";
 
     .module-dial {
+    }
+
+    .pointer {
+        cursor: pointer;
     }
 </style>

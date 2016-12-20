@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="data.type === 1">
-            <div @click="show"  :style="pStyle">
+            <div @click="show" :style="pStyle">
             </div>
         </div>
         <div style="overflow: auto;height: 100%;">
@@ -37,8 +37,7 @@
 
                 window.GameDialog.lotteryRule(this.sellerId, this.activityId);
             },
-            ...mapActions([
-            ])
+            ...mapActions([])
         },
 
         updated() {

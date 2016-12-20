@@ -115,13 +115,13 @@
 
     .property-container {
         width: 400px;
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.98);
         padding: 0;
         position: fixed;
         left: 70%;
         top: 30%;
         z-index: 4;
-        box-shadow: 0 0 5px #999;
+        box-shadow: 0 0 10px #777;
 
         &:hover {
             &:before {

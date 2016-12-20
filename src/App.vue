@@ -19,6 +19,18 @@
             }
         },
 
+        computed: {
+            ...mapGetters([
+                'viewType'
+            ])
+        },
+
+        watch: {
+            viewType(newVal){
+                document.documentElement.classList.add(newVal)
+            }
+        },
+
         created() {
             // 临时开发
             if (window.QUERYSTRING.tpl) {
@@ -54,6 +66,7 @@
                     console.error('初始化失败，没有找到【lotteryConfig】字段')
                 }
             }
+
         },
 
         methods: {
