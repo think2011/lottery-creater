@@ -80,52 +80,53 @@
         methods: {
             draw() {
                 if (this.drawing) return
-                if (!this.checkTicket()) return
 
-                let drawTween = this.drawTween
-                let that      = this
+                this.checkTicket().then(() => {
+                    let drawTween = this.drawTween
+                    let that      = this
 
-                this.SET_DRAW_STATE(true)
-                drawTween.start(({value}) => {
-                    this.SET_CUR_TWEEN_VALUE(value)
-                })
-
-                this.drawLottery()
-                    .then((data) => {
-                        let prizeDeg = this.getPrizeDeg(data.giftId)
-
-                        if (prizeDeg !== null) {
-                            stopWithPrize(prizeDeg, data)
-                        } else {
-                            stopWithoutPrize(data)
-                        }
-                    })
-                    .catch(() => {
-                        stopWithoutPrize()
+                    this.SET_DRAW_STATE(true)
+                    drawTween.start(({value}) => {
+                        this.SET_CUR_TWEEN_VALUE(value)
                     })
 
-                function stopWithPrize(deg, data) {
-                    that.drawTween.stop(deg, () => {
-                        that.showLotteryResult(data)
-                        that.SET_DRAW_STATE(false)
-                        drawTween.startSlowLoop()
-                    })
-                }
+                    this.drawLottery()
+                        .then((data) => {
+                            let prizeDeg = this.getPrizeDeg(data.giftId)
 
-                function stopWithoutPrize(data) {
-                    that.drawTween.stop(0,
-                        () => {
-                            that.SET_DRAW_STATE(false)
-                            drawTween.startSlowLoop()
-                        },
-                        () => {
-                            if (data) {
-                                data && that.showLotteryResult(data)
+                            if (prizeDeg !== null) {
+                                stopWithPrize(prizeDeg, data)
                             } else {
-                                $.alert('系统繁忙, 请稍后重试')
+                                stopWithoutPrize(data)
                             }
                         })
-                }
+                        .catch(() => {
+                            stopWithoutPrize()
+                        })
+
+                    function stopWithPrize(deg, data) {
+                        that.drawTween.stop(deg, () => {
+                            that.showLotteryResult(data)
+                            that.SET_DRAW_STATE(false)
+                            drawTween.startSlowLoop()
+                        })
+                    }
+
+                    function stopWithoutPrize(data) {
+                        that.drawTween.stop(0,
+                            () => {
+                                that.SET_DRAW_STATE(false)
+                                drawTween.startSlowLoop()
+                            },
+                            () => {
+                                if (data) {
+                                    data && that.showLotteryResult(data)
+                                } else {
+                                    $.alert('系统繁忙, 请稍后重试')
+                                }
+                            })
+                    }
+                })
             },
 
             getPrizeDeg(id) {

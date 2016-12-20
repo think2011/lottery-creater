@@ -44,7 +44,7 @@ switch (buildType) {
     case 'mobile':
         Object.assign(config.build, {
             index           : '/Users/think2011/Projects/lottery2/zy-module-lottery2-buyer-m/src/main/webapp/resources/lottery2/index.html',
-            assetsRoot      : '/Users/think2011/Projects/lottery2/zy-module-lottery2-buyer-m/src/main/webapp',
+            assetsRoot      : '/Users/think2011/Projects/lottery2/zy-module-lottery2-buyer-m/src/main/webapp/',
             assetsPublicPath: '/',
         })
         break;

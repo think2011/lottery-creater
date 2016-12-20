@@ -2,7 +2,7 @@ module.exports = {
     "type"   : "pc",
     "name"   : "我的自定义模板",
     "bg"     : {
-        "src"  : require('src/assets/temp/pc/bg.png'),
+        "src"  : 'https://img.alicdn.com/imgextra/i1/92779311/TB2JLknam0jpuFjy0FlXXc0bpXa-92779311.jpg',
         "style": {"height": "1154px", "backgroundColor": "#fff"}
     },
     "psdPath": "test",

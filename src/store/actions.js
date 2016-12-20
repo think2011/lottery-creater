@@ -99,17 +99,15 @@ export default {
             needRemainCount: false
         }
 
-        if (window.remainCount == undefined) conditions.needRemainCount = true
+
+        if (window.remainCount == undefined && state.type !== 'pc') conditions.needRemainCount = true
         state.modules.forEach((item) => {
             if (item.type === 'rule' && item.data.type === 2) conditions.needRule = true
             if (item.type === 'luckyList') conditions.needWinner = true
         })
 
-        dispatch('getUserNick')
+        dispatch('getUserNickByTida')
             .then((nick) => {
-                window.nick = nick
-                commit(types.SET_USER_NICK, nick)
-
                 let params = {
                     url : "act-data",
                     data: {...conditions, nick},
@@ -142,11 +140,39 @@ export default {
             })
     },
 
-    getUserNick() {
+    getRealNick({commit, dispatch, state}) {
         return new Promise((resolve, reject) => {
-            if (window.nick) return resolve(window.nick)
+            if (window.realNick) return resolve(window.realNick)
+
+            return dispatch('getUserNickByTida')
+                .then(() => {
+                    // 这个函数从window得到nick
+                    window.gameDialog.checkRealNickRequired(function (res) {
+                        if (res.data && res.data.remainCount) {
+                            window.remainCount = res.data.remainCount;
+                        } else {
+                            window.remainCount = 0;
+                        }
+                        commit(types.SET_DRAW_TOTAL, window.remainCount)
+                        commit(types.SET_USER_NICK, window.realNick)
+                        resolve(window.realNick)
+                    })
+                })
+        })
+    },
+
+    getUserNickByTida({commit, state}) {
+        return new Promise((resolve, reject) => {
+            if (window.nick) {
+                return resolve(window.nick)
+            }
+            else if (state.type === 'pc') {
+                return resolve(null)
+            }
 
             $.tida.getUserNick(function (nick) {
+                window.nick = nick
+                commit(types.SET_USER_NICK, nick)
                 resolve(nick);
             })
         })

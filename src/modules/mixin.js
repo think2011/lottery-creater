@@ -46,51 +46,53 @@ export default {
 
     methods: {
         checkTicket() {
-            let that = this
-            if (this.gameData.drawTotal > 0) return true
+            return this.getRealNick().then(() => {
+                let that = this
+                if (this.gameData.drawTotal > 0) return Promise.resolve()
 
-            let act   = this.act
-            let types = this.tasksStatus
+                let act   = this.act
+                let types = this.tasksStatus
 
-            let noTasks    = true
-            let dayStr     = act.taskTimesType === 'EACH_DAY' ? '今天的' : ''
-            let $container = $('<div class="more-draw-time">\n    <ul class="tasks">\n    </ul>\n</div>')
-            let $tasks     = $container.find('.tasks')
-            let tasksHtml  = {
-                collect : '<li><i data-type="collect" class="pull-right collect">立即收藏 </i>收藏宝贝获得机会</li>',
-                shopping: '<li><i data-type="shopping" class="pull-right shopping">加购物车 </i>加购物车获得机会</li>',
-                share   : '<li><i data-type="share" class="pull-right share">立即分享 </i>分享好友获得机会</li>',
-                buy     : '<li><i data-type="order" class="pull-right buy">去下单 </i>下单获得机会</li>',
-                rate    : '<li><i data-type="praise" class="pull-right rate">去好评 </i>好评获得机会</li>',
-            }
-
-            for (let p in types) {
-                if (!types.hasOwnProperty(p)) continue;
-
-                if (types[p]) {
-                    noTasks = false
-                    $tasks.append(tasksHtml[p])
+                let noTasks    = true
+                let dayStr     = act.taskTimesType === 'EACH_DAY' ? '今天的' : ''
+                let $container = $('<div class="more-draw-time">\n    <ul class="tasks">\n    </ul>\n</div>')
+                let $tasks     = $container.find('.tasks')
+                let tasksHtml  = {
+                    collect : '<li><i data-type="collect" class="pull-right collect">立即收藏 </i>收藏宝贝获得机会</li>',
+                    shopping: '<li><i data-type="shopping" class="pull-right shopping">加购物车 </i>加购物车获得机会</li>',
+                    share   : '<li><i data-type="share" class="pull-right share">立即分享 </i>分享好友获得机会</li>',
+                    buy     : '<li><i data-type="order" class="pull-right buy">去下单 </i>下单获得机会</li>',
+                    rate    : '<li><i data-type="praise" class="pull-right rate">去好评 </i>好评获得机会</li>',
                 }
-            }
 
-            $container.on('click', 'i', function () {
-                layer.closeAll()
-                that.doTask($(this).data('type'))
-            })
+                for (let p in types) {
+                    if (!types.hasOwnProperty(p)) continue;
 
-            if (noTasks) {
-                $.alert(dayStr + "抽奖机会已经用完", function () {
-                });
-            } else {
-                layer.open({
-                    type     : 1,
-                    className: 'lottery lottery-empty',
-                    title    : '抽奖机会已用完',
-                    content  : $container
+                    if (types[p]) {
+                        noTasks = false
+                        $tasks.append(tasksHtml[p])
+                    }
+                }
+
+                $container.on('click', 'i', function () {
+                    layer.closeAll()
+                    that.doTask($(this).data('type'))
                 })
-            }
 
-            return false
+                if (noTasks) {
+                    $.alert(dayStr + "抽奖机会已经用完", function () {
+                    });
+                } else {
+                    layer.open({
+                        type     : 1,
+                        className: 'lottery lottery-empty',
+                        title    : '抽奖机会已用完',
+                        content  : $container
+                    })
+                }
+
+                return Promise.reject()
+            })
         },
 
         doTask(type){
@@ -265,7 +267,8 @@ export default {
         ...mapActions([
             'fetchLucyList',
             'updateModule',
-            'activeModule'
+            'activeModule',
+            'getRealNick'
         ])
     },
 }
