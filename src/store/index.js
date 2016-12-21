@@ -21,6 +21,7 @@ const state = {
         style: {}
     },
     isShowLabel : false,
+    moving: false,
     modules   : [],
     curModule : {
         module      : {},

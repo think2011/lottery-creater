@@ -1,18 +1,16 @@
 <template>
-    <div @click="mapActiveModule({module:{},parentModule:{}})" class="editor-container">
+    <div @mousedown="mapActiveModule({module:{},parentModule:{}})" class="editor-container">
         <actions-nav></actions-nav>
 
         <section class="container">
-            <!--<module-list></module-list>-->
-
             <div :style="bgStyle" class="main">
                 <div :style="containerStyle">
                     <div v-for="(item,index) in modules">
                         <div v-if="!item.children">
                             <resize
-                                    :class="{active:curModule.module === item}"
+                                    :class="{active:curModule.module === item,moving:moving}"
                                     @update="updateStyle(item,$event)"
-                                    @click="mapActiveModule({module:item})"
+                                    @mousedown="mapActiveModule({module:item})"
                                     restriction=".main"
                                     :p-style="item.style"
                                     :allowKeyMove="item === curModule.module"
@@ -45,9 +43,9 @@
                         <div v-else>
                             <resize
                                     v-for="(childItem,childIndex) in item.children"
-                                    :class="{active:curModule.module === childItem}"
+                                    :class="{active:curModule.module === childItem,moving:moving}"
                                     @update="updateStyle(childItem,$event)"
-                                    @click="mapActiveModule({module:childItem, parentModule:item})"
+                                    @mousedown="mapActiveModule({module:childItem, parentModule:item})"
                                     restriction=".main"
                                     :p-style="childItem.style"
                                     :allowKeyMove="childItem === curModule.module"
@@ -107,7 +105,8 @@
             ...mapState([
                 'modules',
                 'curModule',
-                'isShowLabel'
+                'isShowLabel',
+                'moving'
             ]),
             ...mapGetters([
                 'bgStyle',
@@ -132,6 +131,10 @@
         },
 
         methods: {
+            test() {
+                console.log('tt')
+            },
+
             updateStyle(module, position) {
                 module.style = {
                     ...module.style,
@@ -194,6 +197,12 @@
 
                     &.active {
                         cursor: move;
+                    }
+
+                    &.moving.active {
+                        .handle {
+                            opacity: 0.2;
+                        }
                     }
 
                     > :first-child {

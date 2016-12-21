@@ -56,6 +56,10 @@ export default {
         state.gameData.drawing = value
     },
 
+    [types.SET_MOVING](state, status) {
+        state.moving = status
+    },
+
     [types.SET_LOTTERY_RESULT](state, result) {
         state.gameData.lotteryResult = result
     },

@@ -53,8 +53,6 @@ export const activityStatus = ({act}) => {
         desc: null
     }
 
-    console.log(act.activityStatus)
-
     if (act.activityStatus.match(/Ready|Paused/g)) {
         status.desc  = '活动未开始'
         status.class = 'waiting'

@@ -4,6 +4,7 @@ export const UPDATE_MODULE     = 'UPDATE_MODULE'
 export const SET_ACTIVE_MODULE = 'SET_ACTIVE_MODULE'
 export const DEL_MODULE        = 'DEL_MODULE'
 export const SHOW_LABEL        = 'SHOW_LABEL'
+export const SET_MOVING        = 'SET_MOVING'
 
 // 游戏
 export const FETCH_RULE          = 'FETCH_RULE'

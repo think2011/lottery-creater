@@ -1,5 +1,5 @@
 <template>
-    <resize @click="stopPropagation"
+    <resize @mousedown="stopPropagation"
             class="property-container"
             handle=".title"
             restriction="body"
@@ -26,7 +26,6 @@
 
                 <div class="line"></div>
                 <div class="text-right">
-                    </el-button>
                     <el-button class="m-b-10"
                                @click="delModule({module:curModule.module,parentModule:curModule.parentModule})"
                                icon="delete"

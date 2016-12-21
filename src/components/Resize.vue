@@ -2,12 +2,14 @@
     <div ref="drag"
          :style="dragStyle"
          @click="bindClick"
+         @mousedown="bindMousedown"
          class="lc-resize">
         <slot></slot>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
+    import {mapMutations} from 'vuex'
     import modules from '../modules'
     import interact from 'interact.js'
 
@@ -42,6 +44,9 @@
             bindClick() {
                 this.$emit('click')
             },
+            bindMousedown() {
+                this.$emit('mousedown')
+            },
 
             getPosition(event) {
                 let style = event.target.style
@@ -63,6 +68,7 @@
 
                 el.style[curMap[0]] = `${value}px`
                 el.setAttribute(curMap[1], value)
+                this.SET_MOVING(true)
             },
 
             getPositionStyle(target) {
@@ -102,6 +108,10 @@
                     //
                 }
             },
+
+            ...mapMutations([
+                'SET_MOVING'
+            ]),
         },
 
         created() {
@@ -112,13 +122,17 @@
                 37: 'l'
             }
 
-            $(document).on('keydown', (event) => {
-                if (!this.allowKeyMove || !keyMap[event.keyCode]) return
+            $(document)
+                .on('keydown', (event) => {
+                    if (!this.allowKeyMove || !keyMap[event.keyCode]) return
 
-                this.movePosition(keyMap[event.keyCode])
-                this.$emit('update', this.getPosition({target: this.$refs.drag}))
-                event.preventDefault()
-            })
+                    this.movePosition(keyMap[event.keyCode])
+                    this.$emit('update', this.getPosition({target: this.$refs.drag}))
+                    event.preventDefault()
+                })
+                .on('keyup', () => {
+                    this.SET_MOVING(false)
+                })
         },
 
         mounted() {
@@ -156,6 +170,7 @@
                     // call this function on every dragend event
                     onend : function (event) {
                         that.$emit('update', that.getPosition(event))
+                        that.SET_MOVING(false)
                     }
                 })
                 .resizable({
@@ -191,6 +206,7 @@
 
                     onend: function (event) {
                         that.$emit('update', that.getPosition(event))
+                        that.SET_MOVING(false)
                     }
                 })
 
