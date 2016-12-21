@@ -24,7 +24,6 @@ export default {
             'nick',
             'fromNick',
             'sellerId',
-            'dialData',
         ]),
 
         ...mapGetters([
@@ -32,7 +31,8 @@ export default {
             'gameData',
             'prizes',
             'tasksStatus',
-            'tasksStatusMap'
+            'tasksStatusMap',
+            'activityStatus'
         ])
     },
     watch   : {

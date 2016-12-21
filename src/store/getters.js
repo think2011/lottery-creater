@@ -47,6 +47,30 @@ export const viewType = ({type}) => {
     return type
 }
 
+export const activityStatus = ({act}) => {
+    let status = {
+        type: act.activityStatus,
+        desc: null
+    }
+
+    console.log(act.activityStatus)
+
+    if (act.activityStatus.match(/Ready|Paused/g)) {
+        status.desc  = '活动未开始'
+        status.class = 'waiting'
+    }
+    else if (act.activityStatus == 'Ended') {
+        status.desc  = '活动已结束'
+        status.class = 'end'
+    }
+    else {
+        status.desc  = '活动进行中'
+        status.class = ''
+    }
+
+    return status
+}
+
 export const prizes = ({act}) => {
     return act.giftsJson
 }

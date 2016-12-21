@@ -1,5 +1,5 @@
 <template>
-    <div class="module-dial">
+    <div class="module-dial" :class="[type === 'pointer' && activityStatus.class]">
         <div :style="degStyle"
              class="bg"
              v-if="type ==='bg'">
@@ -207,6 +207,45 @@
     @import "../assets/styles/common";
 
     .module-dial {
+        &.end {
+            pointer-events: auto;
+
+            &:before {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                content: '活动已结束';
+                background: rgba(0, 0, 0, 0.5);
+                position: absolute;
+                top: 0;
+                left: 0;
+                color: #fff;
+                z-index: 2;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        &.waiting {
+            pointer-events: auto;
+
+            &:before {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                content: '活动未开始';
+                background: rgba(0, 0, 0, 0.5);
+                position: absolute;
+                top: 0;
+                left: 0;
+                color: #fff;
+                z-index: 2;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
     }
 
     .pointer {
