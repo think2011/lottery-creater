@@ -3,14 +3,46 @@
         <h1>模板编辑器</h1>
 
         <div class="actions">
-            <el-switch
-                    :width="90"
-                    :value="isShowLabel"
-                    @change="SHOW_LABEL(!isShowLabel)"
-                    on-color="#20A0FF"
-                    on-text="显示标签"
-                    off-text="显示标签">
-            </el-switch>
+            <!-- TODO ZH 12/21/16  -->
+            <el-popover
+                    placement="bottom"
+                    width="350"
+                    trigger="click">
+                <div class="text-center m-b-10">
+                    <el-switch
+                            :width="90"
+                            :value="isShowLabel"
+                            @change="SHOW_LABEL(!isShowLabel)"
+                            on-color="#20A0FF"
+                            on-text="显示标签"
+                            off-text="显示标签">
+                    </el-switch>
+                </div>
+
+                <div class="line"></div>
+
+                <h3>添加模块</h3>
+                <ul>
+                    <li>
+                        <button>我的奖品</button>
+                    </li>
+                    <li>
+                        <button>我的奖品</button>
+                    </li>
+                    <li>
+                        <button>我的奖品</button>
+                    </li>
+                    <li>
+                        <button>我的奖品</button>
+                    </li>
+                </ul>
+
+                <el-button
+                        slot="reference"
+                        type="primary"
+                        icon="setting">页面模块
+                </el-button>
+            </el-popover>
 
             <div class="line vertical"></div>
 

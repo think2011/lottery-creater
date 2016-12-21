@@ -59,8 +59,7 @@ export default {
     initLottery({commit, dispatch, state}, config) {
         let {modules, name, bg, type} = config
 
-        let designSize = type === 'mobile' ? 750 : 1920;
-
+            ;
         (function convertRemFn(obj, designSize) {
             if (Object.prototype.toString.call(obj) === '[object Array]') {
                 obj.forEach((item) => convertRemFn(item, designSize))
@@ -80,8 +79,15 @@ export default {
             }
         })(modules)
 
+
         commit(types.INIT_LOTTERY, config)
         dispatch('initFetch')
+
+        if (type === 'mobile') {
+            $(function () {
+                FastClick.attach(document.body)
+            })
+        }
     },
 
 
@@ -99,14 +105,13 @@ export default {
             needRemainCount: false
         }
 
-
         if (window.remainCount == undefined && state.type !== 'pc') conditions.needRemainCount = true
         state.modules.forEach((item) => {
             if (item.type === 'rule' && item.data.type === 2) conditions.needRule = true
             if (item.type === 'luckyList') conditions.needWinner = true
         })
 
-        dispatch('getUserNick')
+        dispatch('getUserNick', true)
             .then((nick) => {
                 let params = {
                     url : "act-data",
@@ -159,9 +164,16 @@ export default {
         })
     },
 
-    getUserNick({commit, state}) {
+    /**
+     * 获取usernick
+     * @param commit
+     * @param state
+     * @param [skip] 跳过这个请求，因为PC首次加载无需调用，但mobile需要
+     * @returns {Promise}
+     */
+    getUserNick({commit, state}, skip) {
         return new Promise((resolve, reject) => {
-            if (window.nick) {
+            if (window.nick || skip) {
                 return resolve(window.nick)
             }
 

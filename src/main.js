@@ -15,11 +15,6 @@ window.QUERYSTRING = (function () {
 
 window.DEV_MODE = !!window.QUERYSTRING.dev
 
-$(function () {
-    FastClick.attach(document.body)
-})
-
-
 require('babel-polyfill')
 
 import Vue from 'vue'

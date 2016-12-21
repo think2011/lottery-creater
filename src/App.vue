@@ -64,7 +64,7 @@
                 try {
                     this.initLottery({...window.lotteryConfig})
                 } catch (err) {
-                    console.error('初始化失败，没有找到【lotteryConfig】字段')
+                    console.error(`初始化失败，${err}`)
                 }
             }
 
