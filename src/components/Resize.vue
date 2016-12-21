@@ -3,8 +3,8 @@
          :style="dragStyle"
          @click="bindClick"
          class="lc-resize">
+        {{allowKeyMove}}
         <slot></slot>
-
     </div>
 </template>
 
@@ -17,12 +17,13 @@
         components: modules,
 
         props: {
-            drag       : Boolean,
-            resize     : Boolean,
-            pStyle     : Object,
-            className  : String,
-            restriction: String,
-            handle     : String,
+            drag        : Boolean,
+            resize      : Boolean,
+            pStyle      : Object,
+            className   : String,
+            allowKeyMove: Boolean,
+            restriction : String,
+            handle      : String,
         },
 
         data () {
@@ -52,7 +53,73 @@
                     top   : style.top,
                     left  : style.left
                 }
+            },
+
+            setPosition(el, type, value) {
+                let typeMap = {
+                    left: ['left', 'data-x'],
+                    top : ['top', 'data-y']
+                }
+                let curMap  = typeMap[type]
+
+                el.style[curMap[0]] = `${value}px`
+                el.setAttribute(curMap[1], value)
+            },
+
+            getPositionStyle(target) {
+                let style = null
+
+                if (getComputedStyle(target).position === 'fixed') {
+                    style = target.getBoundingClientRect()
+                } else {
+                    style = $(target).position()
+                }
+
+                return style
+            },
+
+            movePosition(direction, value = 1) {
+                let target = this.$refs.drag
+                let style  = this.getPositionStyle(target)
+
+                switch (direction) {
+                    case 't':
+                        this.setPosition(target, 'top', style.top -= 1)
+                        break;
+
+                    case 'r':
+                        this.setPosition(target, 'left', style.left += 1)
+                        break;
+
+                    case 'b':
+                        this.setPosition(target, 'top', style.top += 1)
+                        break;
+
+                    case 'l':
+                        this.setPosition(target, 'left', style.left -= 1)
+                        break;
+
+                    default:
+                    //
+                }
+            },
+        },
+
+        created() {
+            let keyMap = {
+                38: 't',
+                39: 'r',
+                40: 'b',
+                37: 'l'
             }
+
+            $(document).on('keydown', (event) => {
+                if (!this.allowKeyMove || !keyMap[event.keyCode]) return
+
+                this.movePosition(keyMap[event.keyCode])
+                this.$emit('update', this.getPosition({target: this.$refs.drag}))
+                event.preventDefault()
+            })
         },
 
         mounted() {
@@ -71,13 +138,7 @@
                     // call this function on every dragmove event
                     onmove: function dragMoveListener(event) {
                         let target = event.target
-                        let style  = null
-
-                        if (getComputedStyle(target).position === 'fixed') {
-                            style = target.getBoundingClientRect()
-                        } else {
-                            style = $(target).position()
-                        }
+                        let style  = that.getPositionStyle(target)
 
                         let x = (parseFloat(target.getAttribute('data-x')) || style.left)
                         let y = (parseFloat(target.getAttribute('data-y')) || style.top)
@@ -90,16 +151,8 @@
                             target.style.height = `${childStyle.height}px`
                         }
 
-                        x += event.dx
-                        y += event.dy
-
-                        // translate the element
-                        target.style.left = `${x}px`
-                        target.style.top  = `${y}px`
-
-                        // update the posiion attributes
-                        target.setAttribute('data-x', x);
-                        target.setAttribute('data-y', y);
+                        that.setPosition(target, 'left', x += event.dx)
+                        that.setPosition(target, 'top', y += event.dy)
                     },
                     // call this function on every dragend event
                     onend : function (event) {
@@ -130,17 +183,10 @@
                         target.style.width  = event.rect.width + 'px';
                         target.style.height = event.rect.height + 'px';
 
-                        // translate when resizing from top or left edges
-                        x += event.deltaRect.left;
-                        y += event.deltaRect.top;
 
-                        // translate the element
-                        target.style.left = `${x}px`
-                        target.style.top  = `${y}px`
+                        that.setPosition(target, 'left', x += event.deltaRect.left)
+                        that.setPosition(target, 'top', y += event.deltaRect.top)
 
-                        // update the position attributes
-                        target.setAttribute('data-x', x);
-                        target.setAttribute('data-y', y);
                         that.$emit('update', that.getPosition(event))
                     },
 

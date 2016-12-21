@@ -15,6 +15,7 @@
                                     @click="mapActiveModule({module:item})"
                                     restriction=".main"
                                     :p-style="item.style"
+                                    :allowKeyMove="item === curModule.module"
                                     :drag="true"
                                     :resize="true">
                                 <component class="module"
@@ -49,6 +50,7 @@
                                     @click="mapActiveModule({module:childItem, parentModule:item})"
                                     restriction=".main"
                                     :p-style="childItem.style"
+                                    :allowKeyMove="childItem === curModule.module"
                                     :drag="true"
                                     :resize="true">
                                 <component class="module"
@@ -114,19 +116,6 @@
         },
 
         created() {
-            let keyMap = {
-                38: 't',
-                39: 'r',
-                40: 'b',
-                37: 'l'
-            }
-
-            $(document).on('keydown', (e) => {
-                if (this.curModule.module && keyMap[e.keyCode]) {
-// TODO ZH 12/20/16
-                }
-            })
-
             window.addEventListener('message', () => {
                 let res = window.event.data
 
@@ -148,10 +137,6 @@
                     ...module.style,
                     ...position
                 }
-            },
-
-            moveCoord($el, direction, value) {
-
             },
 
             mapActiveModule(params){

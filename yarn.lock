@@ -1333,15 +1333,15 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/ee-first/download/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
-element-ui@^1.0.4:
-  version "1.0.7"
-  resolved "http://registry.npm.taobao.org/element-ui/download/element-ui-1.0.7.tgz#7f0c431fcbbdb6d2c46cfbeb60d5ecc0c4713513"
+element-ui:
+  version "1.0.8"
+  resolved "http://registry.npm.taobao.org/element-ui/download/element-ui-1.0.8.tgz#269956a5024044f1681cb6a0e5c6e341f87e0561"
   dependencies:
     async-validator "^1.6.6"
     babel-helper-vue-jsx-merge-props "^2.0.0"
     deepmerge "^1.2.0"
     throttle-debounce "^1.0.1"
-    vue-popup "^0.2.12"
+    vue-popup "^0.2.14"
     wind-dom "0.0.3"
 
 emojis-list@^2.0.0:
@@ -1903,9 +1903,9 @@ ini@^1.3.4, ini@~1.3.0:
   version "1.3.4"
   resolved "http://registry.npm.taobao.org/ini/download/ini-1.3.4.tgz#0537cb79daf59b59a1a517dff706c86ec039162e"
 
-interact.js@^1.2.6:
-  version "1.2.6"
-  resolved "http://registry.npm.taobao.org/interact.js/download/interact.js-1.2.6.tgz#06758900ca1f8534acba2362131d1adf5a48a71f"
+interact.js:
+  version "1.2.8"
+  resolved "http://registry.npm.taobao.org/interact.js/download/interact.js-1.2.8.tgz#b62bc004563b5c6f294b6b115b396205d843f60b"
 
 interpret@^0.6.4:
   version "0.6.6"
@@ -3879,6 +3879,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue:
+  version "2.1.6"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.6.tgz#2fc0024c07479ac6bc7d34a2cd5ef9ca5e90b143"
+
 vue-color@^2.0.2:
   version "2.0.2"
   resolved "http://registry.npm.taobao.org/vue-color/download/vue-color-2.0.2.tgz#b4832e33d98bf8de79f58f311b7029e96ce3f8c9"
@@ -3908,9 +3912,9 @@ vue-loader@^10.0.0:
     vue-style-loader "^1.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
-vue-popup@^0.2.12:
-  version "0.2.12"
-  resolved "http://registry.npm.taobao.org/vue-popup/download/vue-popup-0.2.12.tgz#61a504883cf4ad69ce83e8a16f0a53f0d58bf738"
+vue-popup@^0.2.14:
+  version "0.2.14"
+  resolved "http://registry.npm.taobao.org/vue-popup/download/vue-popup-0.2.14.tgz#aa3d461c6f2ab01ef4546665d730395ec6028302"
   dependencies:
     wind-dom "0.0.3"
 
@@ -3930,10 +3934,6 @@ vue-template-compiler@^2.1.0:
 vue-template-es2015-compiler@^1.2.2:
   version "1.4.0"
   resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.4.0.tgz#7b88853ca4bf8d84ae54ab9e56771de271e60198"
-
-vue@^2.1.4:
-  version "2.1.6"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.6.tgz#2fc0024c07479ac6bc7d34a2cd5ef9ca5e90b143"
 
 vuex@^2.0.0:
   version "2.1.1"
