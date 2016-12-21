@@ -3,7 +3,6 @@
          :style="dragStyle"
          @click="bindClick"
          class="lc-resize">
-        {{allowKeyMove}}
         <slot></slot>
     </div>
 </template>
