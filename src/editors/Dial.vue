@@ -8,7 +8,7 @@
                         淘宝规定仅能使用 图片空间 的地址
                     </div>
 
-                    <i class="el-icon-information"></i>
+                    <i class="fa fa-question-circle-o"></i>
                 </el-tooltip>
             </label>
 
@@ -24,7 +24,7 @@
                         淘宝规定仅能使用 图片空间 的地址
                     </div>
 
-                    <i class="el-icon-information"></i>
+                    <i class="fa fa-question-circle-o"></i>
                 </el-tooltip>
             </label>
 
@@ -69,7 +69,7 @@
                         </ul>
                     </div>
 
-                    <i class="el-icon-information"></i>
+                    <i class="fa fa-question-circle-o"></i>
                 </el-tooltip>
             </label>
 
@@ -114,7 +114,7 @@
                         如果没有中奖，随机停在下面任意一个位置
                     </div>
 
-                    <i class="el-icon-information"></i>
+                    <i class="fa fa-question-circle-o"></i>
                 </el-tooltip>
             </label>
 

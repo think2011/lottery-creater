@@ -1,5 +1,7 @@
 <template>
     <div @mousedown="mapActiveModule({module:{},parentModule:{}})" class="editor-container">
+        <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <actions-nav></actions-nav>
 
         <section class="container">

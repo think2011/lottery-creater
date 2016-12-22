@@ -8,7 +8,7 @@
                         淘宝规定仅能使用 图片空间 的地址
                     </div>
 
-                    <i class="el-icon-information"></i>
+                    <i class="fa fa-question-circle-o"></i>
                 </el-tooltip>
             </label>
 

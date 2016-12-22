@@ -20,7 +20,7 @@
                                             </ul>
                                         </div>
 
-                                        <i class="el-icon-information"></i>
+                                        <i class="fa fa-question-circle-o"></i>
                                     </el-tooltip>
                                 </label>
 
@@ -55,7 +55,7 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <i class="el-icon-information"></i>
+                                        <i class="fa fa-question-circle-o"></i>
                                     </el-tooltip>
                                 </label>
 
