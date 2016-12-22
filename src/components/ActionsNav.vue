@@ -125,7 +125,7 @@
                     title="点击按钮保存，也可以贴入代码测试："
                     width="400"
                     trigger="hover">
-                <textarea :value="modulesCode" @input="changeModulesCode" class="modules-code" cols="30"></textarea>
+                <textarea :value="lotteryData" @input="changeLotteryData" class="modules-code" cols="30"></textarea>
                 <el-button slot="reference" icon="document" @click="saveCode">保存代码</el-button>
             </el-popover>
 
@@ -193,8 +193,8 @@
         },
 
         computed: {
-            modulesCode() {
-                return JSON.stringify(this.modules, null, 2)
+            lotteryData() {
+                return JSON.stringify(this.getLotteryData(), null, 2)
             },
 
             ...mapState([
@@ -222,7 +222,7 @@
                 }, 0)
             },
 
-            getModule(){
+            getLotteryData(){
                 let data = {
                     type   : this.viewType,
                     name   : this.model.name,
@@ -258,23 +258,23 @@
                     this.loading = true
                     window.parent.opener.postMessage({
                         type: 'save',
-                        data: this.getModule()
+                        data: this.getLotteryData()
                     }, '*')
                 })
             },
 
             saveCode() {
-                const dataStr    = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.getModule()))
+                const dataStr    = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.getLotteryData()))
                 let dlAnchorElem = document.createElement('a')
                 dlAnchorElem.setAttribute("href", dataStr)
                 dlAnchorElem.setAttribute("download", "tpl.json")
                 dlAnchorElem.click()
             },
 
-            changeModulesCode(e) {
+            changeLotteryData(e) {
                 try {
                     let data = JSON.parse(e.target.value)
-                    this.CHANGE_MODULES(data)
+                    this.INIT_LOTTERY(data)
                 } catch (err) {
                     console.error('不合法的数据')
                 }
@@ -286,7 +286,7 @@
 
             ...mapMutations([
                 'SHOW_LABEL',
-                'CHANGE_MODULES'
+                'INIT_LOTTERY'
             ]),
 
             ...mapActions([
