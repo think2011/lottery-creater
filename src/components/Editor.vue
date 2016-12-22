@@ -176,9 +176,9 @@
                         target : '#tour__download',
                         content: '这里可以下载到本模板的素材',
                     })
-
-                    $('.main').find('.lc-resize').eq(0).attr('id', 'tour__module')
                 }
+
+                $('.main').find('.lc-resize').eq(0).attr('id', 'tour__module')
 
                 Tour.start(config)
                     .then(() => {
