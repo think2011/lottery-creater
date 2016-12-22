@@ -23,6 +23,10 @@ export default {
         state.gameData.rule = desc
     },
 
+    [types.ADD_MODULE](state, module) {
+        state.modules.push(module)
+    },
+
     [types.SHOW_LABEL](state, status) {
         state.isShowLabel = status
     },

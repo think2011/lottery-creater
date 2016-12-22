@@ -1,243 +1,85 @@
 <template>
-    <div @click="stopPropagation" class="module-list">
-        <ul>
-            <li class="actions">
-                <div>
-                    <el-popover
-                            placement="right"
-                            width="350"
-                            trigger="hover">
-                        <el-form label-position="top">
-                            <div class="el-form-item">
-                                <label class="el-form-item__label">
-                                    背景图片
-                                    <el-tooltip>
-                                        <div slot="content">
-                                            <ul>
-                                                <li>
-                                                    淘宝规定仅能使用 图片空间 的地址
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        <i class="fa fa-question-circle-o"></i>
-                                    </el-tooltip>
-                                </label>
-
-                                <div class="el-form-item__content">
-                                    <el-col :span="15">
-                                        <el-input v-model="bg.src"></el-input>
-                                    </el-col>
-                                    <el-col :offset="1" :span="8">
-                                        <el-tooltip>
-                                            <div slot="content">
-                                                页面高度
-                                            </div>
-
-                                            <el-input v-model="bg.style.height"></el-input>
-                                        </el-tooltip>
-                                    </el-col>
-                                </div>
-                            </div>
-
-                            <div class="el-form-item">
-                                <label class="el-form-item__label">
-                                    背景颜色
-                                    <el-tooltip>
-                                        <div slot="content">
-                                            <ul>
-                                                <li>
-                                                    有些设备上背景可能不足一屏显示, 请配置合适的背景颜色
-                                                </li>
-                                                <li>
-                                                    <br>
-                                                    <img src="../assets/img/tips-1.png" alt="">
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <i class="fa fa-question-circle-o"></i>
-                                    </el-tooltip>
-                                </label>
-
-                                <div class="el-form-item__content">
-                                    <color-picker v-model="bg.style.backgroundColor"></color-picker>
-                                </div>
-                            </div>
-                        </el-form>
-
-                        <el-button
-                                slot="reference"
-                                type="primary"
-                                icon="picture">更换背景
-                        </el-button>
-                    </el-popover>
-                </div>
-
-                <!--  <el-popover
-                          ref="popover1"
-                          placement="right"
-                          width="350"
-                          trigger="hover">
-                      <el-button
-                              slot="reference"
-                              type="primary" icon="plus">添加模块
-                      </el-button>
-                  </el-popover>-->
-            </li>
-            <li v-for="item in modules">
-                <a @mouseover="mapActiveModule({module:item})"
-                   :class="{'has-children':item.children, active:curModule.module === item}"
-                   href="javascript:">
-                    {{item.alias}}
-
-                    <el-button
-                            class="del"
-                            @click="delModule({module:item})"
-                            slot="reference"
-                            size="mini"
-                            type="text"
-                            icon="delete">
-                    </el-button>
-                </a>
-
-                <ul>
-                    <li v-for="childItem in item.children">
-                        <a @mouseover="mapActiveModule({module:childItem, parentModule:item})"
-                           :class="{active:curModule.module === childItem}"
-                           href="javascript:">
-                            {{childItem.alias}}
-
-                            <el-button
-                                    class="del"
-                                    @click="delModule({module:childItem,parentModule:item})"
-                                    slot="reference"
-                                    size="mini"
-                                    type="text"
-                                    icon="delete">
-                            </el-button>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+    <ul class="module-list">
+        <li v-for="item in list">
+            <button @click="addModule(item)"><i class="fa fa-plus" aria-hidden="true"></i> {{item.alias}}</button>
+        </li>
+    </ul>
 </template>
 
 <script type="text/ecmascript-6">
     import modules from '../modules'
-    import editors from '../editors'
-    import {mapActions, mapState, mapGetters} from 'vuex'
-    import ColorPicker from './ColorPicker.vue'
+    import {mapActions, mapMutations, mapState, mapGetters} from 'vuex'
 
     export default {
-        components: {...modules, ColorPicker},
+        components: {...modules},
 
         data () {
-            return {}
+            return {
+                list: require('../assets/template/base-modules.js')
+            }
         },
 
         computed: {
-            ...mapState([
-                'modules',
-                'curModule',
-                'bg'
-            ]),
+            ...mapState([]),
             ...mapGetters([])
         },
 
         watch: {},
 
         methods: {
-            mapActiveModule({module, parentModule}){
-                if (module.children) return
+            addModule(item) {
+                let module    = $.extend(true, {}, item)
+                let scrollTop = document.body.scrollTop + 200
 
-                window.event.stopPropagation()
-                this.activeModule({module, parentModule})
+                // 设定位置
+                if (module.children) {
+                    module.children.forEach((item) => {
+                        item.style.top = `${scrollTop}px`
+                    })
+                } else {
+                    module.style.top = `${scrollTop}px`
+                }
+
+                // 置入&激活模块
+                this.ADD_MODULE(module)
+                if (module.children) {
+                    this.activeModule({module: module.children[0], parentModule: module})
+                } else {
+                    this.activeModule({module: module})
+                }
             },
 
+            ...mapMutations([
+                'ADD_MODULE'
+            ]),
             ...mapActions([
-                'delModule',
-                'activeModule',
-                'stopPropagation'
+                'activeModule'
             ])
         }
     }
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss">
-    @import "../assets/styles/common";
-
     .module-list {
-        min-width: 180px;
-        background: #fff;
-        border-right: none;
-        box-shadow: 0 0 10px #ccc;
-        position: fixed;
-        left: 50%;
-        top: 0;
-        transform: translate(-375 - 180px, 0);
+        width: 328 + 14px;
 
-        .actions {
-            text-align: center;
-            padding: 5px 0;
-            border-bottom: 1px solid #eee;
+        li {
+            width: 100px;
+            font-size: 14px;
+            margin: 5px 14px 5px 0;
+            float: left;
 
             button {
-                margin: 5px 0;
+                color: #555;
+                transition: .3s;
+                background: #fff;
+
+                &:hover {
+                    color: #20A0FF;
+                }
             }
-        }
 
-        ul {
-
-            li {
-                a {
-                    font-size: 15px;
-                    color: #475669;
-                    padding: 12px 15px;
-                    display: block;
-                    font-weight: bold;
-                    position: relative;
-
-                    &.has-children {
-                        color: #999;
-
-                        .del {
-                            display: none !important;
-                        }
-                    }
-
-                    &:hover, &.active {
-                        background: #D3DCE6;
-
-                        &.has-children {
-                            background: none;
-                            cursor: default;
-                        }
-
-                        .del {
-                            display: inline-block;
-                        }
-                    }
-
-                    .del {
-                        display: none;
-                        position: absolute;
-                        right: 15px;
-                        top: 50%;
-                        transform: translate(0, -50%);
-                    }
-                }
-
-                ul {
-
-                    li {
-                        a {
-                            padding: 10px 15px 10px 30px;
-                            font-weight: normal;
-                            font-size: 14px;
-                        }
-                    }
-                }
+            i {
             }
         }
     }

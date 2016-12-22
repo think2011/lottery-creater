@@ -3,11 +3,17 @@
         <h1>模板编辑器</h1>
 
         <div class="actions">
-            <!-- TODO ZH 12/21/16  -->
+            <a v-if="psdPath" :href="psdPath" target="_blank" class="el-button el-button--warning">
+                <i class="el-icon-picture"></i>
+                下载PSD
+            </a>
+
+            <div class="line vertical"></div>
+
             <el-popover
                     placement="bottom"
                     width="350"
-                    trigger="click">
+                    trigger="hover">
                 <div class="text-center m-b-10">
                     <el-switch
                             :width="90"
@@ -21,35 +27,15 @@
 
                 <div class="line"></div>
 
-                <h3>添加模块</h3>
-                <ul>
-                    <li>
-                        <button>我的奖品</button>
-                    </li>
-                    <li>
-                        <button>我的奖品</button>
-                    </li>
-                    <li>
-                        <button>我的奖品</button>
-                    </li>
-                    <li>
-                        <button>我的奖品</button>
-                    </li>
-                </ul>
+                <module-list></module-list>
 
                 <el-button
                         slot="reference"
                         type="primary"
-                        icon="setting">页面模块
+                        icon="setting">组件管理
                 </el-button>
             </el-popover>
 
-            <div class="line vertical"></div>
-
-            <a v-if="psdPath" :href="psdPath" target="_blank" class="el-button el-button--primary">
-                <i class="el-icon-picture"></i>
-                下载PSD
-            </a>
             <el-popover
                     placement="bottom"
                     width="350"
@@ -94,11 +80,12 @@
                             <el-tooltip>
                                 <div slot="content">
                                     <ul>
+                                        <li>以下情况需要背景底色</li>
                                         <li>
-                                            * 网页刚打开时背景可能还没完全下载好
+                                            1. 刚进入页面，素材可能还没下载好
                                         </li>
                                         <li>
-                                            * 以及有些设备上可能不足一屏显示, 请配置合适的背景颜色
+                                            2. 有些设备上可能不足一屏显示(如图)
                                         </li>
                                         <li>
                                             <br>
@@ -115,6 +102,7 @@
                         </div>
                     </div>
                 </el-form>
+
 
                 <el-button
                         slot="reference"
@@ -167,10 +155,11 @@
     import modules from '../modules'
     import editors from '../editors'
     import {mapActions, mapMutations, mapState, mapGetters} from 'vuex'
+    import moduleList from './ModuleList.vue'
     import ColorPicker from './ColorPicker.vue'
 
     export default {
-        components: {...modules, ColorPicker},
+        components: {...modules, moduleList, ColorPicker},
 
         data () {
             return {

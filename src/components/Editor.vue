@@ -92,12 +92,11 @@
     import editors from '../editors'
     import {mapActions, mapMutations, mapState, mapGetters} from 'vuex'
     import resize from './Resize.vue'
-    import moduleList from './ModuleList.vue'
     import actionsNav from './ActionsNav.vue'
     import PropertyEditor from './PropertyEditor.vue'
 
     export default {
-        components: {...modules, resize, PropertyEditor, moduleList, actionsNav},
+        components: {...modules, resize, PropertyEditor, actionsNav},
 
         data () {
             return {}
@@ -133,10 +132,6 @@
         },
 
         methods: {
-            test() {
-                console.log('tt')
-            },
-
             updateStyle(module, position) {
                 module.style = {
                     ...module.style,
