@@ -111,7 +111,7 @@ export default {
             if (item.type === 'luckyList') conditions.needWinner = true
         })
 
-        dispatch('getUserNick', true)
+        dispatch('getUserNick', state.type === 'pc')
             .then((nick) => {
                 let params = {
                     url : "act-data",
