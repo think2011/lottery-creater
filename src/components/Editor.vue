@@ -130,12 +130,12 @@
                     default:
                     //
                 }
-
-                // 启动向导
-                setTimeout(() => {
-                    this.showTour()
-                }, 1000)
             })
+
+            // 启动向导
+            setTimeout(() => {
+                this.showTour()
+            }, 1000)
         },
 
         methods: {
@@ -194,8 +194,7 @@
                 this.activeModule(params)
             },
 
-            ...mapMutations([
-            ]),
+            ...mapMutations([]),
 
             ...mapActions([
                 'updateModule',
