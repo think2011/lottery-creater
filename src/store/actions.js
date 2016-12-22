@@ -118,29 +118,33 @@ export default {
                     data: {...conditions, nick},
                     mask: false
                 }
-                $.doAjax(params).then((res) => {
-                    if (!res.success) return
+                $.doAjax(params)
+                    .then((res) => {
+                        if (!res.success) return
 
-                    if (conditions.needRule) {
-                        commit(types.FETCH_RULE, res.data.description || '')
-                    }
-
-                    if (conditions.needWinner) {
-                        if (res.data && res.data.winners && res.data.winners.length) {
-                            commit(types.FETCH_LUCKY_LIST, res.data.winners)
-                        } else {
-                            commit(types.FETCH_LUCKY_LIST, [])
-                        }
-                    }
-
-                    if (conditions.needRemainCount) {
-                        if (res.data && res.data.remainCount) {
-                            window.remainCount = res.data.remainCount;
+                        if (conditions.needRule) {
+                            commit(types.FETCH_RULE, res.data.description || '')
                         }
 
-                        commit(types.SET_DRAW_TOTAL, window.remainCount)
-                    }
-                })
+                        if (conditions.needWinner) {
+                            if (res.data && res.data.winners && res.data.winners.length) {
+                                commit(types.FETCH_LUCKY_LIST, res.data.winners)
+                            } else {
+                                commit(types.FETCH_LUCKY_LIST, [])
+                            }
+                        }
+
+                        if (conditions.needRemainCount) {
+                            if (res.data && res.data.remainCount) {
+                                window.remainCount = res.data.remainCount;
+                            }
+
+                            commit(types.SET_DRAW_TOTAL, window.remainCount)
+                        }
+                    })
+                    .fail((res) => {
+                        $.alert('初始化错误')
+                    })
             })
     },
 
