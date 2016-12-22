@@ -194,6 +194,9 @@
                 this.activeModule(params)
             },
 
+            ...mapMutations([
+            ]),
+
             ...mapActions([
                 'updateModule',
                 'activeModule'

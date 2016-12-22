@@ -118,7 +118,16 @@
             <div class="line vertical"></div>
 
             <el-button icon="document" @click="showSave" type="success">保存模板</el-button>
-            <el-button v-if="isSaveCode" icon="document" @click="saveCode">保存代码</el-button>
+
+            <el-popover
+                    v-if="isSaveCode"
+                    placement="bottom"
+                    title="点击按钮保存，也可以贴入代码测试："
+                    width="400"
+                    trigger="hover">
+                <textarea :value="modulesCode" @input="changeModulesCode" class="modules-code" cols="30"></textarea>
+                <el-button slot="reference" icon="document" @click="saveCode">保存代码</el-button>
+            </el-popover>
 
             <el-popover
                     class="del"
@@ -184,6 +193,10 @@
         },
 
         computed: {
+            modulesCode() {
+                return JSON.stringify(this.modules, null, 2)
+            },
+
             ...mapState([
                 'modules',
                 'curModule',
@@ -258,12 +271,22 @@
                 dlAnchorElem.click()
             },
 
+            changeModulesCode(e) {
+                try {
+                    let data = JSON.parse(e.target.value)
+                    this.CHANGE_MODULES(data)
+                } catch (err) {
+                    console.error('不合法的数据')
+                }
+            },
+
             close() {
                 window.parent.opener.postMessage({type: 'close'}, '*')
             },
 
             ...mapMutations([
-                'SHOW_LABEL'
+                'SHOW_LABEL',
+                'CHANGE_MODULES'
             ]),
 
             ...mapActions([
@@ -299,5 +322,10 @@
                 margin: 0 5px;
             }
         }
+    }
+
+    .modules-code {
+        width: 100%;
+        min-height: 300px;
     }
 </style>
