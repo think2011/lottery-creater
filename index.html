@@ -35,6 +35,14 @@
     }
 </style>
 <body>
+<script>
+    // 放在body内
+    if (navigator.userAgent.toLowerCase().indexOf("applewebkit/") < 0) {
+        var html = '<div style="position: absolute; width: 100%;height: 100%; z-index: 1000000;">\n\n    <div style="\n    background: #FFF3E1;\n    padding: 20px;\n    text-align: center;\n    font-size: 15px;\n    position: relative;\n    z-index: 1000;\n    color: #777;">\n        <span style="color:#FF9800; ">▶</span> 很抱歉,模板编辑器不支持您的浏览器,请您\n        <a style="color: #2196F3;"\n           href="http://chrome.360.cn/test/core/">升级浏览器</a>\n        后再使用。\n    </div>\n\n    <div style="background: #eee;position: absolute;width: 100%;height: 100%;z-index: 10000;opacity: .7;"></div>\n</div>';
+
+        document.body.innerHTML = html
+    }
+</script>
 
 <div id="app"></div>
 
@@ -83,7 +91,8 @@
 <script type='text/javascript' src='//xgiftbag.ews.m.jaeapp.com/resources/lottery/js/marquee.js'></script>
 
 <script>
-    var versionDate = '<%= htmlWebpackPlugin.options.date %>'
+    var versionDate          = '<%= htmlWebpackPlugin.options.date %>'
+    localStorage.versionDate = versionDate
 
     var settings = {
         sellerId   : 2406822118,
