@@ -134,7 +134,7 @@
                 // 启动向导
                 setTimeout(() => {
                     this.showTour()
-                }, 300)
+                }, 1000)
             })
         },
 
