@@ -118,6 +118,7 @@
             <div class="line vertical"></div>
 
             <el-button icon="document" @click="showSave" type="success">保存模板</el-button>
+            <el-button v-if="isSaveCode" icon="document" @click="saveCode">保存代码</el-button>
 
             <el-popover
                     class="del"
@@ -176,6 +177,7 @@
                         {required: true, message: '请输入模板名称', trigger: 'blur'}
                     ]
                 },
+                isSaveCode: window.DEV_SAVE,
                 loading   : false,
                 exit      : false
             }
@@ -207,26 +209,16 @@
                 }, 0)
             },
 
-            save() {
-                this.$refs.model.validate((valid) => {
-                    if (!valid) return
+            getModule(){
+                let data = {
+                    type   : this.viewType,
+                    name   : this.model.name,
+                    bg     : this.bg,
+                    psdPath: this.psdPath,
+                    modules: clear(JSON.parse(JSON.stringify(this.modules)))
+                }
 
-                    let data = {
-                        type   : this.viewType,
-                        name   : this.model.name,
-                        bg     : this.bg,
-                        psdPath: this.psdPath,
-                        modules: clear(JSON.parse(JSON.stringify(this.modules)))
-                    }
-
-                    console.log(JSON.stringify(data))
-
-                    this.loading = true
-                    window.parent.opener.postMessage({
-                        type: 'save',
-                        data: JSON.parse(JSON.stringify(data))  // 父窗口修改了这个数据会报错
-                    }, '*')
-                })
+                console.log(JSON.stringify(data))
 
                 function clear(items) {
                     items.forEach((item) => {
@@ -242,6 +234,28 @@
 
                     return items
                 }
+
+                return JSON.parse(JSON.stringify(data))   // 父窗口修改了这个数据会报错
+            },
+
+            save() {
+                this.$refs.model.validate((valid) => {
+                    if (!valid) return
+
+                    this.loading = true
+                    window.parent.opener.postMessage({
+                        type: 'save',
+                        data: this.getModule()
+                    }, '*')
+                })
+            },
+
+            saveCode() {
+                const dataStr    = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.getModule()))
+                let dlAnchorElem = document.createElement('a')
+                dlAnchorElem.setAttribute("href", dataStr)
+                dlAnchorElem.setAttribute("download", "tpl.json")
+                dlAnchorElem.click()
             },
 
             close() {

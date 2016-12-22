@@ -14,6 +14,7 @@ window.QUERYSTRING = (function () {
 })();
 
 window.DEV_MODE = !!window.QUERYSTRING.dev
+window.DEV_SAVE = !!window.QUERYSTRING.save
 
 require('babel-polyfill')
 
