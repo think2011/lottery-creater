@@ -27,7 +27,7 @@
                 <div class="line"></div>
 
                 <div class="footer">
-                    <div class="m-t-5">
+                    <div id="tour__zIndex" class="m-t-5">
                         <el-tooltip content="上移一层" placement="top">
                             <el-button @click="changeIndex(1)" :plain="true" size="small">
                                 <i class="fa fa-chevron-up" aria-hidden="true"></i>

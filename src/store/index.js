@@ -14,26 +14,26 @@ const fromNick = window.fromNick
 let nick       = window.nick
 
 const state = {
-    type      : '',
-    name      : '',
-    psdPath   : '',
-    bg        : {
+    type       : '',
+    name       : '',
+    psdPath    : '',
+    bg         : {
         style: {}
     },
-    isShowLabel : false,
-    moving: false,
-    modules   : [],
-    curModule : {
+    isShowLabel: false,
+    moving     : false,
+    modules    : [],
+    curModule  : {
         module      : {},
         parentModule: {}
     },
-    act       : act,
-    settings  : settings,
-    nick      : nick,
-    fromNick  : fromNick,
-    sellerId  : act.sellerId,
-    activityId: settings.activityId,
-    gameData  : {
+    act        : act,
+    settings   : settings,
+    nick       : nick,
+    fromNick   : fromNick,
+    sellerId   : act.sellerId,
+    activityId : settings.activityId,
+    gameData   : {
         drawTotal    : 0,
         drawing      : false,
         prizes       : [],
@@ -45,9 +45,11 @@ const state = {
     },
 }
 
-export default new Vuex.Store({
+let vuex = new Vuex.Store({
     actions,
     getters,
     state,
     mutations
 })
+
+export default vuex

@@ -3,7 +3,10 @@
         <h1>模板编辑器</h1>
 
         <div class="actions">
-            <a v-if="psdPath" :href="psdPath" target="_blank" class="el-button el-button--warning">
+            <a id="tour__download" v-if="psdPath"
+               :href="psdPath"
+               target="_blank"
+               class="el-button el-button--warning">
                 <i class="el-icon-picture"></i>
                 下载素材
             </a>
@@ -105,6 +108,7 @@
 
 
                 <el-button
+                        id="tour__background"
                         slot="reference"
                         type="primary"
                         icon="picture">更换背景

@@ -94,6 +94,8 @@
     import resize from './Resize.vue'
     import actionsNav from './ActionsNav.vue'
     import PropertyEditor from './PropertyEditor.vue'
+    import Tour from 'tour/dist/tour'
+    import 'tour/dist/tour.css'
 
     export default {
         components: {...modules, resize, PropertyEditor, actionsNav},
@@ -128,6 +130,11 @@
                     default:
                     //
                 }
+
+                // 启动向导
+                setTimeout(() => {
+                    this.showTour()
+                }, 300)
             })
         },
 
@@ -137,6 +144,49 @@
                     ...module.style,
                     ...position
                 }
+            },
+            showTour() {
+                let isShowed = localStorage.tourShowed
+
+                if (isShowed === 'true') return
+
+                let config = {
+                    canExit     : true,
+                    previousText: '上一步',
+                    nextText    : '下一步',
+                    finishText  : '好的，明白了',
+                    steps       : [
+                        {
+                            target : '#tour__background',
+                            content: '这里设置背景图片、页面高度',
+                        },
+                        {
+                            target : '#tour__module',
+                            content: '可以直接 <i class="fa fa-mouse-pointer" aria-hidden="true"></i> 拖动组件到新的位置',
+                        },
+                        {
+                            target : '#tour__module',
+                            content: '拖动不准确的话，试试按下键盘上的 \n<i class="fa fa-arrow-up" aria-hidden="true"></i>\n<i class="fa fa-arrow-down" aria-hidden="true"></i>\n<i class="fa fa-arrow-left" aria-hidden="true"></i>\n<i class="fa fa-arrow-right" aria-hidden="true"></i> \n\n进行微调\n'
+                        }
+                    ],
+                }
+
+                if ($('#tour__download').length) {
+                    config.steps.unshift({
+                        target : '#tour__download',
+                        content: '这里可以下载到本模板的素材',
+                    })
+
+                    $('.main').find('.lc-resize').eq(0).attr('id', 'tour__module')
+                }
+
+                Tour.start(config)
+                    .then(() => {
+                        localStorage.tourShowed = true
+                    })
+                    .catch(() => {
+                        console.log('取消了向导')
+                    })
             },
 
             mapActiveModule(params){
