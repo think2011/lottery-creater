@@ -47,6 +47,21 @@ export const viewType = ({type}) => {
     return type
 }
 
+
+export const nextIndex = ({modules}) => {
+    let zIndex = 1
+
+    modules.forEach((item, index) => {
+        if (item.children) {
+            zIndex += item.children.length
+        } else {
+            zIndex++
+        }
+    })
+
+    return zIndex
+}
+
 export const activityStatus = ({act}) => {
     let status = {
         type: act.activityStatus,

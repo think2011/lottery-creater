@@ -25,7 +25,23 @@
                 </component>
 
                 <div class="line"></div>
-                <div class="text-right">
+
+                <div class="footer">
+                    <div class="m-t-5">
+                        <el-tooltip content="上移一层" placement="top">
+                            <el-button @click="changeIndex(1)" :plain="true" size="small">
+                                <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                            </el-button>
+                        </el-tooltip>
+                        <el-tooltip content="下移一层" placement="top">
+                            <el-button @click="changeIndex(-1)"
+                                       :disabled="curModule.module.style.zIndex <= 0"
+                                       :plain="true" size="small">
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </el-button>
+                        </el-tooltip>
+                    </div>
+
                     <el-button class="m-b-10"
                                @click="delModule({module:curModule.module,parentModule:curModule.parentModule})"
                                icon="delete"
@@ -48,7 +64,23 @@
                            :is="curModule.module.type + 'Editor'">
                 </component>
                 <div class="line"></div>
-                <div class="text-right">
+
+                <div class="footer">
+                    <div class="m-t-5">
+                        <el-tooltip content="上移一层" placement="top">
+                            <el-button @click="changeIndex(1)" :plain="true" size="small">
+                                <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                            </el-button>
+                        </el-tooltip>
+                        <el-tooltip content="下移一层" placement="top">
+                            <el-button @click="changeIndex(-1)"
+                                       :disabled="curModule.module.style.zIndex <= 0"
+                                       :plain="true" size="small">
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </el-button>
+                        </el-tooltip>
+                    </div>
+
                     <el-button class="m-b-10"
                                @click="delModule({module:curModule.module})"
                                icon="delete"
@@ -91,10 +123,25 @@
                 'modules',
                 'curModule'
             ]),
-            ...mapGetters([])
+            ...mapGetters([
+                'nextIndex'
+            ])
         },
 
         methods: {
+            changeIndex(value) {
+                let zIndex = this.curModule.module.style.zIndex || 0
+
+                zIndex += value
+
+                if (zIndex < 0) {
+                    zIndex = 0
+                }
+
+                this.$set(this.curModule.module.style, 'zIndex', zIndex)
+                this.$forceUpdate()
+            },
+
             closeEditor() {
                 this.activeModule({module: {}})
             },
@@ -143,6 +190,11 @@
 
         .body {
             padding: 0 20px;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
         }
     }
 

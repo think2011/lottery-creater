@@ -5,7 +5,7 @@
         <div class="actions">
             <a v-if="psdPath" :href="psdPath" target="_blank" class="el-button el-button--warning">
                 <i class="el-icon-picture"></i>
-                下载PSD
+                下载素材
             </a>
 
             <div class="line vertical"></div>

@@ -20,8 +20,12 @@
         },
 
         computed: {
-            ...mapState([]),
-            ...mapGetters([])
+            ...mapState([
+                'modules'
+            ]),
+            ...mapGetters([
+                'nextIndex'
+            ])
         },
 
         watch: {},
@@ -34,10 +38,12 @@
                 // 设定位置
                 if (module.children) {
                     module.children.forEach((item) => {
-                        item.style.top = `${scrollTop}px`
+                        item.style.top    = `${scrollTop}px`
+                        item.style.zIndex = this.nextIndex
                     })
                 } else {
-                    module.style.top = `${scrollTop}px`
+                    module.style.top    = `${scrollTop}px`
+                    module.style.zIndex = this.nextIndex
                 }
 
                 // 置入&激活模块
