@@ -35,7 +35,7 @@
     }
 </style>
 <body>
-<%= htmlWebpackPlugin.options.version %>
+
 <div id="app"></div>
 
 <link rel='stylesheet' type='text/css' href='//xgiftbag.ews.m.jaeapp.com/resources/common/styles/fonts/iconfont.css'/>
@@ -83,6 +83,7 @@
 <script type='text/javascript' src='//xgiftbag.ews.m.jaeapp.com/resources/lottery/js/marquee.js'></script>
 
 <script>
+    var versionDate = '<%= htmlWebpackPlugin.options.date %>'
 
     var settings = {
         sellerId   : 2406822118,
