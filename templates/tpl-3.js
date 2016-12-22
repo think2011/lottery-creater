@@ -53,16 +53,6 @@ module.exports = {
         "style": {"width": "750px", "height": "70px", "left": "0.5px", "top": "1072px"},
         "data" : {
             "position": "auto", "align": "center", "children": [{
-                "type" : "shopping",
-                "alias": "加购",
-                "style": {"width": "135px", "height": "57px", "top": "1078px", "left": "28px"},
-                "data" : {"src": "https://img.alicdn.com/imgextra/i3/92779311/TB2hf8EaHJmpuFjSZFBXXXaZXXa-92779311.png"}
-            }, {
-                "type" : "collect",
-                "alias": "收藏",
-                "style": {"width": "135px", "height": "57px", "top": "1078px", "left": "166px"},
-                "data" : {"src": "https://img.alicdn.com/imgextra/i2/92779311/TB2lY4ZarJkpuFjy1zcXXa5FFXa-92779311.png"}
-            }, {
                 "type" : "share",
                 "alias": "分享",
                 "style": {"width": "135px", "height": "57px", "top": "1078px", "left": "310px"},

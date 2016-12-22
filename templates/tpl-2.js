@@ -57,17 +57,7 @@ module.exports = {
         "alias"   : "抽奖任务",
         "style"   : {"width": "750px", "height": "60px", "left": "0.5px", "top": "1176px"},
         "data" : {
-            "position": "auto", "align": "center", "children": [{
-            "type" : "shopping",
-            "alias": "加购",
-            "style": {"width": "127px", "height": "49px", "top": "1185px", "left": "46px"},
-            "data" : {"src": "https://img.alicdn.com/imgextra/i2/92779311/TB2WMtTawxlpuFjSszbXXcSVpXa-92779311.png"}
-        }, {
-            "type" : "collect",
-            "alias": "收藏",
-            "style": {"width": "127px", "height": "49px", "top": "1185px", "left": "180px"},
-            "data" : {"src": "https://img.alicdn.com/imgextra/i1/92779311/TB2k_pTawJlpuFjSspjXXcT.pXa-92779311.png"}
-        }, {
+            "position": "auto", "align": "center", "children": [ {
             "type" : "share",
             "alias": "分享",
             "style": {"width": "127px", "height": "49px", "top": "1185px", "left": "314px"},
