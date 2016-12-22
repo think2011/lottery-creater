@@ -231,8 +231,6 @@
                     modules: clear(JSON.parse(JSON.stringify(this.modules)))
                 }
 
-                console.log(JSON.stringify(data))
-
                 function clear(items) {
                     items.forEach((item) => {
                         for (let p in item) {
