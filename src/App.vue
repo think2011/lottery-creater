@@ -79,4 +79,16 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+
+    @media screen and (max-width: 990px) {
+        .pc {
+            font-size: 46.875px !important;
+        }
+    }
+
+    .pc {
+        .render-container, .main {
+            min-width: 990px;
+        }
+    }
 </style>
