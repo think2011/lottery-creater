@@ -1,7 +1,7 @@
 <template>
     <div class="color-container">
         <el-col :span="8">
-            <el-input v-model="value"></el-input>
+            <el-input @change="change" v-model="value"></el-input>
         </el-col>
         <el-col :offset="1" :span="5">
             <span :style="{background:value}" class="color"></span>
@@ -31,9 +31,13 @@
         },
 
         methods: {
-            onChange({hex}) {
-                this.$emit('input', hex)
+            change(value) {
+                this.$emit('input', value)
             }
+
+            /*  onChange({hex}) {
+             this.$emit('input', hex)
+             }*/
         }
     }
 </script>
