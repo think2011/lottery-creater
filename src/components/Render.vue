@@ -63,6 +63,18 @@
 <style lang="scss" rel="stylesheet/scss">
     @import "../assets/styles/common";
 
+    @media screen and (max-width: 990px) {
+        .pc {
+            font-size: 46.875px !important;
+        }
+    }
+
+    .pc {
+        .render-container {
+            min-width: 990px;
+        }
+    }
+
     .render-container {
         height: 100%;
         margin: 0 auto;
