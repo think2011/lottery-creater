@@ -1,19 +1,19 @@
 <template>
     <el-form class="editor-dial" label-position="top">
-        <el-form-item label="转盘类型">
+        <el-form-item label="奖品填充方式">
             <el-radio-group v-model="curModule.parentModule.data.type">
                 <el-tooltip content="根据活动的设置的奖品自动生成" placement="top">
                     <el-radio style="margin-right: 10px;" label="auto">自动</el-radio>
                 </el-tooltip>
 
                 <el-tooltip content="自己设计奖品素材并设定中奖角度" placement="top">
-                    <el-radio label="custom">定制</el-radio>
+                    <el-radio label="custom">手动</el-radio>
                 </el-tooltip>
 
             </el-radio-group>
         </el-form-item>
 
-        <div v-if="parentModule.children[1]" class="el-form-item">
+        <div v-if="parentModule.children[2]" class="el-form-item">
             <label class="el-form-item__label">
                 指针素材
                 <el-tooltip placement="top">
@@ -26,7 +26,7 @@
             </label>
 
             <div class="el-form-item__content">
-                <el-input size="small" v-model="parentModule.children[1].data.src"></el-input>
+                <el-input size="small" v-model="parentModule.children[2].data.src"></el-input>
             </div>
         </div>
 

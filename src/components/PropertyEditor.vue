@@ -128,6 +128,18 @@
             ])
         },
 
+        created() {
+            $(document).on('keyup', (e) => {
+                if (!this.curModule.module.type || e.keyCode !== 46) return
+
+                if (this.curModule.parentModule.type) {
+                    this.delModule({module: this.curModule.module, parentModule: this.curModule.parentModule})
+                } else {
+                    this.delModule({module: this.curModule.module})
+                }
+            })
+        },
+
         methods: {
             changeIndex(value) {
                 let zIndex = this.curModule.module.style.zIndex || 0
