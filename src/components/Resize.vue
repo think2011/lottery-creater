@@ -124,7 +124,7 @@
 
             $(document)
                 .on('keydown', (event) => {
-                    if (!this.allowKeyMove || !keyMap[event.keyCode]) return
+                    if (!this.allowKeyMove || !keyMap[event.keyCode] || event.target.tagName === 'INPUT') return
 
                     this.movePosition(keyMap[event.keyCode])
                     this.$emit('update', this.getPosition({target: this.$refs.drag}))
