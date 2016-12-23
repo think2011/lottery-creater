@@ -15,7 +15,7 @@ module.exports = merge(baseWebpackConfig, {
         loaders: utils.styleLoaders({sourceMap: config.dev.cssSourceMap})
     },
     // eval-source-map is faster for development
-    devtool: 'eval-source-map',
+    devtool: '#eval-source-map',
     plugins: [
         new webpack.DefinePlugin({
             'process.env': config.dev.env
@@ -26,7 +26,7 @@ module.exports = merge(baseWebpackConfig, {
         new webpack.NoErrorsPlugin(),
         // https://github.com/ampedandwired/html-webpack-plugin
         new HtmlWebpackPlugin({
-            date : new Date(),
+            date    : new Date(),
             filename: 'index.html',
             template: 'index.html',
             inject  : true

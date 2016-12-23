@@ -15,10 +15,6 @@ export default {
         if (index !== -1) state.modules.splice(index, 1, module)
     },
 
-    [types.CHANGE_MODULES](state, items) {
-        state.modules = items
-    },
-
     [types.SET_ACTIVE_MODULE](state, {module, parentModule}) {
         state.curModule = {module, parentModule}
     },

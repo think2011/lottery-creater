@@ -3,10 +3,16 @@
         <div :style="degStyle"
              class="bg"
              v-if="type ==='bg'">
+
             <pic :module="module"
                  :style="tweenStyle"
                  :p-style="module.style"
-                 :data="module.data"></pic>
+                 :data="module.data">
+            </pic>
+        </div>
+
+        <div v-if="type === 'canvas' && dialType === 'auto'">
+            <dial-canvas :config="dialCanvasConfig"></dial-canvas>
         </div>
 
         <div @click="draw" v-if="type === 'pointer'">
@@ -24,13 +30,14 @@
     import mixin from './mixin'
     import pic from './Pic.vue'
     import DrawTween from '../assets/js/DrawTween'
+    import DialCanvas from '../components/DialCanvas.vue'
 
     const TWEEN = window.TWEEN
 
     export default {
         mixins: [mixin],
 
-        components: {pic},
+        components: {pic, DialCanvas},
 
         props: {},
 
@@ -49,7 +56,7 @@
             },
 
             tweenStyle() {
-                if (this.parentModule.data.rotateType !== this.type) return
+                if (this.parentModule.data.customConfig.rotateType !== this.type) return
 
                 let transform = `rotate(${this.gameData.tweenValue}deg) translate3d(0,0,0)`
 
@@ -58,6 +65,22 @@
                     '-webkit-transform': transform,
                     transform,
                 }
+            },
+
+            dialCanvasConfig() {
+                let {data, children} = this.parentModule
+
+                if (data.type !== 'auto') return null
+
+                return Object.assign({}, data.autoConfig, {
+                    dialSrc   : children[0].data.src,
+                    pointerSrc: children[1].data.src,
+                    prizes    : this.prizes
+                })
+            },
+
+            dialType() {
+                return this.parentModule.data.type
             },
 
             drawing() {
@@ -82,51 +105,119 @@
                 if (this.drawing) return
 
                 this.checkTicket().then(() => {
-                    let drawTween = this.drawTween
-                    let that      = this
+                    if (this.dialType === 'auto') {
+                        this.autoDraw()
+                    } else {
+                        this.customDraw()
+                    }
+                })
+            },
 
-                    this.SET_DRAW_STATE(true)
-                    drawTween.start(({value}) => {
+            autoDraw() {
+                const that = this
+
+                this.SET_DRAW_STATE(true)
+
+                // 先转起来
+                var rotateInstance = window.dialInstace.rotate(2)
+
+                this.drawLottery()
+                    .then((data) => {
+                        // 停止转动
+                        rotateInstance(data.giftId, function () {
+                            that.SET_DRAW_STATE(false)
+                            that.showLotteryResult(data)
+                        })
+                    })
+                    .catch((err) => {
+                        rotateInstance(-1, function () {
+                            that.SET_DRAW_STATE(false)
+
+                            $.alert(err || '系统繁忙, 请稍后重试')
+                        })
+                    })
+            },
+
+            customDraw() {
+                let drawTween = this.drawTween
+                let that      = this
+
+                this.SET_DRAW_STATE(true)
+                drawTween.start(({value}) => {
+                    this.SET_CUR_TWEEN_VALUE(value)
+                })
+
+                this.drawLottery()
+                    .then((data) => {
+                        let prizeDeg = this.getPrizeDeg(data.giftId)
+
+                        if (prizeDeg !== null) {
+                            stopWithPrize(prizeDeg, data)
+                        } else {
+                            stopWithoutPrize(data)
+                        }
+                    })
+                    .catch(() => {
+                        stopWithoutPrize()
+                    })
+
+                function stopWithPrize(deg, data) {
+                    that.drawTween.stop(deg, () => {
+                        that.showLotteryResult(data)
+                        that.SET_DRAW_STATE(false)
+                        drawTween.startSlowLoop()
+                    })
+                }
+
+                function stopWithoutPrize(data) {
+                    that.drawTween.stop(0,
+                        () => {
+                            that.SET_DRAW_STATE(false)
+                            drawTween.startSlowLoop()
+                        },
+                        () => {
+                            if (data) {
+                                data && that.showLotteryResult(data)
+                            } else {
+                                $.alert('系统繁忙, 请稍后重试')
+                            }
+                        })
+                }
+            },
+
+            customStart() {
+                this.drawTween = new DrawTween({
+                        slowLoopFn   : window.DEV_MODE ? false : ({value}) => {
+                            this.SET_CUR_TWEEN_VALUE(value)
+                        },
+                        multipleValue: 360,
+                        startSpeed   : 1500,
+                        loopSpeed    : 1500 * 0.3,
+                        endSpeed     : 2500,
+                        minTime      : 3500,
+                        startEasing  : TWEEN.Easing.Quartic.In,
+                        loopEasing   : TWEEN.Easing.Linear.None,
+                        endEasing    : TWEEN.Easing.Quartic.Out,
+                    }
+                )
+
+                this.drawTween.startSlowLoop()
+                window.dialTest = () => {
+                    this.drawTween.start(({value}) => {
                         this.SET_CUR_TWEEN_VALUE(value)
                     })
 
-                    this.drawLottery()
-                        .then((data) => {
-                            let prizeDeg = this.getPrizeDeg(data.giftId)
-
-                            if (prizeDeg !== null) {
-                                stopWithPrize(prizeDeg, data)
-                            } else {
-                                stopWithoutPrize(data)
-                            }
-                        })
-                        .catch(() => {
-                            stopWithoutPrize()
-                        })
-
-                    function stopWithPrize(deg, data) {
-                        that.drawTween.stop(deg, () => {
-                            that.showLotteryResult(data)
-                            that.SET_DRAW_STATE(false)
-                            drawTween.startSlowLoop()
-                        })
-                    }
-
-                    function stopWithoutPrize(data) {
-                        that.drawTween.stop(0,
+                    setTimeout(() => {
+                        this.drawTween.stop(0,
                             () => {
-                                that.SET_DRAW_STATE(false)
-                                drawTween.startSlowLoop()
+                                this.drawTween.startSlowLoop()
                             },
                             () => {
-                                if (data) {
-                                    data && that.showLotteryResult(data)
-                                } else {
-                                    $.alert('系统繁忙, 请稍后重试')
-                                }
+                                layer.open({content: '错误错误'})
                             })
-                    }
-                })
+                    }, 0)
+                }
+
             },
 
             getPrizeDeg(id) {
@@ -166,38 +257,8 @@
         },
 
         created() {
-            this.drawTween = new DrawTween({
-                    slowLoopFn   : DEV_MODE ? false : ({value}) => {
-                        this.SET_CUR_TWEEN_VALUE(value)
-                    },
-                    multipleValue: 360,
-                    startSpeed   : 1500,
-                    loopSpeed    : 1500 * 0.3,
-                    endSpeed     : 2500,
-                    minTime      : 3500,
-                    startEasing  : TWEEN.Easing.Quartic.In,
-                    loopEasing   : TWEEN.Easing.Linear.None,
-                    endEasing    : TWEEN.Easing.Quartic.Out,
-                }
-            )
-
-            this.drawTween.startSlowLoop()
-
-            window.drawTween = this.drawTween
-            window.dialTest  = () => {
-                this.drawTween.start(({value}) => {
-                    this.SET_CUR_TWEEN_VALUE(value)
-                })
-
-                setTimeout(() => {
-                    this.drawTween.stop(0,
-                        () => {
-                            this.drawTween.startSlowLoop()
-                        },
-                        () => {
-                            layer.open({content: '错误错误'})
-                        })
-                }, 0)
+            if (this.dialType === 'custom') {
+                this.customStart()
             }
         }
     }

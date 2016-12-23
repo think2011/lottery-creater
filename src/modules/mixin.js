@@ -252,7 +252,7 @@ export default {
 
                             resolve(res.data)
                         })
-                        .catch(function (err) {
+                        .fail(function (err) {
                             $.alert(err || '系统繁忙, 请稍后重试')
                             reject()
                         })
