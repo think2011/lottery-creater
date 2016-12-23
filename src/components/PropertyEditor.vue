@@ -132,7 +132,7 @@
             $(document).on('keyup', (e) => {
                 if (!this.curModule.module.type || e.keyCode !== 46) return
 
-                if (this.curModule.parentModule.type) {
+                if (this.curModule.parentModule) {
                     this.delModule({module: this.curModule.module, parentModule: this.curModule.parentModule})
                 } else {
                     this.delModule({module: this.curModule.module})
