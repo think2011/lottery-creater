@@ -175,6 +175,10 @@ export default {
         },
 
 
+        /**
+         * @deprecated 因业务，这个可能用不上了
+         * @returns {Promise}
+         */
         followShop() {
             let that = this
             let act  = this.act
@@ -228,47 +232,44 @@ export default {
         },
 
         drawLottery() {
-            let that = this
-
             return new Promise((resolve, reject) => {
-                that.followShop()
-                    .then(() => {
-                        let data = {
-                            nick         : this.nick,
-                            fromNick     : this.fromNick,
-                            attentionFlag: !!this.act._fristAttentionFlag
-                        }
+                    let data = {
+                        nick    : this.nick,
+                        fromNick: this.fromNick
+                    }
 
-                        // 请求奖品
-                        return $.doAjax({
-                            url   : "grant",
-                            data  : data,
-                            method: 'POST',
-                            mask  : false
-                        });
+                    // 请求奖品
+                    $.doAjax({
+                        url   : "grant",
+                        data  : data,
+                        method: 'POST',
+                        mask  : false
                     })
-                    .then(function (res) {
-                        if (!res.success) {
-                            return reject(res.errorMsg)
-                        }
+                        .then(function (res) {
+                            if (!res.success) {
+                                return reject(res.errorMsg)
+                            }
 
-                        resolve(res.data)
-                    })
-                    .catch(function (err) {
-                        $.alert(err || '系统繁忙, 请稍后重试')
-                        reject()
-                    })
-            })
+                            resolve(res.data)
+                        })
+                        .catch(function (err) {
+                            $.alert(err || '系统繁忙, 请稍后重试')
+                            reject()
+                        })
+                }
+            )
         },
-        ...mapMutations([
-            'SET_DRAW_TOTAL',
-            'SET_USER_NICK'
-        ]),
-        ...mapActions([
-            'fetchLucyList',
-            'updateModule',
-            'activeModule',
-            'getRealNick'
-        ])
+        ...
+            mapMutations([
+                'SET_DRAW_TOTAL',
+                'SET_USER_NICK'
+            ]),
+        ...
+            mapActions([
+                'fetchLucyList',
+                'updateModule',
+                'activeModule',
+                'getRealNick'
+            ])
     },
 }
