@@ -1,5 +1,11 @@
 module.exports = [
     {
+        "type" : "toShop",
+        "alias": "店铺链接",
+        "style": {"width": "192px", "height": "47px", "top": "14px", "left": "0"},
+        "data" : {}
+    },
+    {
         "type" : "myPrize",
         "alias": "我的奖品",
         "style": {"width": "148px", "height": "47px", "top": "33px", "left": "0"},
