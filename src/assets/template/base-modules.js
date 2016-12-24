@@ -93,6 +93,11 @@ module.exports = [
                 "alias": "好评",
                 "style": {"width": "124px", "height": "52px", "top": "890px", "left": "579px"},
                 "data" : {"src": "https://img.alicdn.com/imgextra/i1/92779311/TB2yCJsaHBmpuFjSZFuXXaG_XXa-92779311.png"}
+            }, {
+                "type" : "shopFollow",
+                "alias": "收藏店铺",
+                "style": {"width": "124px", "height": "52px", "top": "890px", "left": "713px"},
+                "data" : {"src": "https://img.alicdn.com/imgextra/i1/92779311/TB2yCJsaHBmpuFjSZFuXXaG_XXa-92779311.png"}
             }
             ]
         }
