@@ -45,54 +45,63 @@ export default {
     },
 
     methods: {
+        /**
+         * @deprecated 似乎暂时用不上了
+         * @returns {*|Promise.<TResult>}
+         */
         checkTicket() {
             return this.getRealNick().then(() => {
                 let that = this
                 if (this.gameData.drawTotal > 0) return Promise.resolve()
 
-                let act   = this.act
-                let types = this.tasksStatus
-
-                let noTasks    = true
-                let dayStr     = act.taskTimesType === 'EACH_DAY' ? '今天的' : ''
-                let $container = $('<div class="more-draw-time">\n    <ul class="tasks">\n    </ul>\n</div>')
-                let $tasks     = $container.find('.tasks')
-                let tasksHtml  = {
-                    collect : '<li><i data-type="collect" class="pull-right collect">立即收藏 </i>收藏宝贝获得机会</li>',
-                    shopping: '<li><i data-type="shopping" class="pull-right shopping">加购物车 </i>加购物车获得机会</li>',
-                    share   : '<li><i data-type="share" class="pull-right share">立即分享 </i>分享好友获得机会</li>',
-                    buy     : '<li><i data-type="order" class="pull-right buy">去下单 </i>下单获得机会</li>',
-                    rate    : '<li><i data-type="praise" class="pull-right rate">去好评 </i>好评获得机会</li>',
-                }
-
-                for (let p in types) {
-                    if (!types.hasOwnProperty(p)) continue;
-
-                    if (types[p]) {
-                        noTasks = false
-                        $tasks.append(tasksHtml[p])
-                    }
-                }
-
-                $container.on('click', 'i', function () {
-                    layer.closeAll()
-                    that.doTask($(this).data('type'))
-                })
-
-                if (noTasks) {
-                    $.alert(dayStr + "抽奖机会已经用完", function () {
-                    });
-                } else {
-                    layer.open({
-                        type     : 1,
-                        className: 'lottery lottery-empty',
-                        title    : '抽奖机会已用完',
-                        content  : $container
-                    })
-                }
-
+                that.showEmptyDrawTotal()
                 return Promise.reject()
             })
+        },
+
+        showEmptyDrawTotal() {
+            const that = this
+            let act    = this.act
+            let types  = this.tasksStatus
+
+            let noTasks    = true
+            let dayStr     = act.taskTimesType === 'EACH_DAY' ? '今天的' : ''
+            let $container = $('<div class="more-draw-time">\n    <ul class="tasks">\n    </ul>\n</div>')
+            let $tasks     = $container.find('.tasks')
+            let tasksHtml  = {
+                collect   : '<li><i data-type="collect" class="pull-right collect">立即收藏 </i>收藏宝贝获得机会</li>',
+                shopping  : '<li><i data-type="shopping" class="pull-right shopping">加购物车 </i>加购物车获得机会</li>',
+                share     : '<li><i data-type="share" class="pull-right share">立即分享 </i>分享好友获得机会</li>',
+                buy       : '<li><i data-type="order" class="pull-right buy">去下单 </i>下单获得机会</li>',
+                rate      : '<li><i data-type="praise" class="pull-right rate">去好评 </i>好评获得机会</li>',
+                shopFollow: '<li><i data-target="click:shopFollow" class="pull-right shop-follow">去关注 </i>关注店铺获得机会</li>',
+            }
+
+            for (let p in types) {
+                if (!types.hasOwnProperty(p)) continue;
+
+                if (types[p]) {
+                    noTasks = false
+                    $tasks.append(tasksHtml[p])
+                }
+            }
+
+            $container.on('click', 'i', function () {
+                layer.closeAll()
+                that.doTask($(this).data('type'))
+            })
+
+            if (noTasks) {
+                $.alert(dayStr + "抽奖机会已经用完", function () {
+                });
+            } else {
+                layer.open({
+                    type     : 1,
+                    className: 'lottery lottery-empty',
+                    title    : '抽奖机会已用完',
+                    content  : $container
+                })
+            }
         },
 
         doTask(type){
@@ -150,6 +159,20 @@ export default {
                     });
                     break;
 
+                case 'shopFollow':
+                    gameDialog.shopFollow(act.extraCount, function (res) {
+                        if (res.success) {
+                            var appendCount = res.data.remainCount - that.gameData.drawTotal;
+                            if (appendCount > 0) {
+                                $.toast("成功增加" + appendCount + "次抽奖机会");
+                                that.SET_DRAW_TOTAL(res.data.remainCount)
+                                return;
+                            }
+                        }
+                        $.toast("没有新的抽奖机会");
+                    });
+                    break;
+
                 default:
                 //
             }
@@ -160,7 +183,7 @@ export default {
                 this.SET_DRAW_TOTAL(data.remainCount)
             }
 
-            if (!data.resultType.match(/TOO_MUCH|FORBID/)) {
+            if (data.resultType.match(/SUCCESS/)) {
                 this.fetchLucyList()
             }
 
@@ -176,7 +199,7 @@ export default {
 
 
         /**
-         * @deprecated 因业务，这个可能用不上了
+         * 关注店铺
          * @returns {Promise}
          */
         followShop() {
@@ -184,8 +207,7 @@ export default {
             let act  = this.act
 
             return new Promise((resolve, reject) => {
-                if (act.attentionFlag) {
-                    act._fristAttentionFlag = false;
+                if (act.shopFollowedBefore || act.shopFollowed) {
                     return resolve()
                 }
 
@@ -201,22 +223,22 @@ export default {
                             mask   : false,
                             success: function (rslt) {
                                 if (rslt.success) {
-                                    act._fristAttentionFlag = false;
-                                    resolve();
-                                } else {
-                                    act._fristAttentionFlag = true;
-                                    $.tida.followShop({
-                                        sellerId: act.sellerId
-                                    }, function (res) {
-                                        if (res.success) {
-                                            act.attentionFlag = true;
-                                            resolve()
-                                        } else {
-                                            reject()
-                                            $.alert("关注店铺失败，请重试");
-                                        }
-                                    });
+                                    act.shopFollowedBefore = true;
+                                    return resolve();
                                 }
+
+                                act.shopFollowedBefore = false;
+                                $.tida.followShop({
+                                    sellerId: act.sellerId
+                                }, function (res) {
+                                    if (res.success) {
+                                        act.shopFollowed = true;
+                                        resolve()
+                                    } else {
+                                        reject()
+                                        $.alert("关注店铺失败，请重试");
+                                    }
+                                });
 
                             }
                         });
@@ -232,10 +254,15 @@ export default {
         },
 
         drawLottery() {
+            const that = this
+
             return new Promise((resolve, reject) => {
                     let data = {
                         nick    : this.nick,
-                        fromNick: this.fromNick
+                        fromNick: this.fromNick,
+                        giftIds : that.prizes
+                            .filter((item) => item.id !== -1)
+                            .map((item) => item.id)
                     }
 
                     // 请求奖品
@@ -243,11 +270,22 @@ export default {
                         url   : "grant",
                         data  : data,
                         method: 'POST',
-                        mask  : false
+                        mask  : true
                     })
                         .then(function (res) {
                             if (!res.success) {
                                 return reject(res.errorMsg)
+                            }
+
+                            var resultType = res.data.resultType;
+                            if (resultType === 'REALNICK_REQUIRED') {
+                                //需要真实nick
+                                return window.gameDialog.realNickRequired(that.drawLottery.bind(that));
+                            }
+                            if (resultType === 'NOCHANCE') {
+                                //没有机会了
+                                that.SET_DRAW_TOTAL(0)
+                                return that.showEmptyDrawTotal()
                             }
 
                             resolve(res.data)

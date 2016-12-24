@@ -91,11 +91,12 @@ export default {
 
     tasksStatus ({act}, {tasksStatusMap}) {
         let result = {
-            shopping: act.extraCount.itemCartEnabled,
-            collect : act.extraCount.itemFavorEnabled,
-            share   : act.extraCount.shareEnabled,
-            buy     : act.extraCount.tradePaymentEnabled || act.extraCount.tradeCountEnabled,
-            rate    : act.extraCount.tradeRateEnabled
+            shopping  : act.extraCount.itemCartEnabled,
+            collect   : act.extraCount.itemFavorEnabled,
+            share     : act.extraCount.shareEnabled,
+            buy       : act.extraCount.tradePaymentEnabled || act.extraCount.tradeCountEnabled,
+            rate      : act.extraCount.tradeRateEnabled,
+            shopFollow: act.extraCount.shopFollowEnabled
         }
 
         for (let p in tasksStatusMap) {
@@ -110,11 +111,12 @@ export default {
     tasksStatusMap () {
         // 因为命名不一样，这个用于编辑器使用
         return {
-            shopping: 'shopping',
-            collect : 'collect',
-            share   : 'share',
-            order   : 'buy',
-            praise  : 'rate'
+            shopping  : 'shopping',
+            collect   : 'collect',
+            share     : 'share',
+            order     : 'buy',
+            praise    : 'rate',
+            shopFollow: 'shopFollow',
         }
     }
 }

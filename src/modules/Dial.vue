@@ -104,13 +104,11 @@
             draw() {
                 if (this.drawing) return
 
-                this.checkTicket().then(() => {
-                    if (this.dialType === 'auto') {
-                        this.autoDraw()
-                    } else {
-                        this.customDraw()
-                    }
-                })
+                if (this.dialType === 'auto') {
+                    this.autoDraw()
+                } else {
+                    this.customDraw()
+                }
             },
 
             autoDraw() {
@@ -118,11 +116,11 @@
 
                 this.SET_DRAW_STATE(true)
 
-                // 先转起来
-                var rotateInstance = window.dialInstace.rotate(2)
-
                 this.drawLottery()
                     .then((data) => {
+                        // 转起来
+                        var rotateInstance = window.dialInstace.rotate(2)
+
                         // 停止转动
                         rotateInstance(data.giftId, function () {
                             that.SET_DRAW_STATE(false)
@@ -143,12 +141,13 @@
                 let that      = this
 
                 this.SET_DRAW_STATE(true)
-                drawTween.start(({value}) => {
-                    this.SET_CUR_TWEEN_VALUE(value)
-                })
 
                 this.drawLottery()
                     .then((data) => {
+                        drawTween.start(({value}) => {
+                            this.SET_CUR_TWEEN_VALUE(value)
+                        })
+
                         let prizeDeg = this.getPrizeDeg(data.giftId)
 
                         if (prizeDeg !== null) {
