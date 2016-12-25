@@ -1,18 +1,8 @@
-# lottery-creater
+### 开发
+* 根目录下执行 yarn
+* 执行 npm run dev
 
-> lottery-creater
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### 部署
+* 根据本机的情况修改 /config/index.js:27
+* 执行 npm run build_editor
+* 执行 npm run build_mobile

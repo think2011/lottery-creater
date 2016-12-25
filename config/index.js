@@ -1,4 +1,3 @@
-// see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
 
 let config = {
@@ -9,10 +8,6 @@ let config = {
         assetsSubDirectory      : 'resources/lottery2',
         assetsPublicPath        : '/',
         productionSourceMap     : false,
-        // Gzip off by default as many popular static hosts such as
-        // Surge or Netlify already gzip all static assets for you.
-        // Before setting to `true`, make sure to:
-        // npm install --save-dev compression-webpack-plugin
         productionGzip          : false,
         productionGzipExtensions: ['js', 'css'],
     },
@@ -20,31 +15,28 @@ let config = {
         env               : require('./dev.env'),
         port              : 1991,
         assetsSubDirectory: 'static',
-        assetsPublicPath  : '//192.168.1.124:1991/',
+        assetsPublicPath  : 'http://localhost:1991/',
         proxyTable        : {},
-        // CSS Sourcemaps off by default because relative paths are "buggy"
-        // with this option, according to the CSS-Loader README
-        // (https://github.com/webpack/css-loader#sourcemaps)
-        // In our experience, they generally work as expected,
-        // just be aware of this issue when enabling this option.
         cssSourceMap      : true
     }
 }
 
 const buildType = process.env.buildType
 switch (buildType) {
+    // 给 qdd 生成代码
     case 'editor':
         Object.assign(config.build, {
-            index           : '/Users/think2011/Projects/cxb-trunk/src/assets/bower_components/lottery/index.html',
-            assetsRoot      : '/Users/think2011/Projects/cxb-trunk/src/assets/bower_components/lottery',
+            index           : '/Users/think2011/Projects/cxb/trunk/src/assets/bower_components/lottery/index.html',
+            assetsRoot      : '/Users/think2011/Projects/cxb/trunk/src/assets/bower_components/lottery',
             assetsPublicPath: './',
         })
         break;
 
+    // 给 手机端 生成代码
     case 'mobile':
         Object.assign(config.build, {
-            index           : '/Users/think2011/Projects/lottery2/zy-module-lottery2-buyer-m/src/main/webapp/resources/lottery2/index.html',
-            assetsRoot      : '/Users/think2011/Projects/lottery2/zy-module-lottery2-buyer-m/src/main/webapp/',
+            index           : '/Users/think2011/Projects/lottery2/src/main/webapp/resources/lottery2/index.html',
+            assetsRoot      : '/Users/think2011/Projects/lottery2/src/main/webapp/',
             assetsPublicPath: '/',
         })
         break;
